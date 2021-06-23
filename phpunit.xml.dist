@@ -12,7 +12,7 @@
     <php>
         <ini name="error_reporting" value="-1"/>
         <env name="KERNEL_DIR" value="Tests/Resources/Kernel" />
-        <env name="KERNEL_CLASS" value="RichId\TemplateBundle\Tests\Resources\Kernel\TestKernel" />
+        <env name="KERNEL_CLASS" value="RichId\TermsModuleBundle\Tests\Resources\Kernel\TestKernel" />
         <env name="SHELL_VERBOSITY" value="-1" />
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak" />
         <env name="SYMFONY_PHPUNIT_REMOVE" value="" />
@@ -20,7 +20,7 @@
     </php>
 
     <testsuites>
-        <testsuite name="TemplateBundle Test Suite">
+        <testsuite name="TermsModuleBundle Test Suite">
             <directory suffix="Test.php">tests</directory>
         </testsuite>
     </testsuites>
@@ -31,7 +31,7 @@
             <exclude>
                 <directory>DependencyInjection</directory>
                 <directory>Resources</directory>
-                <file>RichIdTemplateBundle.php</file>
+                <file>RichIdTermsModuleBundle.php</file>
             </exclude>
         </whitelist>
     </filter>

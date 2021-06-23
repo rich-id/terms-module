@@ -28,3 +28,6 @@
 
 # Database
 /.db
+
+# Static utilities
+.php_cs.cache

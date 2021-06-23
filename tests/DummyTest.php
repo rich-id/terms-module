@@ -1,25 +1,25 @@
 <?php declare(strict_types=1);
 
-namespace RichId\TemplateBundle\tests;
+namespace RichId\TermsModuleBundle\tests;
 
 use RichCongress\TestTools\TestCase\TestCase;
-use RichId\TemplateBundle\RichIdTemplateBundle;
+use RichId\TermsModuleBundle\RichIdTermsModuleBundle;
 
 /**
  * Class DummyTest
  *
- * @package   RichId\TemplateBundle\Tests
+ * @package   RichId\TermsModuleBundle\Tests
  * @author    Nicolas Guilloux <nguilloux@rich-id.com>
  * @copyright 2014 - 2020 RichId (https://www.rich-id.com)
  *
- * @covers \RichId\TemplateBundle\RichIdTemplateBundle
+ * @covers \RichId\TermsModuleBundle\RichIdTermsModuleBundle
  */
 class DummyTest extends TestCase
 {
     public function testInstanciateBundle(): void
     {
-        $bundle = new RichIdTemplateBundle();
+        $bundle = new RichIdTermsModuleBundle();
 
-        self::assertInstanceOf(RichIdTemplateBundle::class, $bundle);
+        self::assertInstanceOf(RichIdTermsModuleBundle::class, $bundle);
     }
 }

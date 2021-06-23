@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace RichId\TemplateBundle\DependencyInjection;
+namespace RichId\TermsModuleBundle\DependencyInjection;
 
 use RichCongress\BundleToolbox\Configuration\AbstractExtension;
 use Symfony\Component\Config\FileLocator;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class RichIdTemplateExtension extends AbstractExtension
+class RichIdTermsModuleExtension extends AbstractExtension
 {
     /**
      * @param array<string, mixed> $configs

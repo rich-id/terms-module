@@ -1,0 +1,1 @@
+vendor/richcongress/static-analysis/configs/phpinsights.php
