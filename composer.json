@@ -11,9 +11,9 @@
     ],
     "support": {
         "email": "contact@rich-id.com",
-        "source": "https://github.com/rich-id/terms-module-bundle",
-        "docs": "https://github.com/rich-id/terms-module-bundle/blob/master/README.md",
-        "issues": "https://github.com/rich-id/terms-module-bundle/issues"
+        "source": "https://github.com/rich-id/terms-module",
+        "docs": "https://github.com/rich-id/terms-module/blob/master/README.md",
+        "issues": "https://github.com/rich-id/terms-module/issues"
     },
     "require": {
         "php": ">=7.3",
