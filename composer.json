@@ -1,0 +1,62 @@
+{
+    "name": "rich-id/template-bundle",
+    "description": "A magic bundle",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "RichId",
+            "homepage": "https://www.rich-id.com"
+        }
+    ],
+    "support": {
+        "email": "contact@rich-id.com",
+        "source": "https://github.com/rich-id/template-bundle",
+        "docs": "https://github.com/rich-id/template-bundle/blob/master/README.md",
+        "issues": "https://github.com/rich-id/template-bundle/issues"
+    },
+    "require": {
+        "php": ">=7.3",
+        "richcongress/bundle-toolbox": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.5",
+        "richcongress/static-analysis": "dev-master",
+        "richcongress/test-suite": "^0.1",
+        "roave/security-advisories": "dev-latest"
+    },
+    "autoload": {
+        "psr-4": {
+            "RichId\\TemplateBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "RichId\\TemplateBundle\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "bin-dir": "bin",
+        "discard-changes": true,
+        "sort-packages": true
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "[ $COMPOSER_DEV_MODE -eq 0 ] || cghooks add --ignore-lock"
+        ],
+        "post-update-cmd": [
+            "[ $COMPOSER_DEV_MODE -eq 0 ] || cghooks update"
+        ]
+    },
+    "extra": {
+        "hooks": {
+            "pre-commit": [
+                "./bin/php-cs-fixer fix"
+            ],
+            "pre-push": [
+                "./bin/php-cs-fixer fix --dry-run",
+                "./bin/static_analysis"
+            ]
+        }
+    }
+}
