@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8a689c360e36793c16a1480c71377a2b",
+    "content-hash": "b5e3ad32c7681c71571c2ea35b23bc29",
     "packages": [
         {
             "name": "psr/container",
@@ -5817,26 +5817,25 @@
         },
         {
             "name": "richcongress/static-analysis",
-            "version": "dev-master",
+            "version": "v0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rich-id/static-analysis.git",
-                "reference": "55ba45d2af94f1a0bac733b1c0b007ec4332fc6c"
+                "reference": "25efadca7d93c5c64c0ed1e31735bf45b8800268"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rich-id/static-analysis/zipball/55ba45d2af94f1a0bac733b1c0b007ec4332fc6c",
-                "reference": "55ba45d2af94f1a0bac733b1c0b007ec4332fc6c",
+                "url": "https://api.github.com/repos/rich-id/static-analysis/zipball/25efadca7d93c5c64c0ed1e31735bf45b8800268",
+                "reference": "25efadca7d93c5c64c0ed1e31735bf45b8800268",
                 "shasum": ""
             },
             "require": {
                 "brainmaestro/composer-git-hooks": "^2.8",
                 "friendsofphp/php-cs-fixer": "^2.0 || ^3.0",
-                "nunomaduro/phpinsights": "^1.0",
+                "nunomaduro/phpinsights": "^1.0 || ^2.0",
                 "phpmetrics/phpmetrics": "^2.7",
                 "phpstan/phpstan": "^0.12"
             },
-            "default-branch": true,
             "bin": [
                 "bin/static_analysis"
             ],
@@ -5854,9 +5853,9 @@
             "description": "A library to setup quickly the static analysis tools for RichCongress",
             "support": {
                 "issues": "https://github.com/rich-id/static-analysis/issues",
-                "source": "https://github.com/rich-id/static-analysis/tree/master"
+                "source": "https://github.com/rich-id/static-analysis/tree/v0.1.0"
             },
-            "time": "2021-06-21T12:52:54+00:00"
+            "time": "2021-06-23T09:33:28+00:00"
         },
         {
             "name": "richcongress/test-framework",
@@ -9808,7 +9807,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "richcongress/static-analysis": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": false,
