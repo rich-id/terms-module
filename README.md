@@ -2,7 +2,7 @@
 
 [![Package version](https://img.shields.io/packagist/v/rich-id/terms-module-bundle)](https://packagist.org/packages/rich-id/terms-module-bundle)
 [![Actions Status](https://github.com/rich-id/terms-module/workflows/Tests/badge.svg)](https://github.com/rich-id/terms-module/actions)
-[![Coverage Status](https://coveralls.io/repos/github/rich-id/terms-module-bundle/badge.svg?branch=master)](https://coveralls.io/github/rich-id/terms-module-bundle?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/rich-id/terms-module/badge.svg?branch=master)](https://coveralls.io/github/rich-id/terms-module?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/af5513a99208495d8c40/maintainability)](https://codeclimate.com/github/rich-id/terms-module/maintainability)
 ![Symfony 4.4+](https://img.shields.io/badge/Symfony-4.4+-000000)
 ![PHP 7.3+](https://img.shields.io/badge/PHP-7.3+-858ebb.svg)
@@ -57,7 +57,7 @@ Contributions are welcomed! There are many ways to contribute, and we appreciate
 
 * [Bug Reports](https://github.com/rich-id/terms-module/issues): While we strive for quality software, bugs can happen and we can't fix issues we're not aware of. So please report even if you're not sure about it or just want to ask a question. If anything the issue might indicate that the documentation can still be improved!
 * [Feature Request](https://github.com/rich-id/terms-module/issues): You have a use case not covered by the current api? Want to suggest a change or add something? We'd be glad to read about it and start a discussion to try to find the best possible solution.
-* [Pull Request](https://github.com/rich-id/terms-module/merge_requests): Want to contribute code or documentation? We'd love that! If you need help to get started, GitHub as [documentation](https://help.github.com/articles/about-pull-requests/) on pull requests. We use the ["fork and pull model"](https://help.github.com/articles/about-collaborative-development-models/) were contributors push changes to their personnal fork and then create pull requests to the main repository. Please make your pull requests against the `master` branch.
+* [Pull Request](https://github.com/rich-id/terms-module/pulls): Want to contribute code or documentation? We'd love that! If you need help to get started, GitHub as [documentation](https://help.github.com/articles/about-pull-requests/) on pull requests. We use the ["fork and pull model"](https://help.github.com/articles/about-collaborative-development-models/) were contributors push changes to their personal fork and then create pull requests to the main repository. Please make your pull requests against the `master` branch.
 
 As a reminder, all contributors are expected to follow our [Code of Conduct](CODE_OF_CONDUCT.md).
 
