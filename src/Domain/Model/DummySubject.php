@@ -31,7 +31,7 @@ class DummySubject implements TermsSubjectInterface
 
     public static function create(string $type, string $identifier): self
     {
-        $model = new static();
+        $model = new self();
 
         $model->type = $type;
         $model->identifier = $identifier;

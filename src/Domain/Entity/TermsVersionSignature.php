@@ -82,7 +82,7 @@ class TermsVersionSignature
 
     public static function sign(TermsVersion $version, TermsSubjectInterface $subject): self
     {
-        $entity = new static();
+        $entity = new self();
 
         $entity->version = $version;
         $entity->subjectType = $subject->getTermsSubjectType();
