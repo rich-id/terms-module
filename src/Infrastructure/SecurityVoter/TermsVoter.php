@@ -72,7 +72,6 @@ class TermsVoter extends Voter
 
     protected function hasSignedTerms(): bool
     {
-        // todo
         return false;
     }
 
