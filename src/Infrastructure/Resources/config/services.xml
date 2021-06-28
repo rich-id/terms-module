@@ -6,6 +6,7 @@
 
     <services>
         <defaults autowire="true" autoconfigure="true" public="false"/>
-        <!-- Your Symfony Services -->
+
+        <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\TermsVersionRepository" />
     </services>
 </container>

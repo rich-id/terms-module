@@ -1,8 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
-
-namespace RichId\TermsModuleBundle\DependencyInjection;
+namespace RichId\TermsModuleBundle\Infrastructure\DependencyInjection;
 
 use RichCongress\BundleToolbox\Configuration\AbstractConfiguration;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
@@ -15,8 +13,10 @@ class Configuration extends AbstractConfiguration
     protected function buildConfiguration(ArrayNodeDefinition $rootNode): void
     {
         $children = $rootNode->children();
+
         $this->addAdminRoles($children);
         $this->addDefaultRefusalRoute($children);
+        $this->addAccessDeniedRedirection($children);
     }
 
     protected function addAdminRoles(NodeBuilder $nodeBuilder): void

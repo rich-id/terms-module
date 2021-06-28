@@ -5,3 +5,5 @@ doctrine:
         path: '%kernel.cache_dir%/__DBNAME__.db'
         url: null
         memory: true
+    orm:
+        auto_mapping: true
