@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Infrastructure\Adapter;
 
@@ -8,7 +10,7 @@ use RichId\TermsModuleBundle\Domain\Entity\TermsSubjectInterface;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Port\TermsVersionRepositoryInterface;
 
-/** @extends \Doctrine\ORM\EntityRepository<TermsVersion> */
+/** @extends \Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository<TermsVersion> */
 class TermsVersionRepository extends ServiceEntityRepository implements TermsVersionRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
