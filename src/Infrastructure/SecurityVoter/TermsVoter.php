@@ -27,19 +27,11 @@ class TermsVoter extends Voter
         $this->moduleAdminRoles = $parameterBag->get('rich_id_terms_module.admin_roles');
     }
 
-    /**
-     * @param string $attribute
-     * @param mixed  $subject
-     */
     protected function supports($attribute, $subject): bool
     {
         return $attribute === self::MODULE_TERMS_ADMIN || $this->isTheAttributeMatchHasSignedTerms($attribute);
     }
 
-    /**
-     * @param string $attribute
-     * @param mixed  $subject
-     */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
         if ($attribute === self::MODULE_TERMS_ADMIN) {

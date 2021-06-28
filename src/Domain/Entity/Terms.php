@@ -45,7 +45,7 @@ class Terms
     protected $isDepublicationLocked = false;
 
     /**
-     * @var ArrayCollection|TermsVersion[]
+     * @var ArrayCollection<int, TermsVersion>
      *
      * @ORM\OneToMany(targetEntity="RichId\TermsModuleBundle\Domain\Entity\TermsVersion", mappedBy="terms")
      */
@@ -97,6 +97,7 @@ class Terms
         return $this;
     }
 
+    /** @return ArrayCollection<int, TermsVersion> */
     public function getVersions(): ArrayCollection
     {
         return $this->versions;

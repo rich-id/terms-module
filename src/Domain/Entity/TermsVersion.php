@@ -71,7 +71,7 @@ class TermsVersion
     protected $terms;
 
     /**
-     * @var ArrayCollection|array<\RichId\TermsModuleBundle\Domain\Entity\TermsVersionSignature>
+     * @var ArrayCollection<int, TermsVersionSignature>
      *
      * @ORM\OneToMany(targetEntity="RichId\TermsModuleBundle\Domain\Entity\TermsVersionSignature", mappedBy="version")
      */
@@ -159,7 +159,7 @@ class TermsVersion
         return $this;
     }
 
-    /** @return ArrayCollection|array<\RichId\TermsModuleBundle\Domain\Entity\TermsVersionSignature> */
+    /** @return ArrayCollection<int, TermsVersionSignature> */
     public function getSignatures(): ArrayCollection
     {
         return $this->signatures;

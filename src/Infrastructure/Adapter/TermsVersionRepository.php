@@ -10,7 +10,7 @@ use RichId\TermsModuleBundle\Domain\Entity\TermsSubjectInterface;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Port\TermsVersionRepositoryInterface;
 
-/** @extends \Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository<TermsVersion> */
+/** @extends ServiceEntityRepository<TermsVersion> */
 class TermsVersionRepository extends ServiceEntityRepository implements TermsVersionRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
