@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Infrastructure\Adapter;
 
@@ -25,7 +27,6 @@ class TermsVersionRepository extends ServiceEntityRepository implements TermsVer
             ->andWhere('s.subjectType = :subjectType')
             ->andWhere('s.subjectIdentifier = :subjectIdentifier')
             ->setParameters(
-
                 [
                     'termsSlug'         => $termsSlug,
                     'subjectType'       => $subject->getTermsSubjectType(),

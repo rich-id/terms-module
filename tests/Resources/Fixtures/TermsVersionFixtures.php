@@ -1,12 +1,15 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\Resources\Fixtures;
 
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use RichCongress\RecurrentFixturesTestBundle\DataFixture\AbstractFixture;
 use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 
-final class TermsVersionFixtures extends AbstractFixture
+final class TermsVersionFixtures extends AbstractFixture implements DependentFixtureInterface
 {
     protected function loadFixtures(): void
     {
@@ -18,7 +21,7 @@ final class TermsVersionFixtures extends AbstractFixture
                 'isEnabled' => true,
                 'title'     => 'title',
                 'content'   => 'content',
-                'terms'     => $this->getReference(Terms::class, '1')
+                'terms'     => $this->getReference(Terms::class, '1'),
             ]
         );
 
@@ -30,7 +33,7 @@ final class TermsVersionFixtures extends AbstractFixture
                 'isEnabled' => true,
                 'title'     => 'title',
                 'content'   => 'content',
-                'terms'     => $this->getReference(Terms::class, '1')
+                'terms'     => $this->getReference(Terms::class, '1'),
             ]
         );
     }

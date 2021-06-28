@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Infrastructure\SecurityVoter;
 
@@ -25,11 +27,19 @@ class TermsVoter extends Voter
         $this->moduleAdminRoles = $parameterBag->get('rich_id_terms_module.admin_roles');
     }
 
+    /**
+     * @param string $attribute
+     * @param mixed  $subject
+     */
     protected function supports($attribute, $subject): bool
     {
         return $attribute === self::MODULE_TERMS_ADMIN || $this->isTheAttributeMatchHasSignedTerms($attribute);
     }
 
+    /**
+     * @param string $attribute
+     * @param mixed  $subject
+     */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
         if ($attribute === self::MODULE_TERMS_ADMIN) {
@@ -68,6 +78,6 @@ class TermsVoter extends Voter
 
     private function isTheAttributeMatchHasSignedTerms(string $attribute): bool
     {
-        return $attribute !== '' && strpos(self::HAS_SIGNED_TERMS_PREFIX, $attribute) === 0;
+        return $attribute !== '' && \strpos(self::HAS_SIGNED_TERMS_PREFIX, $attribute) === 0;
     }
 }
