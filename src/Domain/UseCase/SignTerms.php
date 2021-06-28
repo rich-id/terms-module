@@ -10,5 +10,7 @@ class SignTerms
 {
     public function __invoke(string $termsSlug, TermsSubjectInterface $subject): int
     {
+        // todo
+        return 0;
     }
 }

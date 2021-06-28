@@ -147,7 +147,7 @@ class TermsVersion
         return $this;
     }
 
-    public function getTerms(): ?Terms
+    public function getTerms(): Terms
     {
         return $this->terms;
     }
