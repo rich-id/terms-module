@@ -6,6 +6,7 @@ namespace RichId\TermsModuleBundle\Tests\Domain\UseCase;
 
 use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
+use RichId\TermsModuleBundle\Domain\Exception\NotFoundTermsException;
 use RichId\TermsModuleBundle\Domain\Model\DummySubject;
 use RichId\TermsModuleBundle\Domain\UseCase\HasSignTerms;
 
@@ -20,10 +21,11 @@ final class HasSignTermsTest extends TestCase
 
     public function testUseCaseTermsNotExist(): void
     {
-        $subject = DummySubject::create('user', '42');
-        $code = ($this->useCase)('terms-999', $subject);
+        $this->expectException(NotFoundTermsException::class);
+        $this->expectDeprecationMessage('Not found terms terms-999.');
 
-        $this->assertSame(2, $code);
+        $subject = DummySubject::create('user', '42');
+        ($this->useCase)('terms-999', $subject);
     }
 
     public function testUseCaseSubjectNotExist(): void

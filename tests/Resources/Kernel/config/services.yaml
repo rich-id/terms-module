@@ -6,6 +6,7 @@ services:
 
     RichId\TermsModuleBundle\Domain\UseCase\HasSignTerms: ~
     RichId\TermsModuleBundle\Infrastructure\Adapter\TermsVersionRepository: ~
+    RichId\TermsModuleBundle\Infrastructure\TwigExtension\TermsExtension: ~
 
     RichId\TermsModuleBundle\Tests\Resources\Fixtures\TermsFixtures: ~
     RichId\TermsModuleBundle\Tests\Resources\Fixtures\TermsVersionFixtures: ~

@@ -7,9 +7,12 @@
     <services>
         <defaults autowire="true" autoconfigure="true" public="false"/>
 
+        <service id="RichId\TermsModuleBundle\Domain\Port\TermsRepositoryInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\TermsRepository"/>
         <service id="RichId\TermsModuleBundle\Domain\Port\TermsVersionRepositoryInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\TermsVersionRepository"/>
         <service id="RichId\TermsModuleBundle\Domain\UseCase\HasSignTerms" />
 
+        <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\TermsRepository" />
         <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\TermsVersionRepository" />
+        <service id="RichId\TermsModuleBundle\Infrastructure\TwigExtension\TermsExtension" />
     </services>
 </container>
