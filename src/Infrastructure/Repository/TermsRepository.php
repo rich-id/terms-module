@@ -10,6 +10,7 @@ use RichId\TermsModuleBundle\Domain\Entity\Terms;
 
 /**
  * @extends ServiceEntityRepository<Terms>
+ *
  * @method Terms findOneBySlug(string $slug)
  */
 class TermsRepository extends ServiceEntityRepository
