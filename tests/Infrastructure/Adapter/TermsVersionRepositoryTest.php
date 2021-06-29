@@ -25,6 +25,7 @@ final class TermsVersionRepositoryTest extends TestCase
             DummySubject::create('user', '42')
         );
 
+        /** @phpstan-ignore-next-line */
         $this->assertSame(2, $lastVersionSigned->getVersion());
     }
 
