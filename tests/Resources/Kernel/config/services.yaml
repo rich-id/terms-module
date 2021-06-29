@@ -3,3 +3,10 @@ services:
         autoconfigure: true
         autowire: true
         public: true
+
+    RichId\TermsModuleBundle\Domain\UseCase\HasSignTerms: ~
+    RichId\TermsModuleBundle\Infrastructure\Adapter\TermsVersionRepository: ~
+
+    RichId\TermsModuleBundle\Tests\Resources\Fixtures\TermsFixtures: ~
+    RichId\TermsModuleBundle\Tests\Resources\Fixtures\TermsVersionFixtures: ~
+    RichId\TermsModuleBundle\Tests\Resources\Fixtures\TermsVersionSignatureFixtures: ~

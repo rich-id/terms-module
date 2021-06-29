@@ -29,10 +29,10 @@
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src</directory>
             <exclude>
-                <directory>Infrastructure/DependencyInjection</directory>
-                <directory>Infrastructure/Migrations</directory>
-                <directory>Infrastructure/Resources</directory>
-                <file>Infrastructure/RichIdTermsModuleBundle.php</file>
+                <directory>src/Infrastructure/DependencyInjection</directory>
+                <directory>src/Infrastructure/Migrations</directory>
+                <directory>src/Infrastructure/Resources</directory>
+                <file>src/Infrastructure/RichIdTermsModuleBundle.php</file>
             </exclude>
         </whitelist>
     </filter>

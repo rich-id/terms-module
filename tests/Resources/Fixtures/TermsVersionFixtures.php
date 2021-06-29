@@ -13,6 +13,8 @@ final class TermsVersionFixtures extends AbstractFixture implements DependentFix
 {
     protected function loadFixtures(): void
     {
+        $terms1 = $this->getTerms('1');
+
         $this->createObject(
             TermsVersion::class,
             'v1-terms-1',
@@ -21,7 +23,7 @@ final class TermsVersionFixtures extends AbstractFixture implements DependentFix
                 'isEnabled' => true,
                 'title'     => 'title',
                 'content'   => 'content',
-                'terms'     => $this->getReference(Terms::class, '1'),
+                'terms'     => $terms1,
             ]
         );
 
@@ -33,7 +35,31 @@ final class TermsVersionFixtures extends AbstractFixture implements DependentFix
                 'isEnabled' => true,
                 'title'     => 'title',
                 'content'   => 'content',
-                'terms'     => $this->getReference(Terms::class, '1'),
+                'terms'     => $terms1,
+            ]
+        );
+
+        $this->createObject(
+            TermsVersion::class,
+            'v3-terms-1',
+            [
+                'version'   => 3,
+                'isEnabled' => true,
+                'title'     => 'title',
+                'content'   => 'content',
+                'terms'     => $terms1,
+            ]
+        );
+
+        $this->createObject(
+            TermsVersion::class,
+            'v4-terms-1',
+            [
+                'version'   => 4,
+                'isEnabled' => false,
+                'title'     => 'title',
+                'content'   => 'content',
+                'terms'     => $terms1,
             ]
         );
     }
@@ -43,5 +69,18 @@ final class TermsVersionFixtures extends AbstractFixture implements DependentFix
         return [
             TermsFixtures::class,
         ];
+    }
+
+    private function getTerms(string $reference): ?Terms
+    {
+        $termsFixture = $this->getReference(Terms::class, $reference);
+
+        if ($termsFixture === null) {
+            return null;
+        }
+
+        return $this->manager
+            ->getRepository(Terms::class)
+            ->find($termsFixture->getId());
     }
 }

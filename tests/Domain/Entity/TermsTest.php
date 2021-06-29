@@ -56,6 +56,7 @@ final class TermsTest extends TestCase
         $entity->addVersion($termVersion);
 
         $this->assertNull($entity->getId());
+        $this->assertSame('terms-slug', $entity->getSlug());
         $this->assertTrue($entity->isPublished());
         $this->assertTrue($entity->isDepublicationLocked());
 
