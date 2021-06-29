@@ -14,13 +14,13 @@ class SignTerms
 
     public function __construct(HasSignTerms $hasSignTerms)
     {
-        $this->$hasSignTerms = $hasSignTerms;
+        $this->hasSignTerms = $hasSignTerms;
     }
 
     public function __invoke(string $termsSlug, TermsSubjectInterface $subject): int
     {
         if (($this->hasSignTerms)($termsSlug, $subject) === HasSignTerms::HAS_SIGN_LATEST_VERSION) {
-            throw new AlreadySignLastTermsVersionException();
+            throw new AlreadySignLastTermsVersionException($termsSlug, $subject);
         }
 
         return 0;

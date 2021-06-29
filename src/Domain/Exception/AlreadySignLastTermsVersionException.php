@@ -1,23 +1,34 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Domain\Exception;
 
-use RichId\TermsModuleBundle\Domain\Entity\Terms;
+use RichId\TermsModuleBundle\Domain\Entity\TermsSubjectInterface;
 
 class AlreadySignLastTermsVersionException extends TermsModuleException
 {
-    /** @var Terms */
-    protected $terms;
+    /** @var string */
+    protected $termsSlug;
 
-    public function __construct(Terms $terms)
+    /** @var TermsSubjectInterface */
+    protected $subject;
+
+    public function __construct(string $termsSlug, TermsSubjectInterface $subject)
     {
-        parent::__construct(sprintf('Terms %s is already sign.', $terms->getSlug()));
+        parent::__construct(\sprintf('Terms %s is already sign by this subject.', $termsSlug));
 
-        $this->terms = $terms;
+        $this->termsSlug = $termsSlug;
+        $this->subject = $subject;
     }
 
-    public function getTerms(): Terms
+    public function getTermsSlug(): string
     {
-        return $this->terms;
+        return $this->termsSlug;
+    }
+
+    public function getSubject(): TermsSubjectInterface
+    {
+        return $this->subject;
     }
 }

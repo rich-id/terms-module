@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Domain\Exception;
 
@@ -14,7 +16,7 @@ class EnabledVersionCannotBeDeletedException extends TermsModuleException
         $terms = $termsVersion->getTerms();
 
         parent::__construct(
-            sprintf('Version %d of terms %s cannot be deleted.', $termsVersion->getVersion(), $terms->getSlug())
+            \sprintf('Version %d of terms %s cannot be deleted.', $termsVersion->getVersion(), $terms->getSlug())
         );
 
         $this->termsVersion = $termsVersion;

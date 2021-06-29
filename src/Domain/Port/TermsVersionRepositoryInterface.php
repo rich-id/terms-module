@@ -10,5 +10,6 @@ use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 interface TermsVersionRepositoryInterface
 {
     public function findLastSignedVersionForTermsSubject(string $termsSlug, TermsSubjectInterface $subject): ?TermsVersion;
+
     public function removeTermsVersion(TermsVersion $termsVersion): void;
 }
