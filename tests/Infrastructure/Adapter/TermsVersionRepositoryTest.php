@@ -6,6 +6,7 @@ namespace RichId\TermsModuleBundle\Tests\Infrastructure\Adapter;
 
 use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
+use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Model\DummySubject;
 use RichId\TermsModuleBundle\Infrastructure\Adapter\TermsVersionRepository;
 
@@ -25,7 +26,7 @@ final class TermsVersionRepositoryTest extends TestCase
             DummySubject::create('user', '42')
         );
 
-        /** @phpstan-ignore-next-line */
+        /* @phpstan-ignore-next-line */
         $this->assertSame(2, $lastVersionSigned->getVersion());
     }
 
@@ -47,5 +48,15 @@ final class TermsVersionRepositoryTest extends TestCase
         );
 
         $this->assertNull($lastVersionSigned);
+    }
+
+    public function testRemoveTermsVersion(): void
+    {
+        $this->assertCount(4, $this->adapter->findAll());
+
+        $termsVersion = $this->adapter->find($this->getReference(TermsVersion::class, 'v4-terms-1'));
+        $this->adapter->removeTermsVersion($termsVersion);
+
+        $this->assertCount(3, $this->adapter->findAll());
     }
 }
