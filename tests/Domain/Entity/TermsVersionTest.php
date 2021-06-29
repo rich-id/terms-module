@@ -32,6 +32,7 @@ final class TermsVersionTest extends TestCase
     {
         $terms = new Terms();
         $terms->setSlug('slug');
+        $terms->setName('My Terms');
 
         $this->getManager()->persist($terms);
         $this->getManager()->flush();

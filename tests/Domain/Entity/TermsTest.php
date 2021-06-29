@@ -32,6 +32,7 @@ final class TermsTest extends TestCase
     {
         $entity1 = new Terms();
         $entity1->setSlug('slug');
+        $entity1->setName('My Terms');
 
         $this->getManager()->persist($entity1);
         $this->getManager()->flush();
@@ -40,6 +41,26 @@ final class TermsTest extends TestCase
 
         $entity2 = new Terms();
         $entity2->setSlug('slug');
+        $entity2->setName('My other Terms');
+
+        $this->getManager()->persist($entity2);
+        $this->getManager()->flush();
+    }
+
+    public function testNameUnique(): void
+    {
+        $entity1 = new Terms();
+        $entity1->setSlug('slug1');
+        $entity1->setName('My Terms');
+
+        $this->getManager()->persist($entity1);
+        $this->getManager()->flush();
+
+        $this->expectException(UniqueConstraintViolationException::class);
+
+        $entity2 = new Terms();
+        $entity2->setSlug('slug2');
+        $entity2->setName('My Terms');
 
         $this->getManager()->persist($entity2);
         $this->getManager()->flush();
@@ -51,12 +72,14 @@ final class TermsTest extends TestCase
         $termVersion = new TermsVersion();
 
         $entity->setSlug('terms-slug');
+        $entity->setName('My Terms');
         $entity->setIsPublished(true);
         $entity->setIsDepublicationLocked(true);
         $entity->addVersion($termVersion);
 
         $this->assertNull($entity->getId());
         $this->assertSame('terms-slug', $entity->getSlug());
+        $this->assertSame('My Terms', $entity->getName());
         $this->assertTrue($entity->isPublished());
         $this->assertTrue($entity->isDepublicationLocked());
 

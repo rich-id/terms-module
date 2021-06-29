@@ -16,6 +16,7 @@ final class TermsFixtures extends AbstractFixture
             '1',
             [
                 'slug'                  => 'terms-1',
+                'name'                  => 'Terms 1',
                 'isPublished'           => true,
                 'isDepublicationLocked' => true,
             ]
@@ -26,6 +27,7 @@ final class TermsFixtures extends AbstractFixture
             '2',
             [
                 'slug'                  => 'terms-2',
+                'name'                  => 'Terms 2',
                 'isPublished'           => false,
                 'isDepublicationLocked' => false,
             ]
@@ -36,6 +38,7 @@ final class TermsFixtures extends AbstractFixture
             '3',
             [
                 'slug'                  => 'terms-3',
+                'name'                  => 'Terms 3',
                 'isPublished'           => true,
                 'isDepublicationLocked' => false,
             ]

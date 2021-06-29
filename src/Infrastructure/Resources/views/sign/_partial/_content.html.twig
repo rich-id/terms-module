@@ -1,0 +1,27 @@
+{% include '@RichIdTermsModule/_styles.html.twig' %}
+{% include '@RichIdTermsModule/sign/_partial/_styles.html.twig' %}
+
+<div class="terms-module-style">
+    <div class="terms-module-sign-header">
+        <div class="terms-module-container">
+            <div>{{ terms.name }}</div>
+        </div>
+    </div>
+
+    <div class="terms-module-sign-body">
+        <div class="terms-module-container">
+            <div class="terms-module-sign-content">
+                <div class="terms-module-ribon">{{ 'terms_module.sign.new_version'|trans({}, 'terms_module') }}</div>
+
+                <div class="terms-module-sign-content-title">{{ lastTermsVersion.title }}</div>
+                <div>{{ lastTermsVersion.content|raw }}</div>
+
+                <div class="terms-module-center terms-module-sign-actions">
+                    <button class="terms-module-button-secondary terms-module-action terms-module-action-space">{{ 'terms_module.sign.refuse'|trans({}, 'terms_module') }}</button>
+                    <button class="terms-module-button-primary terms-module-action terms-module-action-space">{{ 'terms_module.sign.accept'|trans({}, 'terms_module') }}</button>
+                    <a class="terms-module-link terms-module-action-space">{{ 'terms_module.sign.prefer_answer_later'|trans({}, 'terms_module') }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

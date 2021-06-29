@@ -13,7 +13,7 @@ class Version20210628151052 extends AbstractMigration
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE module_terms_terms (id INT UNSIGNED AUTO_INCREMENT NOT NULL, slug VARCHAR(255) NOT NULL, is_published TINYINT(1) NOT NULL, is_depublication_locked TINYINT(1) NOT NULL, UNIQUE INDEX UNIQ_67FAB3BA989D9B62 (slug), PRIMARY KEY(id)) DEFAULT CHARACTER SET UTF8 COLLATE `UTF8_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE module_terms_terms (id INT UNSIGNED AUTO_INCREMENT NOT NULL, slug VARCHAR(255) NOT NULL, name VARCHAR(255) NOT NULL, is_published TINYINT(1) NOT NULL, is_depublication_locked TINYINT(1) NOT NULL, UNIQUE INDEX UNIQ_67FAB3BA989D9B62 (slug), UNIQUE INDEX UNIQ_67FAB3BA5E237E06 (name), PRIMARY KEY(id)) DEFAULT CHARACTER SET UTF8 COLLATE `UTF8_unicode_ci` ENGINE = InnoDB');
 
         $this->addSql('CREATE TABLE module_terms_terms_version (id INT UNSIGNED AUTO_INCREMENT NOT NULL, terms_id INT UNSIGNED NOT NULL, version INT UNSIGNED NOT NULL, is_enabled TINYINT(1) NOT NULL, title VARCHAR(255) NOT NULL, content LONGTEXT NOT NULL, publication_date DATETIME DEFAULT NULL, index IDX_2E43CCE53742F27 (terms_id), UNIQUE INDEX terms_version_terms_id_version_UNIQUE (version, terms_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET UTF8 COLLATE `UTF8_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE module_terms_terms_version ADD CONSTRAINT fk_2e43cce53742f27 FOREIGN KEY (terms_id) REFERENCES module_terms_terms (id) ON DELETE RESTRICT');

@@ -31,6 +31,13 @@ class Terms
     protected $slug;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=false, length=255, unique=true, name="name")
+     */
+    protected $name;
+
+    /**
      * @var bool
      *
      * @ORM\Column(type="boolean", nullable=false, name="is_published")
@@ -69,6 +76,18 @@ class Terms
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }

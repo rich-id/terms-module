@@ -20,6 +20,8 @@
         "doctrine/migrations": "^3.0",
         "doctrine/orm": "^2.7",
         "richcongress/bundle-toolbox": "^1.0",
+        "symfony/http-foundation": "^4.4",
+        "symfony/security-bundle": "^4.0",
         "symfony/security-core": "^4.0",
         "symfony/twig-bundle": "^4.0",
         "symfony/validator": "^4.0"

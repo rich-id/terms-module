@@ -13,6 +13,10 @@
 
         <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\TermsRepository" />
         <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\TermsVersionRepository" />
+        <service id="RichId\TermsModuleBundle\Infrastructure\Repository\TermsRepository" />
+        <service id="RichId\TermsModuleBundle\Infrastructure\SecurityVoter\TermsVoter" />
         <service id="RichId\TermsModuleBundle\Infrastructure\TwigExtension\TermsExtension" />
+
+        <service id="RichId\TermsModuleBundle\UserInterface\FrontController\TermsController" />
     </services>
 </container>

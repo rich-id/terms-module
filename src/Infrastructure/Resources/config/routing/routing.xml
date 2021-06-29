@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://symfony.com/schema/routing"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing
+    https://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="module_terms_admin_list" path="/administration/terms"
+           controller="RichId\TermsModuleBundle\UserInterface\FrontController\TermsController::listAdmin"
+           methods="GET" />
+
+    <route id="module_terms_admin_edition" path="/administration/terms/{terms}"
+           controller="RichId\TermsModuleBundle\UserInterface\FrontController\TermsController::editAdmin"
+           methods="GET">
+        <requirement key="terms">\d+</requirement>
+    </route>
+
+    <route id="module_terms_sign" path="/terms/{termsSlug}/sign"
+           controller="RichId\TermsModuleBundle\UserInterface\FrontController\TermsController::sign"
+           methods="GET" />
+</routes>
+
