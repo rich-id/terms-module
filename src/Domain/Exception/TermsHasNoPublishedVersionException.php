@@ -8,7 +8,7 @@ use RichId\TermsModuleBundle\Domain\Entity\Terms;
 
 class TermsHasNoPublishedVersionException extends TermsModuleException
 {
-    /** @var string */
+    /** @var Terms */
     protected $terms;
 
     public function __construct(Terms $terms)

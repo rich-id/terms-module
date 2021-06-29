@@ -49,7 +49,7 @@ class SignTerms
         if ($accepted) {
         }
 
-        $this->notify($lastVersion);
-        $this->log($lastVersion);
+        //$this->notify($lastVersion);
+        //$this->log($lastVersion);
     }
 }
