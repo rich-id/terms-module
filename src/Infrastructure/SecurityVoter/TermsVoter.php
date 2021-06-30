@@ -13,7 +13,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class TermsVoter extends Voter
 {
     public const MODULE_TERMS_ADMIN = 'MODULE_TERMS_ADMIN';
-    public const HAS_SIGNED_TERMS_PREFIX = 'HAS_SIGNED_TERMS_';
 
     /** @var AuthorizationCheckerInterface */
     protected $authorizationChecker;
@@ -29,17 +28,13 @@ class TermsVoter extends Voter
 
     protected function supports($attribute, $subject): bool
     {
-        return $attribute === self::MODULE_TERMS_ADMIN || $this->isTheAttributeMatchHasSignedTerms($attribute);
+        return $attribute === self::MODULE_TERMS_ADMIN;
     }
 
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
         if ($attribute === self::MODULE_TERMS_ADMIN) {
             return $this->moduleTermsAdmin($token);
-        }
-
-        if ($this->isTheAttributeMatchHasSignedTerms($attribute)) {
-            return $this->hasSignedTerms();
         }
 
         throw new \LogicException('This code should not be reached!');
@@ -60,15 +55,5 @@ class TermsVoter extends Voter
         }
 
         return false;
-    }
-
-    protected function hasSignedTerms(): bool
-    {
-        return false;
-    }
-
-    private function isTheAttributeMatchHasSignedTerms(string $attribute): bool
-    {
-        return $attribute !== '' && \strpos(self::HAS_SIGNED_TERMS_PREFIX, $attribute) === 0;
     }
 }

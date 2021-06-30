@@ -5,9 +5,14 @@ declare(strict_types=1);
 namespace RichId\TermsModuleBundle\UserInterface\FrontController;
 
 use RichId\TermsModuleBundle\Domain\Entity\Terms;
+use RichId\TermsModuleBundle\Domain\Entity\TermsSubjectInterface;
+use RichId\TermsModuleBundle\Domain\Model\DummySubject;
+use RichId\TermsModuleBundle\Domain\Model\DummyTermsGuardValidation;
 use RichId\TermsModuleBundle\Infrastructure\Repository\TermsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -36,8 +41,15 @@ class TermsController extends AbstractController
         );
     }
 
-    public function sign(string $termsSlug, TermsRepository $termsRepository): Response
+    public function sign(string $termsSlug, TermsRepository $termsRepository, Request $request): Response
     {
+        $subject = $this->buildSubject($request);
+        $termsGuardValidation = DummyTermsGuardValidation::create($termsSlug, $subject->getTermsSubjectType(), $subject->getTermsSubjectIdentifier());
+
+        if (!$this->isGranted('MODULE_TERMS_GUARD_VALID', $termsGuardValidation)) {
+            throw new AccessDeniedException();
+        }
+
         $terms = $termsRepository->findOneBySlug($termsSlug);
 
         if (!$terms instanceof Terms) {
@@ -61,5 +73,21 @@ class TermsController extends AbstractController
                 'lastTermsVersion' => $lastVersion,
             ]
         );
+    }
+
+    private function buildSubject(Request $request): TermsSubjectInterface
+    {
+        $subjectType = $request->query->get('type', null);
+        $subjectIdentifier = $request->query->get('identifier', null);
+
+        if ($subjectType === null || $subjectType === '') {
+            throw new BadRequestHttpException('Query parameter type is missing.');
+        }
+
+        if ($subjectIdentifier === null || $subjectIdentifier === '') {
+            throw new BadRequestHttpException('Query parameter identifier is missing.');
+        }
+
+        return DummySubject::create($subjectType, $subjectIdentifier);
     }
 }
