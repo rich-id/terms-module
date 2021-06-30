@@ -31,7 +31,7 @@ class TermsController extends AbstractController
         return $this->render(
             '@RichIdTermsModule/admin/list/main.html.twig',
             [
-                'terms' => $termsRepository->findAll(),
+                'termsList' => $termsRepository->findAllOrderedByName(),
             ]
         );
     }

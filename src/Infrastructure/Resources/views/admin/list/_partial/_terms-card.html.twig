@@ -1,0 +1,12 @@
+{% if terms is defined %}
+    <a class="terms-module-admin-terms-card" href="{{ path('module_terms_admin_edition', {'terms': terms.id}) }}">
+        <div class="terms-module-admin-terms-card-name">{{ terms.name }}</div>
+        <div class="terms-module-admin-terms-card-status">
+            {% if terms.isPublished %}
+                {{ include('@RichIdTermsModule/pictos/published.html.twig') }}
+            {% else %}
+                {{ include('@RichIdTermsModule/pictos/not-published.html.twig') }}
+            {% endif %}
+        </div>
+    </a>
+{% endif %}

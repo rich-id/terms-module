@@ -1,15 +1,28 @@
 <style>
     :root {
-        --terms-module-dark: #000000;
+        --terms-module-black: #000000;
         --terms-module-white: #FFFFFF;
-        --terms-module-gray: #bbbbbb;
+        --terms-module-dark: #333333;
+        --terms-module-gray: #BBBBBB;
 
         --terms-module-primary: #e6007e;
         --terms-module-primary-variant: #c20069;
-        --terms-module-secondary: #ff645b;
+        --terms-module-secondary: #FF645B;
         --terms-module-tertiary: #2B2468;
 
+        --terms-module-icon-not-published: #AAAAAA;
+        --terms-module-icon-published: #A1C225;
+
         --terms-module-font-family: Arial, sans-serif;
+        --terms-module-admin-font-family: Arial, sans-serif;
+    }
+
+    #terms-module-icon-published {
+        fill: var(--terms-module-icon-published);
+    }
+
+    #terms-module-icon-not-published {
+        fill: var(--terms-module-icon-not-published);
     }
 
     .terms-module-container {
@@ -74,4 +87,32 @@
     .terms-module-center {
         text-align: center;
     }
+
+    /* Admin */
+    .terms-module-admin-header {
+        align-items: center;
+        background: var(--terms-module-dark);
+        color: var(--terms-module-white);
+        display: flex;
+        font-family: var(--terms-module-admin-font-family);
+        font-size: 32px;
+        font-weight: 300;
+        height: 88px;
+        justify-content: center;
+        letter-spacing: normal;
+        padding: 0 15px;
+        text-align: center;
+    }
+
+    .terms-module-admin-body-container {
+        padding: 15px;
+    }
+
+    .terms-module-admin-body {
+        background: var(--terms-module-white);
+        box-shadow: 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+        padding: 30px;
+    }
 </style>
+
+{% block custom_style %}{% endblock %}

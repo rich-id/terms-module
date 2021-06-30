@@ -144,7 +144,7 @@ class Terms
                 ->andWhere(
                     Criteria::expr()->orX(
                         Criteria::expr()->isNull('publicationDate'),
-                        Criteria::expr()->lte('publicationDate', new \DateTime('today midnight'))
+                        Criteria::expr()->lte('publicationDate', new \DateTime('now'))
                     )
                 )
                 ->orderBy(['version' => 'DESC'])

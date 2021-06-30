@@ -31,3 +31,5 @@
 
 # Static utilities
 .php_cs.cache
+cghooks.lock
+

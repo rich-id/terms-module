@@ -19,4 +19,10 @@ class TermsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Terms::class);
     }
+
+    /** @return array<Terms> */
+    public function findAllOrderedByName(): array
+    {
+        return $this->findBy([], ['name' => 'ASC']);
+    }
 }
