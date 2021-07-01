@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Domain\Model;
 
-
 final class DummyTermsGuardValidation implements TermsGuardValidationInterface
 {
     /** @var string */
-    protected $slug;
+    private $slug;
 
     /** @var string */
-    protected $type;
+    private $type;
 
     /** @var string */
-    protected $identifier;
+    private $identifier;
 
     public function __construct()
     {

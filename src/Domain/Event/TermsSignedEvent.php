@@ -6,8 +6,9 @@ namespace RichId\TermsModuleBundle\Domain\Event;
 
 use RichId\TermsModuleBundle\Domain\Entity\TermsSubjectInterface;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
+use Symfony\Component\HttpFoundation\Response;
 
-final class TermsSigned
+final class TermsSignedEvent
 {
     /** @var TermsVersion */
     private $termsVersion;
@@ -15,14 +16,18 @@ final class TermsSigned
     /** @var TermsSubjectInterface */
     private $subject;
 
-    /** @var bool */
+    /** @var bool|null */
     private $accepted;
 
-    public function __construct(TermsVersion $termsVersion, TermsSubjectInterface $subject, bool $accepted)
+    /** @var Response */
+    private $response;
+
+    public function __construct(TermsVersion $termsVersion, TermsSubjectInterface $subject, ?bool $accepted, Response $response)
     {
         $this->termsVersion = $termsVersion;
         $this->subject = $subject;
         $this->accepted = $accepted;
+        $this->response = $response;
     }
 
     public function getTermsVersion(): TermsVersion
@@ -35,8 +40,20 @@ final class TermsSigned
         return $this->subject;
     }
 
-    public function isAccepted(): bool
+    public function isAccepted(): ?bool
     {
         return $this->accepted;
+    }
+
+    public function getResponse(): Response
+    {
+        return $this->response;
+    }
+
+    public function setResponse(Response $response): self
+    {
+        $this->response = $response;
+
+        return $this;
     }
 }

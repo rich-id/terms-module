@@ -1,0 +1,25 @@
+<div id="terms-module-loader-overlay" style="display: none">
+    <div class="terms-module-loader-position">
+        {{ include('@RichIdTermsModule/_partial/_loader.html.twig') }}
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var loaderEl = document.getElementById('terms-module-loader-overlay');
+
+        if (typeof loaderEl === 'undefined' || loaderEl === null) {
+            return;
+        }
+
+        document.onclick = function(event) {
+            if (typeof event.target === 'undefined' || typeof event.target.classList === 'undefined') {
+                return;
+            }
+
+            if (event.target.classList.contains('terms-module-open-loader')) {
+                loaderEl.style = '';
+            }
+        };
+    });
+</script>

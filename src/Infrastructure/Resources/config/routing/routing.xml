@@ -15,7 +15,7 @@
     </route>
 
     <route id="module_terms_sign" path="/terms/{termsSlug}/sign"
-           controller="RichId\TermsModuleBundle\UserInterface\FrontController\TermsController::sign"
-           methods="GET" />
+           controller="RichId\TermsModuleBundle\UserInterface\Controller\SignRoute"
+           methods="GET|POST" />
 </routes>
 

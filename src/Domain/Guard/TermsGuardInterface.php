@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RichId\TermsModuleBundle\Infrastructure\Guard;
+namespace RichId\TermsModuleBundle\Domain\Guard;
 
 interface TermsGuardInterface
 {

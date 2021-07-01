@@ -17,8 +17,7 @@ class Configuration extends AbstractConfiguration
         $children = $rootNode->children();
 
         $this->addAdminRoles($children);
-        $this->addDefaultRefusalRoute($children);
-        $this->addAccessDeniedRedirection($children);
+        $this->addDefaultRedirectionRoutes($children);
     }
 
     protected function addAdminRoles(NodeBuilder $nodeBuilder): void
@@ -29,17 +28,36 @@ class Configuration extends AbstractConfiguration
             ->scalarPrototype();
     }
 
-    protected function addDefaultRefusalRoute(NodeBuilder $nodeBuilder): void
+    protected function addDefaultRedirectionRoutes(NodeBuilder $nodeBuilder): void
     {
-        $nodeBuilder->scalarNode('default_refusal_route');
+        $children = $nodeBuilder
+            ->arrayNode('default_redirection_routes')
+            ->isRequired()
+            ->children();
+
+        $this->addDefaultAcceptationRoute($children);
+        $this->addDefaultRefusalRoute($children);
+        $this->addDefaulIgnoreRoute($children);
     }
 
-    protected function addAccessDeniedRedirection(NodeBuilder $nodeBuilder): void
+    protected function addDefaultAcceptationRoute(NodeBuilder $nodeBuilder): void
     {
         $nodeBuilder
-            ->arrayNode('access_denied_redirection')
-            ->example(['app_front_protected_by_terms'])
-            ->defaultValue([])
-            ->scalarPrototype();
+            ->scalarNode('acceptation')
+            ->isRequired();
+    }
+
+    protected function addDefaultRefusalRoute(NodeBuilder $nodeBuilder): void
+    {
+        $nodeBuilder
+            ->scalarNode('refusal')
+            ->isRequired();
+    }
+
+    protected function addDefaulIgnoreRoute(NodeBuilder $nodeBuilder): void
+    {
+        $nodeBuilder
+            ->scalarNode('ignore')
+            ->isRequired();
     }
 }

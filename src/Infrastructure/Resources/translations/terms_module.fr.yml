@@ -1,6 +1,8 @@
 terms_module.admin.list.title: Gestion des CGU
 terms_module.admin.edit.title: Gestion des CGU
 
+terms_module.log.terms_signed: 'Une décision a été prise pour le CGU %terms_slug%. Décision: %choice%. Date: %date%. Utilisateur: %user%.'
+
 terms_module.sign.accept: J'accepte
 terms_module.sign.new_version: Nouvelle version !
 terms_module.sign.prefer_answer_later: Je préfère répondre plus tard

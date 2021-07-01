@@ -7,15 +7,29 @@
     <services>
         <defaults autowire="true" autoconfigure="true" public="false"/>
 
+        <service id="RichId\TermsModuleBundle\Domain\EventListener\TermsSignedEventListener">
+            <tag name="kernel.event_listener" event="RichId\TermsModuleBundle\Domain\Event\TermsSignedEvent" />
+        </service>
+
+        <service id="RichId\TermsModuleBundle\Domain\Fetcher\GetTermsVersionToSign" />
+        <service id="RichId\TermsModuleBundle\Domain\Port\EntityRecoderInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\EntityRecorder"/>
+        <service id="RichId\TermsModuleBundle\Domain\Port\EventDispatcherInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\EventDispatcher"/>
+        <service id="RichId\TermsModuleBundle\Domain\Port\LoggerInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\Logger"/>
+        <service id="RichId\TermsModuleBundle\Domain\Port\ResponseBuilderInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\ResponseBuilder"/>
         <service id="RichId\TermsModuleBundle\Domain\Port\TermsRepositoryInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\TermsRepository"/>
         <service id="RichId\TermsModuleBundle\Domain\Port\TermsVersionRepositoryInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\TermsVersionRepository"/>
         <service id="RichId\TermsModuleBundle\Domain\UseCase\HasSignLastTermsVersion" />
         <service id="RichId\TermsModuleBundle\Domain\UseCase\HasSignTerms" />
+        <service id="RichId\TermsModuleBundle\Domain\UseCase\SignTerms" />
 
         <service id="RichId\TermsModuleBundle\Infrastructure\Listener\RedirectToSigningPageOnAccessDenied">
             <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException" priority="2" />
         </service>
 
+        <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\EntityRecorder" />
+        <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\EventDispatcher" />
+        <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\Logger" />
+        <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\ResponseBuilder" />
         <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\TermsRepository" />
         <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\TermsVersionRepository" />
         <service id="RichId\TermsModuleBundle\Infrastructure\Repository\TermsRepository" />
@@ -24,5 +38,6 @@
         <service id="RichId\TermsModuleBundle\Infrastructure\TwigExtension\TermsExtension" />
 
         <service id="RichId\TermsModuleBundle\UserInterface\FrontController\TermsController" />
+        <service id="RichId\TermsModuleBundle\UserInterface\Controller\SignRoute" />
     </services>
 </container>

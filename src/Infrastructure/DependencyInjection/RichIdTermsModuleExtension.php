@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace RichId\TermsModuleBundle\Infrastructure\DependencyInjection;
 
 use RichCongress\BundleToolbox\Configuration\AbstractExtension;
+use RichId\TermsModuleBundle\Domain\Guard\TermsGuardInterface;
+use RichId\TermsModuleBundle\Infrastructure\DependencyInjection\CompilerPass\TermsGuardCompilerPass;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
@@ -30,6 +32,10 @@ class RichIdTermsModuleExtension extends AbstractExtension implements PrependExt
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
+
+        $container
+            ->registerForAutoconfiguration(TermsGuardInterface::class)
+            ->addTag(TermsGuardCompilerPass::TAG);
     }
 
     public function prepend(ContainerBuilder $container): void

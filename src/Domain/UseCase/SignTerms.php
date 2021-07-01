@@ -5,51 +5,54 @@ declare(strict_types=1);
 namespace RichId\TermsModuleBundle\Domain\UseCase;
 
 use RichId\TermsModuleBundle\Domain\Entity\TermsSubjectInterface;
-use RichId\TermsModuleBundle\Domain\Exception\AlreadySignLastTermsVersionException;
-use RichId\TermsModuleBundle\Domain\Exception\NotFoundTermsException;
-use RichId\TermsModuleBundle\Domain\Exception\TermsHasNoPublishedVersionException;
-use RichId\TermsModuleBundle\Domain\Port\TermsRepositoryInterface;
+use RichId\TermsModuleBundle\Domain\Entity\TermsVersionSignature;
+use RichId\TermsModuleBundle\Domain\Event\TermsSignedEvent;
+use RichId\TermsModuleBundle\Domain\Fetcher\GetTermsVersionToSign;
+use RichId\TermsModuleBundle\Domain\Port\EntityRecoderInterface;
+use RichId\TermsModuleBundle\Domain\Port\EventDispatcherInterface;
+use RichId\TermsModuleBundle\Domain\Port\ResponseBuilderInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 class SignTerms
 {
-    /** @var TermsRepositoryInterface */
-    protected $termsRepository;
+    /** @var EntityRecoderInterface */
+    protected $entityRecoder;
 
-    /** @var HasSignTerms */
-    protected $hasSignTerms;
+    /** @var EventDispatcherInterface */
+    protected $eventDispatcher;
 
-    public function __construct(TermsRepositoryInterface $termsRepository, HasSignTerms $hasSignTerms)
+    /** @var ResponseBuilderInterface */
+    protected $responseBuilder;
+
+    /** @var GetTermsVersionToSign */
+    protected $getTermsVersionToSign;
+
+    public function __construct(
+        EntityRecoderInterface $entityRecoder,
+        EventDispatcherInterface $eventDispatcher,
+        ResponseBuilderInterface $responseBuilder,
+        GetTermsVersionToSign $getTermsVersionToSign
+    )
     {
-        $this->termsRepository = $termsRepository;
-        $this->hasSignTerms = $hasSignTerms;
+        $this->eventDispatcher = $eventDispatcher;
+        $this->entityRecoder = $entityRecoder;
+        $this->responseBuilder = $responseBuilder;
+        $this->getTermsVersionToSign = $getTermsVersionToSign;
     }
 
-    public function __invoke(string $termsSlug, TermsSubjectInterface $subject, ?bool $accepted): void
+    public function __invoke(string $termsSlug, TermsSubjectInterface $subject, ?bool $accepted): Response
     {
-        $terms = $this->termsRepository->findOneBySlug($termsSlug);
+        $lastVersion = ($this->getTermsVersionToSign)($termsSlug, $subject);
 
-        if ($terms === null) {
-            throw new NotFoundTermsException($termsSlug);
+        if ($accepted === true) {
+            $signature = TermsVersionSignature::sign($lastVersion, $subject);
+            $this->entityRecoder->saveSignature($signature);
         }
 
-        $lastVersion = $terms->getLatestVersion();
+        $defaultResponse = $this->responseBuilder->buildDefaultTermsSignedResponse($accepted);
+        $event = new TermsSignedEvent($lastVersion, $subject, $accepted, $defaultResponse);
+        $this->eventDispatcher->dispatchTermsSignedEvent($event);
 
-        if ($lastVersion === null) {
-            throw new TermsHasNoPublishedVersionException($terms);
-        }
-
-        if (($this->hasSignTerms)($termsSlug, $subject) === HasSignTerms::HAS_SIGN_LATEST_VERSION) {
-            throw new AlreadySignLastTermsVersionException($termsSlug, $subject);
-        }
-
-        if ($accepted === null) {
-            return;
-        }
-
-        if ($accepted) {
-        }
-
-        //$this->notify($lastVersion);
-        //$this->log($lastVersion);
+        return $event->getResponse();
     }
 }
