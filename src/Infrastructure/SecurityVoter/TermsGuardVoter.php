@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Infrastructure\SecurityVoter;
 
-use RichId\TermsModuleBundle\Domain\Model\TermsGuardValidationInterface;
 use RichId\TermsModuleBundle\Domain\Guard\TermsGuardInterface;
+use RichId\TermsModuleBundle\Domain\Model\TermsGuardValidationInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 

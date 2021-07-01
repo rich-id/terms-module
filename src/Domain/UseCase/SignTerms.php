@@ -32,8 +32,7 @@ class SignTerms
         EventDispatcherInterface $eventDispatcher,
         ResponseBuilderInterface $responseBuilder,
         GetTermsVersionToSign $getTermsVersionToSign
-    )
-    {
+    ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->entityRecoder = $entityRecoder;
         $this->responseBuilder = $responseBuilder;

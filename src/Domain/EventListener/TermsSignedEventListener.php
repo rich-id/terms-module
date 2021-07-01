@@ -10,7 +10,7 @@ use RichId\TermsModuleBundle\Domain\Port\LoggerInterface;
 final class TermsSignedEventListener
 {
     /** @var LoggerInterface */
-    protected $logger;
+    private $logger;
 
     public function __construct(LoggerInterface $logger)
     {

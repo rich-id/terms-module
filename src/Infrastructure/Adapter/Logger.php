@@ -52,7 +52,7 @@ class Logger implements LoggerInterface
                     '_terms'  => $termsSlug,
                     '_choice' => $choice,
                     '_user'   => $userUsername,
-                ]
+                ],
             ]
         );
     }
