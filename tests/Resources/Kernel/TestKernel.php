@@ -6,11 +6,11 @@ namespace RichId\TermsModuleBundle\Tests\Resources\Kernel;
 
 use RichCongress\WebTestBundle\Kernel\DefaultTestKernel;
 
-class TestKernel extends DefaultTestKernel
+final class TestKernel extends DefaultTestKernel
 {
     public function __construct()
     {
-        parent::__construct('test', false);
+        parent::__construct('test', true);
     }
 
     public function getConfigurationDir(): ?string

@@ -1,0 +1,9 @@
+app_front:
+    controller: RichId\TermsModuleBundle\Tests\Resources\Controller\FrontRoute
+    methods: GET
+    path: /
+
+app_other_front:
+    controller: RichId\TermsModuleBundle\Tests\Resources\Controller\OtherFrontRoute
+    methods: GET
+    path: /other

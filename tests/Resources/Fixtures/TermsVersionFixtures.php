@@ -14,6 +14,8 @@ final class TermsVersionFixtures extends AbstractFixture implements DependentFix
     protected function loadFixtures(): void
     {
         $terms1 = $this->getTerms('1');
+        $terms4 = $this->getTerms('4');
+        $terms5 = $this->getTerms('5');
 
         $this->createObject(
             TermsVersion::class,
@@ -21,8 +23,8 @@ final class TermsVersionFixtures extends AbstractFixture implements DependentFix
             [
                 'version'   => 1,
                 'isEnabled' => true,
-                'title'     => 'title',
-                'content'   => 'content',
+                'title'     => 'Title Version 1',
+                'content'   => 'Content Version 1',
                 'terms'     => $terms1,
             ]
         );
@@ -33,8 +35,8 @@ final class TermsVersionFixtures extends AbstractFixture implements DependentFix
             [
                 'version'   => 2,
                 'isEnabled' => true,
-                'title'     => 'title',
-                'content'   => 'content',
+                'title'     => 'Title Version 2',
+                'content'   => 'Content Version 2',
                 'terms'     => $terms1,
             ]
         );
@@ -45,8 +47,8 @@ final class TermsVersionFixtures extends AbstractFixture implements DependentFix
             [
                 'version'   => 3,
                 'isEnabled' => true,
-                'title'     => 'title',
-                'content'   => 'content',
+                'title'     => 'Title Version 3',
+                'content'   => 'Content Version 3',
                 'terms'     => $terms1,
             ]
         );
@@ -57,9 +59,33 @@ final class TermsVersionFixtures extends AbstractFixture implements DependentFix
             [
                 'version'   => 4,
                 'isEnabled' => false,
-                'title'     => 'title',
-                'content'   => 'content',
+                'title'     => 'Title Version 4',
+                'content'   => 'Content Version 4',
                 'terms'     => $terms1,
+            ]
+        );
+
+        $this->createObject(
+            TermsVersion::class,
+            'v1-terms-4',
+            [
+                'version'   => 1,
+                'isEnabled' => true,
+                'title'     => 'Title Version 1',
+                'content'   => 'Content Version 1',
+                'terms'     => $terms4,
+            ]
+        );
+
+        $this->createObject(
+            TermsVersion::class,
+            'v1-terms-5',
+            [
+                'version'   => 1,
+                'isEnabled' => true,
+                'title'     => 'Title Version 1',
+                'content'   => 'Content Version 1',
+                'terms'     => $terms5,
             ]
         );
     }

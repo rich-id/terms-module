@@ -29,8 +29,14 @@ class HasSignTerms
 
     public function __invoke(string $termsSlug, TermsSubjectInterface $subject): int
     {
-        if ($this->termsRepository->findOneBySlug($termsSlug) === null) {
+        $terms = $this->termsRepository->findOneBySlug($termsSlug);
+
+        if ($terms === null) {
             throw new NotFoundTermsException($termsSlug);
+        }
+
+        if (!$terms->isPublished()) {
+            return self::HAS_NOT_SIGN;
         }
 
         $lastSignedVersion = $this->termsVersionRepository->findLastSignedVersionForTermsSubject($termsSlug, $subject);

@@ -12,7 +12,9 @@
     <div class="terms-module-sign-body">
         <div class="terms-module-container">
             <div class="terms-module-sign-content">
-                <div class="terms-module-ribon">{{ 'terms_module.sign.new_version'|trans({}, 'terms_module') }}</div>
+                {% if hasSignTerms(terms.slug, subject.termsSubjectType, subject.termsSubjectIdentifier) == constant('RichId\\TermsModuleBundle\\Domain\\UseCase\\HasSignTerms::HAS_SIGN_OLD_VERSION') %}
+                    <div class="terms-module-ribon">{{ 'terms_module.sign.new_version'|trans({}, 'terms_module') }}</div>
+                {% endif %}
 
                 <div class="terms-module-sign-content-title">{{ lastTermsVersion.title }}</div>
                 <div>{{ lastTermsVersion.content|raw }}</div>

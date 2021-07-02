@@ -7,6 +7,7 @@ namespace RichId\TermsModuleBundle\UserInterface\Controller;
 use RichId\TermsModuleBundle\Domain\Entity\TermsSubjectInterface;
 use RichId\TermsModuleBundle\Domain\Exception\AlreadySignLastTermsVersionException;
 use RichId\TermsModuleBundle\Domain\Exception\NotFoundTermsException;
+use RichId\TermsModuleBundle\Domain\Exception\NotPublishedTermsException;
 use RichId\TermsModuleBundle\Domain\Exception\TermsHasNoPublishedVersionException;
 use RichId\TermsModuleBundle\Domain\Fetcher\GetTermsVersionToSign;
 use RichId\TermsModuleBundle\Domain\Model\DummySubject;
@@ -46,9 +47,9 @@ class SignRoute extends AbstractController
             $lastVersion = ($this->getTermsVersionToSign)($termsSlug, $subject);
             $terms = $lastVersion->getTerms();
 
-            $accepted = $this->getIsAcceptedFromRequest($request);
-
             if ($request->getMethod() === Request::METHOD_POST) {
+                $accepted = $this->getIsAcceptedFromRequest($request);
+
                 return ($this->signTerms)($termsSlug, $subject, $accepted);
             }
 
@@ -60,16 +61,10 @@ class SignRoute extends AbstractController
                     'subject'          => $subject,
                 ]
             );
-        } catch (NotFoundTermsException $e) {
-            throw new NotFoundHttpException(
-                \sprintf('No terms found with slug %s', $termsSlug)
-            );
-        } catch (TermsHasNoPublishedVersionException $e) {
-            throw new NotFoundHttpException(
-                \sprintf('Terms %s hasn\'t published version', $termsSlug)
-            );
+        } catch (NotFoundTermsException | NotPublishedTermsException | TermsHasNoPublishedVersionException $e) {
+            throw new NotFoundHttpException($e->getMessage());
         } catch (AlreadySignLastTermsVersionException $e) {
-            throw new AccessDeniedException('You have already signed this terms');
+            throw new AccessDeniedException('You have already signed this terms.');
         }
     }
 

@@ -43,5 +43,27 @@ final class TermsFixtures extends AbstractFixture
                 'isDepublicationLocked' => false,
             ]
         );
+
+        $this->createObject(
+            Terms::class,
+            '4',
+            [
+                'slug'                  => 'terms-4',
+                'name'                  => 'Terms 4',
+                'isPublished'           => true,
+                'isDepublicationLocked' => false,
+            ]
+        );
+
+        $this->createObject(
+            Terms::class,
+            '5',
+            [
+                'slug'                  => 'terms-5',
+                'name'                  => 'Terms 5',
+                'isPublished'           => true,
+                'isDepublicationLocked' => false,
+            ]
+        );
     }
 }

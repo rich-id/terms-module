@@ -52,13 +52,13 @@ final class TermsVersionRepositoryTest extends TestCase
 
     public function testRemoveTermsVersion(): void
     {
-        $this->assertCount(4, $this->adapter->findAll());
+        $this->assertCount(6, $this->adapter->findAll());
 
         $termsVersion = $this->adapter->find($this->getReference(TermsVersion::class, 'v4-terms-1'));
 
         /* @phpstan-ignore-next-line */
         $this->adapter->removeTermsVersion($termsVersion);
 
-        $this->assertCount(3, $this->adapter->findAll());
+        $this->assertCount(5, $this->adapter->findAll());
     }
 }

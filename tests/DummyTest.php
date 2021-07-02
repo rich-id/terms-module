@@ -8,7 +8,7 @@ use RichCongress\TestTools\TestCase\TestCase;
 use RichId\TermsModuleBundle\Infrastructure\RichIdTermsModuleBundle;
 
 /** @covers \RichId\TermsModuleBundle\Infrastructure\RichIdTermsModuleBundle */
-class DummyTest extends TestCase
+final class DummyTest extends TestCase
 {
     public function testInstanciateBundle(): void
     {

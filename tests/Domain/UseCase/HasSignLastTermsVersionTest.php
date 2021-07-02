@@ -8,15 +8,15 @@ use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Exception\NotFoundTermsException;
 use RichId\TermsModuleBundle\Domain\Model\DummySubject;
-use RichId\TermsModuleBundle\Domain\UseCase\HasSignTerms;
+use RichId\TermsModuleBundle\Domain\UseCase\HasSignLastTermsVersion;
 
 /**
- * @covers \RichId\TermsModuleBundle\Domain\UseCase\HasSignTerms
+ * @covers \RichId\TermsModuleBundle\Domain\UseCase\HasSignLastTermsVersion
  * @TestConfig("fixtures")
  */
-final class HasSignTermsTest extends TestCase
+final class HasSignLastTermsVersionTest extends TestCase
 {
-    /** @var HasSignTerms */
+    /** @var HasSignLastTermsVersion */
     public $useCase;
 
     public function testUseCaseTermsNotExist(): void
@@ -31,32 +31,32 @@ final class HasSignTermsTest extends TestCase
     public function testUseCaseTermsNotPublished(): void
     {
         $subject = DummySubject::create('user', '42');
-        $code = ($this->useCase)('terms-2', $subject);
+        $hasSign = ($this->useCase)('terms-2', $subject);
 
-        $this->assertSame(HasSignTerms::HAS_NOT_SIGN, $code);
+        $this->assertFalse($hasSign);
     }
 
     public function testUseCaseSubjectNotExist(): void
     {
         $subject = DummySubject::create('user', '999');
-        $code = ($this->useCase)('terms-1', $subject);
+        $hasSign = ($this->useCase)('terms-1', $subject);
 
-        $this->assertSame(HasSignTerms::HAS_NOT_SIGN, $code);
+        $this->assertFalse($hasSign);
     }
 
     public function testUseCaseHasSignOldVersion(): void
     {
         $subject = DummySubject::create('user', '42');
-        $code = ($this->useCase)('terms-1', $subject);
+        $hasSign = ($this->useCase)('terms-1', $subject);
 
-        $this->assertSame(HasSignTerms::HAS_SIGN_OLD_VERSION, $code);
+        $this->assertFalse($hasSign);
     }
 
     public function testUseCaseHasSignLatestVersion(): void
     {
         $subject = DummySubject::create('user', '43');
-        $code = ($this->useCase)('terms-1', $subject);
+        $hasSign = ($this->useCase)('terms-1', $subject);
 
-        $this->assertSame(HasSignTerms::HAS_SIGN_LATEST_VERSION, $code);
+        $this->assertTrue($hasSign);
     }
 }

@@ -8,6 +8,7 @@ use RichId\TermsModuleBundle\Domain\Entity\TermsSubjectInterface;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Exception\AlreadySignLastTermsVersionException;
 use RichId\TermsModuleBundle\Domain\Exception\NotFoundTermsException;
+use RichId\TermsModuleBundle\Domain\Exception\NotPublishedTermsException;
 use RichId\TermsModuleBundle\Domain\Exception\TermsHasNoPublishedVersionException;
 use RichId\TermsModuleBundle\Domain\Port\TermsRepositoryInterface;
 use RichId\TermsModuleBundle\Domain\UseCase\HasSignTerms;
@@ -32,6 +33,10 @@ class GetTermsVersionToSign
 
         if ($terms === null) {
             throw new NotFoundTermsException($termsSlug);
+        }
+
+        if (!$terms->isPublished()) {
+            throw new NotPublishedTermsException($termsSlug);
         }
 
         $lastVersion = $terms->getLatestVersion();

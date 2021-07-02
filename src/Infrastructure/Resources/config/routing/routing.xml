@@ -5,11 +5,11 @@
     https://symfony.com/schema/routing/routing-1.0.xsd">
 
     <route id="module_terms_admin_list" path="/administration/terms"
-           controller="RichId\TermsModuleBundle\UserInterface\FrontController\TermsController::listAdmin"
+           controller="RichId\TermsModuleBundle\UserInterface\Controller\ListAdminRoute"
            methods="GET" />
 
     <route id="module_terms_admin_edition" path="/administration/terms/{terms}"
-           controller="RichId\TermsModuleBundle\UserInterface\FrontController\TermsController::editAdmin"
+           controller="RichId\TermsModuleBundle\UserInterface\Controller\EditAdminRoute"
            methods="GET">
         <requirement key="terms">\d+</requirement>
     </route>
