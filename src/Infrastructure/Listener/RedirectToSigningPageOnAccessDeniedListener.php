@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\Routing\RouterInterface;
 
-class RedirectToSigningPageOnAccessDenied
+class RedirectToSigningPageOnAccessDeniedListener
 {
     /** @var RouterInterface */
     protected $router;

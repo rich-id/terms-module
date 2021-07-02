@@ -7,7 +7,7 @@ namespace RichId\TermsModuleBundle\Domain\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionSignatureRepository")
  * @ORM\Table(
  *     name="module_terms_terms_version_signature",
  *     uniqueConstraints={

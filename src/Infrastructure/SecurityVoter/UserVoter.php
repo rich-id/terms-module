@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class TermsVoter extends Voter
+class UserVoter extends Voter
 {
     public const MODULE_TERMS_ADMIN = 'MODULE_TERMS_ADMIN';
 
@@ -32,15 +32,6 @@ class TermsVoter extends Voter
     }
 
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
-    {
-        if ($attribute === self::MODULE_TERMS_ADMIN) {
-            return $this->moduleTermsAdmin($token);
-        }
-
-        throw new \LogicException('This code should not be reached!');
-    }
-
-    protected function moduleTermsAdmin(TokenInterface $token): bool
     {
         $user = $token->getUser();
 

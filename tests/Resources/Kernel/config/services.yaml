@@ -12,6 +12,8 @@ services:
 
     RichId\TermsModuleBundle\Tests\Resources\Controller\FrontRoute: ~
     RichId\TermsModuleBundle\Tests\Resources\Controller\OtherFrontRoute: ~
+    RichId\TermsModuleBundle\Tests\Resources\Controller\WithAccessRoute: ~
+    RichId\TermsModuleBundle\Tests\Resources\Controller\WithExceptionRoute: ~
 
     RichId\TermsModuleBundle\Tests\Resources\Stubs\EventDispatcherStub: ~
     RichId\TermsModuleBundle\Tests\Resources\Stubs\LoggerStub: ~
@@ -24,5 +26,8 @@ services:
     RichId\TermsModuleBundle\Tests\Resources\Fixtures\TermsFixtures: ~
     RichId\TermsModuleBundle\Tests\Resources\Fixtures\TermsVersionFixtures: ~
     RichId\TermsModuleBundle\Tests\Resources\Fixtures\TermsVersionSignatureFixtures: ~
+
+    RichId\TermsModuleBundle\Infrastructure\SecurityVoter\TermsGuardVoter: ~
+    RichId\TermsModuleBundle\Infrastructure\SecurityVoter\UserVoter: ~
 
     RichId\TermsModuleBundle\Tests\Resources\Guard\Terms5Guard: ~

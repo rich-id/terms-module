@@ -22,7 +22,7 @@
         <service id="RichId\TermsModuleBundle\Domain\UseCase\HasSignTerms" />
         <service id="RichId\TermsModuleBundle\Domain\UseCase\SignTerms" />
 
-        <service id="RichId\TermsModuleBundle\Infrastructure\Listener\RedirectToSigningPageOnAccessDenied">
+        <service id="RichId\TermsModuleBundle\Infrastructure\Listener\RedirectToSigningPageOnAccessDeniedListener">
             <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException" priority="2" />
         </service>
 
@@ -33,9 +33,10 @@
         <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\TermsRepository" />
         <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\TermsVersionRepository" />
         <service id="RichId\TermsModuleBundle\Infrastructure\Repository\TermsRepository" />
+        <service id="RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionRepository" />
         <service id="RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionSignatureRepository" />
         <service id="RichId\TermsModuleBundle\Infrastructure\SecurityVoter\TermsGuardVoter" />
-        <service id="RichId\TermsModuleBundle\Infrastructure\SecurityVoter\TermsVoter" />
+        <service id="RichId\TermsModuleBundle\Infrastructure\SecurityVoter\UserVoter" />
         <service id="RichId\TermsModuleBundle\Infrastructure\TwigExtension\TermsExtension" />
 
         <service id="RichId\TermsModuleBundle\UserInterface\Controller\EditAdminRoute" />

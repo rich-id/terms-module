@@ -4,21 +4,22 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Infrastructure\Adapter;
 
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
 use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Port\TermsRepositoryInterface;
+use RichId\TermsModuleBundle\Infrastructure\Repository\TermsRepository as InfrastructureTermsRepository;
 
-/** @extends ServiceEntityRepository<Terms> */
-class TermsRepository extends ServiceEntityRepository implements TermsRepositoryInterface
+class TermsRepository implements TermsRepositoryInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    /** @var InfrastructureTermsRepository */
+    protected $termsRepository;
+
+    public function __construct(InfrastructureTermsRepository $termsRepository)
     {
-        parent::__construct($registry, Terms::class);
+        $this->termsRepository = $termsRepository;
     }
 
     public function findOneBySlug(string $termsSlug): ?Terms
     {
-        return $this->findOneBy(['slug' => $termsSlug]);
+        return $this->termsRepository->findOneBySlug($termsSlug);
     }
 }

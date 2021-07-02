@@ -6,14 +6,14 @@ namespace RichId\TermsModuleBundle\Infrastructure\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use RichId\TermsModuleBundle\Domain\Entity\TermsVersionSignature;
+use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 
-/** @extends ServiceEntityRepository<TermsVersionSignature> */
-class TermsVersionSignatureRepository extends ServiceEntityRepository
+/** @extends ServiceEntityRepository<TermsVersion> */
+class TermsVersionRepository extends ServiceEntityRepository
 {
     /** @codeCoverageIgnore  */
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, TermsVersionSignature::class);
+        parent::__construct($registry, TermsVersion::class);
     }
 }

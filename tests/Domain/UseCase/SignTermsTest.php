@@ -91,7 +91,7 @@ final class SignTermsTest extends TestCase
         $this->getManager()->flush();
 
         $this->assertInstanceOf(Response::class, $response);
-        $this->assertSame('/', $response->headers->get('location'));
+        $this->assertSame('/ignore', $response->headers->get('location'));
 
         $this->assertCount(1, $this->loggerStub->getLogs());
 
@@ -125,7 +125,7 @@ final class SignTermsTest extends TestCase
         $this->getManager()->flush();
 
         $this->assertInstanceOf(Response::class, $response);
-        $this->assertSame('/', $response->headers->get('location'));
+        $this->assertSame('/refusal', $response->headers->get('location'));
 
         $this->assertCount(1, $this->loggerStub->getLogs());
 
@@ -159,7 +159,7 @@ final class SignTermsTest extends TestCase
         $this->getManager()->flush();
 
         $this->assertInstanceOf(Response::class, $response);
-        $this->assertSame('/', $response->headers->get('location'));
+        $this->assertSame('/acceptation', $response->headers->get('location'));
 
         $this->assertCount(1, $this->loggerStub->getLogs());
 

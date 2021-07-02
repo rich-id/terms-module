@@ -1,6 +1,6 @@
 rich_id_terms_module:
     admin_roles: [ ROLE_ADMIN ]
     default_redirection_routes:
-        acceptation: app_front
-        refusal: app_front
-        ignore: app_front
+        acceptation: app_acceptation_front
+        refusal: app_refusal_front
+        ignore: app_ignore_front

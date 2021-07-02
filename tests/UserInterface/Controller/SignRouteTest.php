@@ -269,7 +269,7 @@ final class SignRouteTest extends TestCase
             );
 
         $this->assertSame(Response::HTTP_FOUND, $response->getStatusCode());
-        $this->assertSame('/', $response->headers->get('location'));
+        $this->assertSame('/ignore', $response->headers->get('location'));
 
         $this->assertCount(1, $this->loggerStub->getLogs());
 
@@ -310,7 +310,7 @@ final class SignRouteTest extends TestCase
             );
 
         $this->assertSame(Response::HTTP_FOUND, $response->getStatusCode());
-        $this->assertSame('/', $response->headers->get('location'));
+        $this->assertSame('/refusal', $response->headers->get('location'));
 
         $this->assertCount(1, $this->loggerStub->getLogs());
 
@@ -351,7 +351,7 @@ final class SignRouteTest extends TestCase
             );
 
         $this->assertSame(Response::HTTP_FOUND, $response->getStatusCode());
-        $this->assertSame('/', $response->headers->get('location'));
+        $this->assertSame('/acceptation', $response->headers->get('location'));
 
         $this->assertCount(1, $this->loggerStub->getLogs());
 

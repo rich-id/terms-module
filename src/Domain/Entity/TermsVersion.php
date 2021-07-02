@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="RichId\TermsModuleBundle\Infrastructure\Adapter\TermsVersionRepository")
+ * @ORM\Entity(repositoryClass="RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionRepository")
  * @ORM\Table(
  *     name="module_terms_terms_version",
  *     uniqueConstraints={
