@@ -12,7 +12,7 @@ use RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionRepository;
 use RichId\TermsModuleBundle\Tests\Resources\Stubs\EntityManagerStub;
 
 /**
- * @covers \RichId\TermsModuleBundle\Infrastructure\Adapter\TermsVersionRepository
+ * @covers \RichId\TermsModuleBundle\Infrastructure\Adapter\EntityRemover
  * @TestConfig("fixtures")
  */
 final class EntityRemoverTest extends TestCase
