@@ -7994,16 +7994,16 @@
         },
         {
             "name": "richcongress/recurrent-fixtures-test-bundle",
-            "version": "v0.1.2",
+            "version": "v0.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rich-id/recurrent-fixtures-test-bundle.git",
-                "reference": "fe0f4a90b7748a3a91cdfdfb25859c40fd0fbdd7"
+                "reference": "dea9b6298ea9d3abf08cc16320d0719f52adef38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rich-id/recurrent-fixtures-test-bundle/zipball/fe0f4a90b7748a3a91cdfdfb25859c40fd0fbdd7",
-                "reference": "fe0f4a90b7748a3a91cdfdfb25859c40fd0fbdd7",
+                "url": "https://api.github.com/repos/rich-id/recurrent-fixtures-test-bundle/zipball/dea9b6298ea9d3abf08cc16320d0719f52adef38",
+                "reference": "dea9b6298ea9d3abf08cc16320d0719f52adef38",
                 "shasum": ""
             },
             "require": {
@@ -8041,7 +8041,7 @@
                 "issues": "https://github.com/richcongress/recurrent-fixtures-test-bundle/issues",
                 "source": "https://github.com/richcongress/recurrent-fixtures-test-bundle"
             },
-            "time": "2021-03-02T11:00:45+00:00"
+            "time": "2021-06-29T12:12:26+00:00"
         },
         {
             "name": "richcongress/static-analysis",

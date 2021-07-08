@@ -36,8 +36,7 @@ class SignRoute extends AbstractController
         GetTermsVersionToSign $getTermsVersionToSign,
         SignTerms $signTerms,
         RequestStack $requestStack
-    )
-    {
+    ) {
         $this->getTermsVersionToSign = $getTermsVersionToSign;
         $this->signTerms = $signTerms;
         $this->requestStack = $requestStack;
@@ -45,7 +44,7 @@ class SignRoute extends AbstractController
 
     public function __invoke(string $termsSlug): Response
     {
-        $request = $this->requestStack->getCurrentRequest();
+        $request = $this->requestStack->getCurrentRequest() ?? new Request();
         $subject = $this->getSubject($request);
         $termsGuardValidation = DummyTermsGuardValidation::create($termsSlug, $subject->getTermsSubjectType(), $subject->getTermsSubjectIdentifier());
 
