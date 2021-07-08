@@ -31,10 +31,9 @@ final class EntityRecorderTest extends TestCase
     public function testSaveSignature(): void
     {
         $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
-        $version = $this->termsVersionRepository->find($this->getReference(TermsVersion::class, 'v3-terms-1'));
+        $version = $this->getReference(TermsVersion::class, 'v3-terms-1');
         $subject = DummySubject::create('user', '42');
 
-        /* @phpstan-ignore-next-line */
         $signature = TermsVersionSignature::sign($version, $subject);
         $this->adapter->saveSignature($signature);
 

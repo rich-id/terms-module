@@ -13,9 +13,9 @@ final class TermsVersionFixtures extends AbstractFixture implements DependentFix
 {
     protected function loadFixtures(): void
     {
-        $terms1 = $this->getTerms('1');
-        $terms4 = $this->getTerms('4');
-        $terms5 = $this->getTerms('5');
+        $terms1 = $this->getReference(Terms::class, '1');
+        $terms4 = $this->getReference(Terms::class, '4');
+        $terms5 = $this->getReference(Terms::class, '5');
 
         $this->createObject(
             TermsVersion::class,
@@ -95,18 +95,5 @@ final class TermsVersionFixtures extends AbstractFixture implements DependentFix
         return [
             TermsFixtures::class,
         ];
-    }
-
-    private function getTerms(string $reference): ?Terms
-    {
-        $termsFixture = $this->getReference(Terms::class, $reference);
-
-        if ($termsFixture === null) {
-            return null;
-        }
-
-        return $this->manager
-            ->getRepository(Terms::class)
-            ->find($termsFixture->getId());
     }
 }

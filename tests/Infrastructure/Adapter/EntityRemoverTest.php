@@ -30,9 +30,8 @@ final class EntityRemoverTest extends TestCase
     {
         $this->assertCount(6, $this->termsVersionRepository->findAll());
 
-        $termsVersion = $this->termsVersionRepository->find($this->getReference(TermsVersion::class, 'v4-terms-1'));
+        $termsVersion = $this->getReference(TermsVersion::class, 'v4-terms-1');
 
-        /* @phpstan-ignore-next-line */
         $this->adapter->removeTermsVersion($termsVersion);
 
         $this->assertCount(1, $this->entityManagerStub->getRemovedEntities());
