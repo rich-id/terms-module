@@ -13,9 +13,9 @@ final class TermsVersionSignatureFixtures extends AbstractFixture implements Dep
 {
     protected function loadFixtures(): void
     {
-        $termsVersion1 = $this->getReference(TermsVersion::class,  'v1-terms-1');
-        $termsVersion2 = $this->getReference(TermsVersion::class,  'v2-terms-1');
-        $termsVersion3 = $this->getReference(TermsVersion::class,  'v3-terms-1');
+        $termsVersion1 = $this->getReference(TermsVersion::class, 'v1-terms-1');
+        $termsVersion2 = $this->getReference(TermsVersion::class, 'v2-terms-1');
+        $termsVersion3 = $this->getReference(TermsVersion::class, 'v3-terms-1');
 
         $this->createObject(
             TermsVersionSignature::class,
