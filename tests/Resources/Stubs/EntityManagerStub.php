@@ -39,7 +39,7 @@ final class EntityManagerStub extends AbstractOverrideService implements EntityM
         return $this->innerService->getExpressionBuilder();
     }
 
-    public function beginTransaction()
+    public function beginTransaction(): void
     {
         $this->innerService->beginTransaction();
     }
@@ -49,12 +49,12 @@ final class EntityManagerStub extends AbstractOverrideService implements EntityM
         return $this->innerService->transactional($func);
     }
 
-    public function commit()
+    public function commit(): void
     {
         $this->innerService->commit();
     }
 
-    public function rollback()
+    public function rollback(): void
     {
         $this->innerService->rollback();
     }
@@ -94,7 +94,7 @@ final class EntityManagerStub extends AbstractOverrideService implements EntityM
         return $this->innerService->getPartialReference($entityName, $identifier);
     }
 
-    public function close()
+    public function close(): void
     {
         $this->innerService->close();
     }
@@ -104,7 +104,7 @@ final class EntityManagerStub extends AbstractOverrideService implements EntityM
         return $this->innerService->copy($entity, $deep);
     }
 
-    public function lock($entity, $lockMode, $lockVersion = null)
+    public function lock($entity, $lockMode, $lockVersion = null): void
     {
         $this->innerService->lock($entity, $lockMode, $lockVersion);
     }
@@ -169,13 +169,13 @@ final class EntityManagerStub extends AbstractOverrideService implements EntityM
         return $this->innerService->find($className, $id);
     }
 
-    public function persist($object)
+    public function persist($object): void
     {
         $this->persistedEntities[] = $object;
         $this->innerService->persist($object);
     }
 
-    public function remove($object)
+    public function remove($object): void
     {
         $this->removedEntities[] = $object;
         $this->innerService->remove($object);
@@ -186,27 +186,27 @@ final class EntityManagerStub extends AbstractOverrideService implements EntityM
         return $this->innerService->merge($object);
     }
 
-    public function clear($objectName = null)
+    public function clear($objectName = null): void
     {
         $this->innerService->clear($objectName);
     }
 
-    public function detach($object)
+    public function detach($object): void
     {
         $this->innerService->detach($object);
     }
 
-    public function refresh($object)
+    public function refresh($object): void
     {
         $this->innerService->refresh($object);
     }
 
-    public function flush()
+    public function flush(): void
     {
         $this->innerService->flush();
     }
 
-    public function initializeObject($obj)
+    public function initializeObject($obj): void
     {
         $this->innerService->initializeObject($obj);
     }
