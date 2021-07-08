@@ -15,6 +15,7 @@ use RichId\TermsModuleBundle\Domain\Model\DummyTermsGuardValidation;
 use RichId\TermsModuleBundle\Domain\UseCase\SignTerms;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -28,14 +29,23 @@ class SignRoute extends AbstractController
     /** @var SignTerms */
     protected $signTerms;
 
-    public function __construct(GetTermsVersionToSign $getTermsVersionToSign, SignTerms $signTerms)
+    /** @var RequestStack */
+    protected $requestStack;
+
+    public function __construct(
+        GetTermsVersionToSign $getTermsVersionToSign,
+        SignTerms $signTerms,
+        RequestStack $requestStack
+    )
     {
         $this->getTermsVersionToSign = $getTermsVersionToSign;
         $this->signTerms = $signTerms;
+        $this->requestStack = $requestStack;
     }
 
-    public function __invoke(string $termsSlug, Request $request): Response
+    public function __invoke(string $termsSlug): Response
     {
+        $request = $this->requestStack->getCurrentRequest();
         $subject = $this->getSubject($request);
         $termsGuardValidation = DummyTermsGuardValidation::create($termsSlug, $subject->getTermsSubjectType(), $subject->getTermsSubjectIdentifier());
 

@@ -13,6 +13,7 @@
 
         <service id="RichId\TermsModuleBundle\Domain\Fetcher\GetTermsVersionToSign" />
         <service id="RichId\TermsModuleBundle\Domain\Port\EntityRecoderInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\EntityRecorder"/>
+        <service id="RichId\TermsModuleBundle\Domain\Port\EntityRemoverInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\EntityRemover"/>
         <service id="RichId\TermsModuleBundle\Domain\Port\EventDispatcherInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\EventDispatcher"/>
         <service id="RichId\TermsModuleBundle\Domain\Port\LoggerInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\Logger"/>
         <service id="RichId\TermsModuleBundle\Domain\Port\ResponseBuilderInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\ResponseBuilder"/>
@@ -27,6 +28,7 @@
         </service>
 
         <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\EntityRecorder" />
+        <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\EntityRemover" />
         <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\EventDispatcher" />
         <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\Logger" />
         <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\ResponseBuilder" />

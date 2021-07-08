@@ -6,16 +6,16 @@ namespace RichId\TermsModuleBundle\Domain\UseCase;
 
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Exception\EnabledVersionCannotBeDeletedException;
-use RichId\TermsModuleBundle\Domain\Port\TermsVersionRepositoryInterface;
+use RichId\TermsModuleBundle\Domain\Port\EntityRemoverInterface;
 
 class RemoveTermsVersion
 {
-    /** @var TermsVersionRepositoryInterface */
-    protected $termsVersionRepository;
+    /** @var EntityRemoverInterface */
+    protected $entityRemover;
 
-    public function __construct(TermsVersionRepositoryInterface $termsVersionRepository)
+    public function __construct(EntityRemoverInterface $entityRemover)
     {
-        $this->termsVersionRepository = $termsVersionRepository;
+        $this->entityRemover = $entityRemover;
     }
 
     public function __invoke(TermsVersion $termsVersion): void
@@ -24,6 +24,6 @@ class RemoveTermsVersion
             throw new EnabledVersionCannotBeDeletedException($termsVersion);
         }
 
-        $this->termsVersionRepository->removeTermsVersion($termsVersion);
+        $this->entityRemover->removeTermsVersion($termsVersion);
     }
 }

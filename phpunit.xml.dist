@@ -11,7 +11,7 @@
 >
     <php>
         <ini name="error_reporting" value="-1"/>
-        <env name="KERNEL_DIR" value="Tests/Resources/Kernel" />
+        <env name="KERNEL_DIR" value="tests/Resources/Kernel" />
         <env name="KERNEL_CLASS" value="RichId\TermsModuleBundle\Tests\Resources\Kernel\TestKernel" />
         <env name="SHELL_VERBOSITY" value="-1" />
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak" />

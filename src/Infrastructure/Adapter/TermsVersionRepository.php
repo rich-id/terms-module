@@ -39,10 +39,4 @@ class TermsVersionRepository extends ServiceEntityRepository implements TermsVer
             ->getQuery()
             ->getOneOrNullResult();
     }
-
-    public function removeTermsVersion(TermsVersion $termsVersion): void
-    {
-        $this->_em->remove($termsVersion);
-        $this->_em->flush();
-    }
 }
