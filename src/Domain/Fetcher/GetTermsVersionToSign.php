@@ -39,7 +39,7 @@ class GetTermsVersionToSign
             throw new NotPublishedTermsException($termsSlug);
         }
 
-        $lastVersion = $terms->getLatestVersion();
+        $lastVersion = $terms->getLatestPublishedVersion();
 
         if ($lastVersion === null) {
             throw new TermsHasNoPublishedVersionException($terms);

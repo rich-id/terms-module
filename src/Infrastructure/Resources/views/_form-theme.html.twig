@@ -1,0 +1,8 @@
+{% block form_row -%}
+    <div class="terms-module-form-field">
+        {{- form_label(form, '', {'label_attr': {'class': 'terms-module-form-field-label'}}) }}
+        {{ form_widget(form, {attr: attr|merge({class: (attr.class|default('') ~ ' terms-module-form-field-input')|trim})}) }}
+        {{- form_help(form) -}}
+        {{ form_errors(form) }}
+    </div>
+{%- endblock form_row %}

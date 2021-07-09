@@ -10,7 +10,7 @@
 
     <route id="module_terms_admin_edition" path="/administration/terms/{terms}"
            controller="RichId\TermsModuleBundle\UserInterface\Controller\EditAdminRoute"
-           methods="GET">
+           methods="GET|POST">
         <requirement key="terms">\d+</requirement>
     </route>
 

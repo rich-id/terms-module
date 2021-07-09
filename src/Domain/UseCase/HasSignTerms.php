@@ -46,7 +46,7 @@ class HasSignTerms
         }
 
         $terms = $lastSignedVersion->getTerms();
-        $lastVersion = $terms->getLatestVersion();
+        $lastVersion = $terms->getLatestPublishedVersion();
 
         if ($lastVersion === null || $lastVersion->getId() !== $lastSignedVersion->getId()) {
             return self::HAS_SIGN_OLD_VERSION;

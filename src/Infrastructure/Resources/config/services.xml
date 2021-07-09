@@ -41,6 +41,8 @@
         <service id="RichId\TermsModuleBundle\Infrastructure\SecurityVoter\UserVoter" />
         <service id="RichId\TermsModuleBundle\Infrastructure\TwigExtension\TermsExtension" />
 
+        <service id="RichId\TermsModuleBundle\Infrastructure\ValidatorConstraints\CantUnpublishLockedPublishedTerms" />
+
         <service id="RichId\TermsModuleBundle\UserInterface\Controller\EditAdminRoute" />
         <service id="RichId\TermsModuleBundle\UserInterface\Controller\ListAdminRoute" />
         <service id="RichId\TermsModuleBundle\UserInterface\Controller\SignRoute" />

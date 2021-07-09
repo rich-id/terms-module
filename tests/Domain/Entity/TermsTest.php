@@ -96,7 +96,29 @@ final class TermsTest extends TestCase
         $this->assertNull($entity->getLatestVersion());
     }
 
-    public function testGetLatestVersionAllVersionDisabled(): void
+    public function testGetLatestVersion(): void
+    {
+        $entity = new Terms();
+        $termVersion1 = new TermsVersion();
+        $termVersion2 = new TermsVersion();
+
+        $entity->addVersion($termVersion2);
+        $termVersion1->enable();
+        $entity->addVersion($termVersion1);
+
+        $termVersion1->setVersion(1);
+        $termVersion2->setVersion(2);
+
+        $this->assertSame($termVersion2, $entity->getLatestVersion());
+    }
+
+    public function testGetLatestPublishedVersionWithoutVersion(): void
+    {
+        $entity = new Terms();
+        $this->assertNull($entity->getLatestPublishedVersion());
+    }
+
+    public function testGetLatestPublishedVersionAllVersionDisabled(): void
     {
         $entity = new Terms();
         $termVersion1 = new TermsVersion();
@@ -108,10 +130,10 @@ final class TermsTest extends TestCase
         $termVersion1->setVersion(1);
         $termVersion2->setVersion(2);
 
-        $this->assertNull($entity->getLatestVersion());
+        $this->assertNull($entity->getLatestPublishedVersion());
     }
 
-    public function testGetLatestVersionOneVersionEnabled(): void
+    public function testGetLatestPublishedVersionOneVersionEnabled(): void
     {
         $entity = new Terms();
         $termVersion1 = new TermsVersion();
@@ -125,10 +147,10 @@ final class TermsTest extends TestCase
 
         $termVersion1->enable();
 
-        $this->assertSame($termVersion1, $entity->getLatestVersion());
+        $this->assertSame($termVersion1, $entity->getLatestPublishedVersion());
     }
 
-    public function testGetLatestVersionOneVersionEnabledButNotPublished(): void
+    public function testGetLatestPublishedVersionOneVersionEnabledButNotPublished(): void
     {
         $entity = new Terms();
         $termVersion1 = new TermsVersion();
@@ -143,10 +165,10 @@ final class TermsTest extends TestCase
         $termVersion1->enable();
         $termVersion1->setPublicationDate(new \DateTime('today midnight + 1 day'));
 
-        $this->assertNull($entity->getLatestVersion());
+        $this->assertNull($entity->getLatestPublishedVersion());
     }
 
-    public function testGetLatestVersionOneVersionEnabledAndPublished(): void
+    public function testGetLatestPublishedVersionOneVersionEnabledAndPublished(): void
     {
         $entity = new Terms();
         $termVersion1 = new TermsVersion();
@@ -161,10 +183,10 @@ final class TermsTest extends TestCase
         $termVersion1->enable();
         $termVersion1->setPublicationDate(new \DateTime('today midnight'));
 
-        $this->assertSame($termVersion1, $entity->getLatestVersion());
+        $this->assertSame($termVersion1, $entity->getLatestPublishedVersion());
     }
 
-    public function testGetLatestVersionOrderedByVersion(): void
+    public function testGetLatestPublishedVersionOrderedByVersion(): void
     {
         $entity = new Terms();
         $termVersion1 = new TermsVersion();
@@ -179,6 +201,6 @@ final class TermsTest extends TestCase
         $termVersion2->setVersion(2);
         $termVersion2->enable();
 
-        $this->assertSame($termVersion2, $entity->getLatestVersion());
+        $this->assertSame($termVersion2, $entity->getLatestPublishedVersion());
     }
 }

@@ -2,15 +2,9 @@
 {% include '@RichIdTermsModule/admin/list/_partial/_styles.html.twig' %}
 
 <div class="terms-module-style">
-    <div class="terms-module-admin-header">
-        {{ 'terms_module.admin.list.title'|trans({}, 'terms_module') }}
-    </div>
+    {% include '@RichIdTermsModule/admin/list/_partial/_header.html.twig' %}
 
     <div class="terms-module-admin-body-container">
-        <div class="terms-module-admin-body">
-            {% for terms in termsList %}
-                {% include '@RichIdTermsModule/admin/list/_partial/_terms-card.html.twig' with {'terms' : terms} %}
-            {% endfor %}
-        </div>
+        {% include '@RichIdTermsModule/admin/list/_partial/_body.html.twig' %}
     </div>
 </div>

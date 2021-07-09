@@ -1,0 +1,65 @@
+{% form_theme form '@RichIdTermsModule/_form-theme.html.twig' %}
+
+{% include '@RichIdTermsModule/_loader.html.twig' %}
+{% set publishedTermsAndDepublicationLocked = terms.published() and terms.depublicationLocked %}
+
+<div class="terms-module-admin-body terms-module-admin-body-form ">
+    <div class="terms-module-admin-edition-terms-name">{{ terms.name }}</div>
+
+    {{ form_start(form, {'attr': {'id': 'terms-edition-form'}, 'action': path('module_terms_admin_edition', {'terms': terms.id})}) }}
+{#        {{ form_label(form.isTermsEnabled) }}#}
+{#        {{ form_widget(form.isTermsEnabled) }}#}
+{#        {{ form_errors(form.isTermsEnabled) }}#}
+    {{ form_row(form.isTermsEnabled, {'attr': {'class': 'terms-module-form-field-small'}}) }}
+
+        <div class="terms-module-admin-edition-terms-version-tags">
+            {% for termsVersion in terms.versions|sort((a, b) => a.version <=> b.version) %}
+                <div class="terms-version-tag {% if termsVersion.isEnabled() %}enabled{% endif %}">
+                    {% if termsVersion.isEnabled() %}
+                        <i class="icon-lock"></i>
+                    {% else %}
+                        <i class="icon-sync-alt-regular"></i>
+                    {% endif %}
+
+
+
+                    {{ 'terms_module.admin.edit.version'|trans({'%version%': termsVersion.version}, 'terms_module') }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="terms-module-admin-edition-title-block terms-module-admin-row">
+            <div class="terms-module-admin-edition-title terms-module-admin-col">{{ form_row(form.title, {'attr': {'class': 'terms-module-form-field-full'}}) }}</div>
+            <div class="terms-module-admin-edition-publication-date terms-module-admin-col">{{ form_row(form.publicationDate, {'attr': {'class': 'terms-module-form-field-small'}}) }}</div>
+        </div>
+
+        {{ form_row(form.content, {'attr': {'class': 'terms-module-form-field-full'}}) }}
+
+        <div class="terms-module-admin-edition-actions">
+            <button type="submit" name="terms_version_form[save]" class="terms-module-button-primary terms-module-action terms-module-action-space">{{ 'terms_module.admin.edit.save'|trans({}, 'terms_module') }}</button>
+            <button type="submit" name="terms_version_form[save]" class="terms-module-button-primary terms-module-action terms-module-action-space">{{ 'terms_module.admin.edit.save_and_exit'|trans({}, 'terms_module') }}</button>
+            <a class="terms-module-link terms-module-action-space terms-module-open-loader" onclick="ignoreTerms()">{{ 'terms_module.admin.edit.close'|trans({}, 'terms_module') }}</a>
+        </div>
+    {{ form_end(form) }}
+</div>
+
+{% include '@RichIdTermsModule/_load-picto.html.twig' %}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        window.getTermsVersionTitle = function () {
+            let field = document.getElementById('terms_version_form_title');
+            return field ? field.value : '';
+        }
+
+        window.getTermsVersionContent = function () {
+            let field = document.getElementById('terms_version_form_content');
+            return field ? field.value : '';
+        }
+
+        window.isTermsStatusDisabled = function () {
+            let publishedTermsAndDepublicationLocked = {% if publishedTermsAndDepublicationLocked %}true{% else %}false{% endif %}
+            return publishedTermsAndDepublicationLocked || window.getTermsVersionTitle() === '' || window.getTermsVersionContent() === '';
+        }
+    });
+</script>

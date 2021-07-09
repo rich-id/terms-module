@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace RichId\TermsModuleBundle\Domain\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -160,7 +161,7 @@ class TermsVersion
     }
 
     /** @return ArrayCollection<int, TermsVersionSignature> */
-    public function getSignatures(): ArrayCollection
+    public function getSignatures(): Collection
     {
         return $this->signatures;
     }
@@ -177,5 +178,16 @@ class TermsVersion
         $this->signatures->removeElement($signature);
 
         return $this;
+    }
+
+    public static function buildDefaultVersion(Terms $terms): self
+    {
+        $entity = new self();
+
+        $entity->setTerms($terms);
+        $entity->setVersion(1);
+        $terms->addVersion($entity);
+
+        return $entity;
     }
 }
