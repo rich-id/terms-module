@@ -22,7 +22,7 @@ class TermsVersionEdition
      * @Assert\NotNull
      * @Assert\Type("bool")
      */
-    private $isTermsEnabled = false;
+    private $isTermsEnabled;
 
     /**
      * @var string
@@ -50,6 +50,10 @@ class TermsVersionEdition
     public function __construct(TermsVersion $entity)
     {
         $this->entity = $entity;
+
+        $this->isTermsEnabled = $entity->getTerms()->isPublished();
+        $this->title = $entity->getTitle() ?? '';
+        $this->content = $entity->getContent() ?? '';
     }
 
     public function getEntity(): TermsVersion

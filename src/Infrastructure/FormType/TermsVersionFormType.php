@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Infrastructure\FormType;
 
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Model\TermsVersionEdition;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -38,11 +38,14 @@ class TermsVersionFormType extends AbstractType
             )
             ->add(
                 'content',
-                TextareaType::class,
+                CKEditorType::class,
                 [
                     'required'           => true,
                     'label'              => 'terms_module.admin.edit.label.content',
                     'translation_domain' => 'terms_module',
+                    'config'             => [
+                        'toolbar' => 'basic',
+                    ],
                 ]
             )
             ->add(
