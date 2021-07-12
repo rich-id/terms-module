@@ -19,6 +19,9 @@ final class EntityManagerStub extends AbstractOverrideService implements EntityM
     /** @var array<object> */
     protected $removedEntities = [];
 
+    /** @var EntityManagerInterface */
+    protected $innerService;
+
     public function getRepository($className)
     {
         return $this->innerService->getRepository($className);
@@ -131,12 +134,12 @@ final class EntityManagerStub extends AbstractOverrideService implements EntityM
 
     public function getHydrator($hydrationMode)
     {
-        return $this->innerService->getHydrator();
+        return $this->innerService->getHydrator($hydrationMode);
     }
 
     public function newHydrator($hydrationMode)
     {
-        return $this->innerService->newHydrator();
+        return $this->innerService->newHydrator($hydrationMode);
     }
 
     public function getProxyFactory()
@@ -161,6 +164,7 @@ final class EntityManagerStub extends AbstractOverrideService implements EntityM
 
     public function getClassMetadata($className)
     {
+        /* @phpstan-ignore-next-line */
         return $this->innerService->getClassMetadata($className);
     }
 
@@ -218,6 +222,7 @@ final class EntityManagerStub extends AbstractOverrideService implements EntityM
 
     public function getMetadataFactory()
     {
+        /* @phpstan-ignore-next-line */
         return $this->innerService->getMetadataFactory();
     }
 
