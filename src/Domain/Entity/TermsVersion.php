@@ -198,16 +198,16 @@ class TermsVersion
 
         $entity->setTerms($termsVersion->getTerms());
         $entity->setVersion($termsVersion->getVersion() + 1);
-        $entity->setTitle($termsVersion->getTitle()); /** @phpstan-ignore-line */
-        $entity->setContent($termsVersion->getContent()); /** @phpstan-ignore-line */
+        $entity->setTitle($termsVersion->getTitle()); /* @phpstan-ignore-line */
+        $entity->setContent($termsVersion->getContent()); /* @phpstan-ignore-line */
 
         return $entity;
     }
 
     public function update(TermsEdition $termsEdition): self
     {
-        $this->title = $termsEdition->getTitle(); /** @phpstan-ignore-line */
-        $this->content = $termsEdition->getContent(); /** @phpstan-ignore-line */
+        $this->title = $termsEdition->getTitle(); /* @phpstan-ignore-line */
+        $this->content = $termsEdition->getContent(); /* @phpstan-ignore-line */
 
         return $this;
     }
