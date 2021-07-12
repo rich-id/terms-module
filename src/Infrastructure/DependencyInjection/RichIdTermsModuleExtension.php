@@ -20,6 +20,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 class RichIdTermsModuleExtension extends AbstractExtension implements PrependExtensionInterface
 {
     use PrependDoctrineMigrationTrait;
+    use PrependFosCKEditorTrait;
 
     /** @param array<string, mixed> $configs */
     public function load(array $configs, ContainerBuilder $container): void
@@ -41,5 +42,6 @@ class RichIdTermsModuleExtension extends AbstractExtension implements PrependExt
     public function prepend(ContainerBuilder $container): void
     {
         $this->prependDoctrineMigrations($container);
+        $this->prependFosCKEditor($container);
     }
 }

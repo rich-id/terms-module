@@ -1,8 +1,20 @@
 {% block form_row -%}
     <div class="terms-module-form-field">
-        {{- form_label(form, '', {'label_attr': {'class': 'terms-module-form-field-label'}}) }}
-        {{ form_widget(form, {attr: attr|merge({class: (attr.class|default('') ~ ' terms-module-form-field-input')|trim})}) }}
+       <div class="terms-module-form-field-container">
+           {{ form_widget(form, {attr: attr|merge({class: (attr.class|default('') ~ ' terms-module-form-field-input')|trim})}) }}
+           {{- form_label(form, '', {'label_attr': {'class': 'terms-module-form-field-label'}}) }}
+       </div>
         {{- form_help(form) -}}
         {{ form_errors(form) }}
     </div>
 {%- endblock form_row %}
+
+{%- block form_errors -%}
+    {%- if errors|length > 0 -%}
+        <ul class="terms-module-form-errors">
+            {%- for error in errors -%}
+                <li class="terms-module-form-error">{{ error.message }}</li>
+            {%- endfor -%}
+        </ul>
+    {%- endif -%}
+{%- endblock form_errors -%}

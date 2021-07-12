@@ -1,1 +1,4 @@
+terms_edition.validation.cant_content_change_if_terms_published: The content cannot be changed when the version is published.
+terms_edition.validation.cant_publication_date_change_if_terms_published: The publication date cannot be changed when the version is published.
+terms_edition.validation.cant_title_change_if_terms_published: The title cannot be changed when the version is published.
 terms_edition.validation.cant_unpublish_locked_published_terms: It is not possible to unpublish a locked terms.

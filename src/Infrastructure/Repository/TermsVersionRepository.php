@@ -39,4 +39,21 @@ class TermsVersionRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function findOneByTermsAndVersion(string $termsSlug, int $version): ?TermsVersion
+    {
+        $qb = $this->createQueryBuilder('tv');
+
+        return $qb->join('tv.terms', 't')
+            ->where('t.slug = :termsSlug')
+            ->andWhere('tv.version = :version')
+            ->setParameters(
+                [
+                    'termsSlug' => $termsSlug,
+                    'version'   => $version,
+                ]
+            )
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

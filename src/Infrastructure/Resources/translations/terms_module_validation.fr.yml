@@ -1,1 +1,4 @@
+terms_edition.validation.cant_content_change_if_terms_published: Le contenu ne peut être modifié quand la version est publiée.
+terms_edition.validation.cant_publication_date_change_if_terms_published: La date de publication ne peut être modifiée quand la version est publiée.
+terms_edition.validation.cant_title_change_if_terms_published: Le titre ne peut être modifié quand la version est publiée.
 terms_edition.validation.cant_unpublish_locked_published_terms: Il n'est pas possible de dé-publier un CGU qui est bloqué.

@@ -3,9 +3,9 @@
         <div class="terms-module-admin-terms-card-name">{{ terms.name }}</div>
         <div class="terms-module-admin-terms-card-status">
             {% if terms.isPublished %}
-                {{ include('@RichIdTermsModule/pictos/published.html.twig') }}
+                <i class="icon-check1" id="terms-module-icon-published"></i>
             {% else %}
-                {{ include('@RichIdTermsModule/pictos/not-published.html.twig') }}
+                <i class="icon-sync-alt-regular" id="terms-module-icon-not-published"></i>
             {% endif %}
         </div>
     </a>

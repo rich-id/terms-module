@@ -4,6 +4,7 @@
         --terms-module-white: #FFFFFF;
         --terms-module-dark: #333333;
         --terms-module-gray: #BBBBBB;
+        --terms-module-error: #DF4551;
 
         --terms-module-form-field-border-color: #999999;
         --terms-module-form-field-border-radius: 4px;
@@ -30,11 +31,11 @@
     }
 
     #terms-module-icon-published {
-        fill: var(--terms-module-icon-published);
+        color: var(--terms-module-icon-published);
     }
 
     #terms-module-icon-not-published {
-        fill: var(--terms-module-icon-not-published);
+        color: var(--terms-module-icon-not-published);
     }
 
     .terms-module-body {
@@ -143,6 +144,11 @@
         padding-bottom: 18px;
     }
 
+    .terms-module-form-field-container {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
     .terms-module-form-field label {
         display: block;
     }
@@ -172,6 +178,16 @@
         height: 32px;
         padding: 5px 14px;
     }
+
+    .terms-module-form-field-input:disabled,
+    .terms-module-form-field-input:not(select):read-only,
+    .terms-module-form-field-input:not(select):-moz-read-only,
+    .terms-module-form-field-input:read-only + #cke_terms_version_form_content,
+    .terms-module-form-field-input:-moz-read-only + #cke_terms_version_form_content {
+        opacity: 0.3;
+        pointer-events: none;
+    }
+
 
     .terms-module-form-field #cke_terms_version_form_content {
         border: 1px solid var(--terms-module-form-field-border-color);
@@ -207,6 +223,17 @@
         background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23333333' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/8px 10px;
         padding-right: 30px;
         vertical-align: middle;
+    }
+
+    .terms-module-form-errors {
+        list-style: none;
+        margin: 6px 0;
+        padding-left: 0;
+    }
+
+    .terms-module-form-error {
+        color: var(--terms-module-error);
+        font-size: 12px;
     }
 
     /* Loader */

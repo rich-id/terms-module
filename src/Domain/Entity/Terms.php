@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
+use RichId\TermsModuleBundle\Domain\Model\TermsEdition;
 
 /**
  * @ORM\Entity(repositoryClass="RichId\TermsModuleBundle\Infrastructure\Repository\TermsRepository")
@@ -162,5 +163,12 @@ class Terms
         )->first();
 
         return $version instanceof TermsVersion ? $version : null;
+    }
+
+    public function update(TermsEdition $termsEdition): self
+    {
+        $this->isPublished = $termsEdition->isTermsPublished() ?? false;
+
+        return $this;
     }
 }

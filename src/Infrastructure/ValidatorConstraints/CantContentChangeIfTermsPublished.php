@@ -10,9 +10,9 @@ use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /** @Annotation */
-class CantUnpublishLockedPublishedTerms extends Constraint implements ConstraintValidatorInterface
+class CantContentChangeIfTermsPublished extends Constraint implements ConstraintValidatorInterface
 {
-    public const MESSAGE = 'terms_edition.validation.cant_unpublish_locked_published_terms';
+    public const MESSAGE = 'terms_edition.validation.cant_content_change_if_terms_published';
 
     /** @var ExecutionContextInterface */
     protected $context;
@@ -29,16 +29,15 @@ class CantUnpublishLockedPublishedTerms extends Constraint implements Constraint
 
     public function validate($value, Constraint $constraint): void
     {
-        if (!$value instanceof TermsEdition || $value->isTermsPublished()) {
+        if (!$value instanceof TermsEdition || !$value->getEntity()->isEnabled()) {
             return;
         }
 
         $originalTermsVersion = $value->getEntity();
-        $originalTerms = $originalTermsVersion->getTerms();
 
-        if ($originalTerms->isPublished() && $originalTerms->isDepublicationLocked()) {
+        if ($value->getContent() !== $originalTermsVersion->getContent()) {
             $this->context->buildViolation(self::MESSAGE)
-                ->atPath('isTermsPublished')
+                ->atPath('content')
                 ->setTranslationDomain('terms_module_validation')
                 ->addViolation();
         }

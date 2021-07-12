@@ -7,6 +7,7 @@ namespace RichId\TermsModuleBundle\Domain\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use RichId\TermsModuleBundle\Domain\Model\TermsEdition;
 
 /**
  * @ORM\Entity(repositoryClass="RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionRepository")
@@ -189,5 +190,25 @@ class TermsVersion
         $terms->addVersion($entity);
 
         return $entity;
+    }
+
+    public static function buildFromCopy(TermsVersion $termsVersion): self
+    {
+        $entity = new self();
+
+        $entity->setTerms($termsVersion->getTerms());
+        $entity->setVersion($termsVersion->getVersion() + 1);
+        $entity->setTitle($termsVersion->getTitle()); /** @phpstan-ignore-line */
+        $entity->setContent($termsVersion->getContent()); /** @phpstan-ignore-line */
+
+        return $entity;
+    }
+
+    public function update(TermsEdition $termsEdition): self
+    {
+        $this->title = $termsEdition->getTitle(); /** @phpstan-ignore-line */
+        $this->content = $termsEdition->getContent(); /** @phpstan-ignore-line */
+
+        return $this;
     }
 }

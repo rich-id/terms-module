@@ -9,23 +9,26 @@ use RichId\TermsModuleBundle\Infrastructure\ValidatorConstraints;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @ValidatorConstraints\CantContentChangeIfTermsPublished
+ * @ValidatorConstraints\CantPublicationDateChangeIfTermsPublished
+ * @ValidatorConstraints\CantTitleChangeIfTermsPublished
  * @ValidatorConstraints\CantUnpublishLockedPublishedTerms
  */
-class TermsVersionEdition
+class TermsEdition
 {
     /** @var TermsVersion */
     private $entity;
 
     /**
-     * @var bool
+     * @var bool|null
      *
      * @Assert\NotNull
      * @Assert\Type("bool")
      */
-    private $isTermsEnabled;
+    private $isTermsPublished;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @Assert\NotBlank
      * @Assert\Type("string")
@@ -33,7 +36,7 @@ class TermsVersionEdition
     private $title;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @Assert\NotBlank
      * @Assert\Type("string")
@@ -51,9 +54,10 @@ class TermsVersionEdition
     {
         $this->entity = $entity;
 
-        $this->isTermsEnabled = $entity->getTerms()->isPublished();
+        $this->isTermsPublished = $entity->getTerms()->isPublished();
         $this->title = $entity->getTitle() ?? '';
         $this->content = $entity->getContent() ?? '';
+        $this->publicationDate = $entity->getPublicationDate();
     }
 
     public function getEntity(): TermsVersion
@@ -61,14 +65,14 @@ class TermsVersionEdition
         return $this->entity;
     }
 
-    public function isTermsEnabled(): bool
+    public function isTermsPublished(): ?bool
     {
-        return $this->isTermsEnabled;
+        return $this->isTermsPublished;
     }
 
-    public function setIsTermsEnabled(bool $isTermsEnabled): self
+    public function setIsTermsPublished(?bool $isTermsPublished): self
     {
-        $this->isTermsEnabled = $isTermsEnabled;
+        $this->isTermsPublished = $isTermsPublished;
 
         return $this;
     }
@@ -78,7 +82,7 @@ class TermsVersionEdition
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
@@ -90,7 +94,7 @@ class TermsVersionEdition
         return $this->content;
     }
 
-    public function setContent(string $content): self
+    public function setContent(?string $content): self
     {
         $this->content = $content;
 

@@ -6,7 +6,8 @@ namespace RichId\TermsModuleBundle\Infrastructure\FormType;
 
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use RichId\TermsModuleBundle\Domain\Entity\Terms;
-use RichId\TermsModuleBundle\Domain\Model\TermsVersionEdition;
+use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
+use RichId\TermsModuleBundle\Domain\Model\TermsEdition;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -17,11 +18,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class TermsVersionFormType extends AbstractType
 {
     public const TERMS_ENTITY = 'terms';
+    public const TERMS_VERSION_ENTITY = 'termsVersion';
 
     /* @phpstan-ignore-next-line */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $terms = $options[self::TERMS_ENTITY] ?? new Terms();
+        $termsVersion = $options[self::TERMS_VERSION_ENTITY] ?? new TermsVersion();
 
         $builder
             ->add(
@@ -32,6 +35,7 @@ class TermsVersionFormType extends AbstractType
                     'label'              => 'terms_module.admin.edit.label.title',
                     'translation_domain' => 'terms_module',
                     'attr'               => [
+                        'readonly'    => $termsVersion->isEnabled(),
                         'placeholder' => 'terms_module.admin.edit.placeholder.title',
                     ],
                 ]
@@ -43,13 +47,14 @@ class TermsVersionFormType extends AbstractType
                     'required'           => true,
                     'label'              => 'terms_module.admin.edit.label.content',
                     'translation_domain' => 'terms_module',
+                    'disabled'           => $termsVersion->isEnabled(),
                     'config'             => [
-                        'toolbar' => 'basic',
+                        'toolbar' => 'terms_module',
                     ],
                 ]
             )
             ->add(
-                'isTermsEnabled',
+                'isTermsPublished',
                 ChoiceType::class,
                 [
                     'required'                  => true,
@@ -70,6 +75,9 @@ class TermsVersionFormType extends AbstractType
                     'label'              => 'terms_module.admin.edit.label.publication_date',
                     'translation_domain' => 'terms_module',
                     'widget'             => 'single_text',
+                    'attr'               => [
+                        'readonly' => $termsVersion->isEnabled(),
+                    ],
                 ]
             )
         ;
@@ -79,8 +87,9 @@ class TermsVersionFormType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                self::TERMS_ENTITY => null,
-                'data_class'       => TermsVersionEdition::class,
+                self::TERMS_ENTITY         => null,
+                self::TERMS_VERSION_ENTITY => null,
+                'data_class'               => TermsEdition::class,
             ]
         );
     }
