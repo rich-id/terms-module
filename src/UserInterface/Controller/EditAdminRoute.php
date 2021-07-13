@@ -32,11 +32,11 @@ class EditAdminRoute extends AbstractController
     /** @var EntityManagerInterface */
     protected $entityManager;
 
-    /** @var array<string> */
-    protected $adminRoles;
-
     /** @var RequestStack */
     protected $requestStack;
+
+    /** @var array<string> */
+    protected $adminRoles;
 
     public function __construct(
         EditTerms $editTerms,
@@ -48,8 +48,8 @@ class EditAdminRoute extends AbstractController
         $this->editTerms = $editTerms;
         $this->termsVersionRepository = $termsVersionRepository;
         $this->entityManager = $entityManager;
-        $this->adminRoles = $parameterBag->get('rich_id_terms_module.admin_roles');
         $this->requestStack = $requestStack;
+        $this->adminRoles = $parameterBag->get('rich_id_terms_module.admin_roles');
     }
 
     /** @return array<string> */

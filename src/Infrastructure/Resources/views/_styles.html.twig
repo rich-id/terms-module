@@ -58,7 +58,14 @@
         font-size: 16px;
         letter-spacing: normal;
         line-height: 16px;
-        padding: 10px 16px 12px 16px;
+        padding: 11px 16px;
+    }
+
+    .terms-module-button-primary:disabled,
+    .terms-module-button-primary:hover:disabled {
+        background: var(--terms-module-primary);
+        cursor: not-allowed;
+        opacity: 0.25;
     }
 
     .terms-module-button-primary:hover {
@@ -76,7 +83,12 @@
         font-size: 16px;
         letter-spacing: normal;
         line-height: 16px;
-        padding: 10px 16px 12px 16px;
+        padding: 11px 16px;
+    }
+
+    .terms-module-button-secondary.terms-module-button-secondary-small {
+        padding: 7px 8px;
+        height: 32px;
     }
 
     .terms-module-button-secondary:hover {
@@ -84,6 +96,39 @@
         border: 1px solid var(--terms-module-primary-variant);
         color: var(--terms-module-white);
         cursor: pointer;
+    }
+
+    .terms-module-button-secondary i {
+        vertical-align: -1px;
+        padding-right: 3px;
+    }
+
+    .terms-module-button-remove {
+        background: var(--terms-module-white);
+        border-radius: 4px;
+        border: 1px solid var(--terms-module-error);
+        color: var(--terms-module-error);
+        font-family: var(--terms-module-font-family);
+        font-size: 16px;
+        height: 32px;
+        letter-spacing: normal;
+        line-height: 16px;
+        padding: 7px 8px;
+    }
+
+    .terms-module-button-remove i {
+        color: var(--terms-module-error);
+    }
+
+    .terms-module-button-remove:hover {
+        background: var(--terms-module-error);
+        border: 1px solid var(--terms-module-error);
+        color: var(--terms-module-white);
+        cursor: pointer;
+    }
+
+    .terms-module-button-remove:hover i {
+        color: var(--terms-module-white);
     }
 
     .terms-module-link {

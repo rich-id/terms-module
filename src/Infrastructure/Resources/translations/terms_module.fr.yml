@@ -2,7 +2,7 @@ terms_module.admin.edit.title: Gestion des CGU
 terms_module.admin.edit.label.title: Titre
 terms_module.admin.edit.placeholder.title: Titre qui sera affiché sur le site
 terms_module.admin.edit.label.content: Contenu
-terms_module.admin.edit.label.publication_date: Date de publication
+terms_module.admin.edit.label.publication_date: Début de publication
 terms_module.admin.edit.label.status: Statut
 terms_module.admin.edit.version: V. %version%
 
@@ -10,10 +10,11 @@ terms_module.admin.edit.version: V. %version%
 terms_module.admin.edit.status.enabled: Publiées
 terms_module.admin.edit.status.disabled: Non publiées
 
-terms_module.admin.edit.save: Enregistrer
-terms_module.admin.edit.save_and_exit: Enregistrer et fermer
 terms_module.admin.edit.cancel: Annuler
 terms_module.admin.edit.close: Fermer
+terms_module.admin.edit.new_version: Nouvelle version
+terms_module.admin.edit.save: Enregistrer
+terms_module.admin.edit.save_and_exit: Enregistrer et fermer
 
 terms_module.admin.list.title: Gestion des CGU
 

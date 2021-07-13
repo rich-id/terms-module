@@ -30,6 +30,7 @@
         <service id="RichId\TermsModuleBundle\Domain\Port\ValidatorInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\Validator"/>
 
         <service id="RichId\TermsModuleBundle\Domain\UseCase\ActivateTermsVersion" />
+        <service id="RichId\TermsModuleBundle\Domain\UseCase\CreateTermsVersion" />
         <service id="RichId\TermsModuleBundle\Domain\UseCase\EditTerms" />
         <service id="RichId\TermsModuleBundle\Domain\UseCase\HasSignLastTermsVersion" />
         <service id="RichId\TermsModuleBundle\Domain\UseCase\HasSignTerms" />
@@ -59,6 +60,7 @@
         <service id="RichId\TermsModuleBundle\Infrastructure\ValidatorConstraints\CantTitleChangeIfTermsPublished" />
         <service id="RichId\TermsModuleBundle\Infrastructure\ValidatorConstraints\CantUnpublishLockedPublishedTerms" />
 
+        <service id="RichId\TermsModuleBundle\UserInterface\Controller\AddTermsVersionRoute" />
         <service id="RichId\TermsModuleBundle\UserInterface\Controller\EditAdminRoute" />
         <service id="RichId\TermsModuleBundle\UserInterface\Controller\ListAdminRoute" />
         <service id="RichId\TermsModuleBundle\UserInterface\Controller\SignRoute" />

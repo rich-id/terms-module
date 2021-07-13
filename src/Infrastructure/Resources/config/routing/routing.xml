@@ -6,16 +6,25 @@
 
     <route id="module_terms_add_terms_version" path="/administration/terms/{terms}/new-version"
            controller="RichId\TermsModuleBundle\UserInterface\Controller\AddTermsVersionRoute"
-           methods="POST" />
-
-    <route id="module_terms_admin_list" path="/administration/terms"
-           controller="RichId\TermsModuleBundle\UserInterface\Controller\ListAdminRoute"
-           methods="GET" />
+           methods="POST">
+        <requirement key="terms">\d+</requirement>
+    </route>
 
     <route id="module_terms_admin_edition" path="/administration/terms/{terms}"
            controller="RichId\TermsModuleBundle\UserInterface\Controller\EditAdminRoute"
            methods="GET|POST">
         <requirement key="terms">\d+</requirement>
+    </route>
+
+    <route id="module_terms_admin_list" path="/administration/terms"
+           controller="RichId\TermsModuleBundle\UserInterface\Controller\ListAdminRoute"
+           methods="GET" />
+
+
+    <route id="module_terms_remove_terms_version" path="/administration/terms/{termsVersion}/new-version"
+           controller="RichId\TermsModuleBundle\UserInterface\Controller\RemoveTermsVersionRoute"
+           methods="DELETE">
+        <requirement key="termsVersion">\d+</requirement>
     </route>
 
     <route id="module_terms_sign" path="/terms/{termsSlug}/sign"

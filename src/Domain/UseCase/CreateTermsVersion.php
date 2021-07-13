@@ -29,7 +29,7 @@ class CreateTermsVersion
         $terms = $basedTermsVersion->getTerms();
         $lastVersion = $terms->getLatestVersion();
 
-        if ($lastVersion === null || $lastVersion->isEnabled()) {
+        if ($lastVersion === null || !$lastVersion->isEnabled()) {
             throw new CannotAddVersionToTermsException($terms);
         }
 
