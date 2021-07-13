@@ -23,7 +23,6 @@ class EntityRecorder implements EntityRecoderInterface
     public function saveSignature(TermsVersionSignature $signature): void
     {
         $this->entityManager->persist($signature);
-        $this->entityManager->flush();
     }
 
     public function saveTerms(Terms $terms): void

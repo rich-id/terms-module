@@ -99,7 +99,7 @@ class EditAdminRoute extends AbstractController
 
         if ($version !== null && $version !== '') {
             $termsVersion = $this->termsVersionRepository->findOneByTermsAndVersion(
-                $terms->getSlug(),
+                $terms->getSlug() ?? '',
                 (int) $version
             );
 

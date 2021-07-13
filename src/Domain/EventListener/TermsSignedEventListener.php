@@ -22,6 +22,6 @@ final class TermsSignedEventListener
         $termsVersion = $event->getTermsVersion();
         $terms = $termsVersion->getTerms();
 
-        $this->logger->logTermsSigned($terms->getSlug(), $event->getSubject(), $event->isAccepted());
+        $this->logger->logTermsSigned($terms->getSlug() ?? '', $event->getSubject(), $event->isAccepted());
     }
 }

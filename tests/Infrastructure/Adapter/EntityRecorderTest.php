@@ -6,10 +6,12 @@ namespace RichId\TermsModuleBundle\Tests\Infrastructure\Adapter;
 
 use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
+use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersionSignature;
 use RichId\TermsModuleBundle\Domain\Model\DummySubject;
 use RichId\TermsModuleBundle\Infrastructure\Adapter\EntityRecorder;
+use RichId\TermsModuleBundle\Infrastructure\Repository\TermsRepository;
 use RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionRepository;
 use RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionSignatureRepository;
 
@@ -22,11 +24,14 @@ final class EntityRecorderTest extends TestCase
     /** @var EntityRecorder */
     public $adapter;
 
-    /** @var TermsVersionSignatureRepository */
-    public $termsVersionSignatureRepository;
+    /** @var TermsRepository */
+    public $termsRepository;
 
     /** @var TermsVersionRepository */
     public $termsVersionRepository;
+
+    /** @var TermsVersionSignatureRepository */
+    public $termsVersionSignatureRepository;
 
     public function testSaveSignature(): void
     {
@@ -36,7 +41,38 @@ final class EntityRecorderTest extends TestCase
 
         $signature = TermsVersionSignature::sign($version, $subject);
         $this->adapter->saveSignature($signature);
+        $this->adapter->flush();
 
         $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
+    }
+
+    public function testSaveTerms(): void
+    {
+        $this->assertCount(5, $this->termsRepository->findAll());
+
+        $terms = new Terms();
+        $terms->setSlug('my_terms');
+        $terms->setName('My terms');
+
+        $this->adapter->saveTerms($terms);
+        $this->adapter->flush();
+
+        $this->assertCount(6, $this->termsRepository->findAll());
+    }
+
+    public function testSaveTermsVersion(): void
+    {
+        $this->assertCount(6, $this->termsVersionRepository->findAll());
+        $terms = $this->getReference(Terms::class, '1');
+
+        $termsVersion = TermsVersion::buildDefaultVersion($terms);
+        $termsVersion->setVersion(15);
+        $termsVersion->setTitle('Title');
+        $termsVersion->setContent('Content');
+
+        $this->adapter->saveTermsVersion($termsVersion);
+        $this->adapter->flush();
+
+        $this->assertCount(7, $this->termsVersionRepository->findAll());
     }
 }

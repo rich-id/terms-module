@@ -23,8 +23,10 @@ class Validator implements ValidatorInterface
     {
         $violations = $this->validator->validate($termsEdition);
 
-        if (\count($violations) > 0) {
-            throw new InvalidTermsEditionException($violations);
+        if (\count($violations) === 0) {
+            return;
         }
+
+        throw new InvalidTermsEditionException($violations);
     }
 }

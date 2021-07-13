@@ -70,7 +70,7 @@ class Terms
         return $this->id;
     }
 
-    public function getSlug(): string
+    public function getSlug(): ?string
     {
         return $this->slug;
     }
@@ -82,7 +82,7 @@ class Terms
         return $this;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }

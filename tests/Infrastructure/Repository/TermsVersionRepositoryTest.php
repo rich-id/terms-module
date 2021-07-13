@@ -6,6 +6,7 @@ namespace RichId\TermsModuleBundle\Tests\Infrastructure\Repository;
 
 use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
+use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Model\DummySubject;
 use RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionRepository;
 
@@ -25,8 +26,8 @@ final class TermsVersionRepositoryTest extends TestCase
             DummySubject::create('user', '42')
         );
 
-        /* @phpstan-ignore-next-line */
-        $this->assertSame(2, $lastVersionSigned->getVersion());
+        $this->assertInstanceOf(TermsVersion::class, $lastVersionSigned);
+        $this->assertSame(2, $lastVersionSigned->getVersion()); /* @phpstan-ignore-line  */
     }
 
     public function testFindLastSignedVersionForTermsSubjectNotExistingSubject(): void
@@ -37,5 +38,20 @@ final class TermsVersionRepositoryTest extends TestCase
         );
 
         $this->assertNull($lastVersionSigned);
+    }
+
+    public function testFindOneByTermsAndVersionNotFound(): void
+    {
+        $termsVersion = $this->repository->findOneByTermsAndVersion('terms-1', 50);
+
+        $this->assertNull($termsVersion);
+    }
+
+    public function testFindOneByTermsAndVersion(): void
+    {
+        $termsVersion = $this->repository->findOneByTermsAndVersion('terms-1', 2);
+
+        $this->assertInstanceOf(TermsVersion::class, $termsVersion);
+        $this->assertSame(2, $termsVersion->getVersion()); /* @phpstan-ignore-line  */
     }
 }

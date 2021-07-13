@@ -10,10 +10,11 @@ use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
+use RichId\TermsModuleBundle\Domain\Model\TermsEdition;
 
 /**
  * @covers \RichId\TermsModuleBundle\Domain\Entity\Terms
- * @TestConfig("kernel")
+ * @TestConfig("fixtures")
  */
 final class TermsTest extends TestCase
 {
@@ -202,5 +203,22 @@ final class TermsTest extends TestCase
         $termVersion2->enable();
 
         $this->assertSame($termVersion2, $entity->getLatestPublishedVersion());
+    }
+
+    public function testUpdate(): void
+    {
+        $termsVersion = $this->getReference(TermsVersion::class, 'v3-terms-1');
+
+        $entity = new Terms();
+        $model = new TermsEdition($termsVersion);
+
+        $entity->update($model);
+
+        $this->assertNull($entity->getId());
+        $this->assertNull($entity->getSlug());
+        $this->assertNull($entity->getName());
+        $this->assertFalse($entity->isDepublicationLocked());
+        $this->assertEmpty($entity->getVersions());
+        $this->assertTrue($entity->isPublished());
     }
 }

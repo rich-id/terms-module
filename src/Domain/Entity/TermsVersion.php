@@ -208,6 +208,7 @@ class TermsVersion
     {
         $this->title = $termsEdition->getTitle(); /* @phpstan-ignore-line */
         $this->content = $termsEdition->getContent(); /* @phpstan-ignore-line */
+        $this->publicationDate = $termsEdition->getPublicationDate();
 
         return $this;
     }
