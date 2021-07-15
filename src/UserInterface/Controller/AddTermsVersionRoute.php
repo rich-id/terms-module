@@ -57,14 +57,14 @@ class AddTermsVersionRoute extends AbstractController
             throw $this->buildAccessDeniedException();
         }
 
-        $lastVersion = $this->getTermsVersion($terms);
+        $currentVersion = $this->getTermsVersion($terms);
 
-        if ($lastVersion === null) {
+        if ($currentVersion === null) {
             return JsonResponse::create('The terms has no version.', Response::HTTP_UNAUTHORIZED);
         }
 
         try {
-            ($this->createTermsVersion)($lastVersion);
+            ($this->createTermsVersion)($currentVersion);
 
             return JsonResponse::create(null, Response::HTTP_CREATED);
         } catch (CannotAddVersionToTermsException $e) {

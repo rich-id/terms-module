@@ -194,10 +194,14 @@ class TermsVersion
 
     public static function buildFromCopy(TermsVersion $termsVersion): self
     {
+        $terms = $termsVersion->getTerms();
+        $lastVersion = $terms->getLatestVersion();
+        $nextVersion = $lastVersion !== null ? $lastVersion->getVersion() + 1 : 1;
+
         $entity = new self();
 
-        $entity->setTerms($termsVersion->getTerms());
-        $entity->setVersion($termsVersion->getVersion() + 1);
+        $entity->setTerms($terms);
+        $entity->setVersion($nextVersion);
         $entity->setTitle($termsVersion->getTitle()); /* @phpstan-ignore-line */
         $entity->setContent($termsVersion->getContent()); /* @phpstan-ignore-line */
 

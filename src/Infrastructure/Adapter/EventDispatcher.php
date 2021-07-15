@@ -6,6 +6,7 @@ namespace RichId\TermsModuleBundle\Infrastructure\Adapter;
 
 use RichId\TermsModuleBundle\Domain\Event\TermsSignedEvent;
 use RichId\TermsModuleBundle\Domain\Event\TermsVersionCreatedEvent;
+use RichId\TermsModuleBundle\Domain\Event\TermsVersionDeletedEvent;
 use RichId\TermsModuleBundle\Domain\Event\TermsVersionEnabledEvent;
 use RichId\TermsModuleBundle\Domain\Event\TermsVersionUpdatedEvent;
 use RichId\TermsModuleBundle\Domain\Port\EventDispatcherInterface;
@@ -27,6 +28,11 @@ class EventDispatcher implements EventDispatcherInterface
     }
 
     public function dispatchTermsVersionCreatedEvent(TermsVersionCreatedEvent $event): void
+    {
+        $this->eventDispatcher->dispatch($event);
+    }
+
+    public function dispatchTermsVersionDeletedEvent(TermsVersionDeletedEvent $event): void
     {
         $this->eventDispatcher->dispatch($event);
     }

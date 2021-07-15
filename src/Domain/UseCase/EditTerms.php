@@ -12,6 +12,9 @@ use RichId\TermsModuleBundle\Domain\Port\ValidatorInterface;
 
 class EditTerms
 {
+    /** @var ActivateTermsVersion */
+    protected $activateTermsVersion;
+
     /** @var EntityRecoderInterface */
     protected $entityRecoder;
 
@@ -22,10 +25,12 @@ class EditTerms
     protected $validator;
 
     public function __construct(
+        ActivateTermsVersion $activateTermsVersion,
         EntityRecoderInterface $entityRecoder,
         EventDispatcherInterface $eventDispatcher,
         ValidatorInterface $validator
     ) {
+        $this->activateTermsVersion = $activateTermsVersion;
         $this->entityRecoder = $entityRecoder;
         $this->eventDispatcher = $eventDispatcher;
         $this->validator = $validator;
@@ -43,6 +48,10 @@ class EditTerms
 
         $this->entityRecoder->saveTerms($terms);
         $this->entityRecoder->saveTermsVersion($termsVersion);
+
+        if ($termsEdition->getActivateVersion() === true) {
+            ($this->activateTermsVersion)($termsVersion);
+        }
 
         $this->eventDispatcher->dispatchTermsVersionUpdatedEvent(
             new TermsVersionUpdatedEvent($termsVersion)

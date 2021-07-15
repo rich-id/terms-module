@@ -3,36 +3,66 @@
 {% include '@RichIdTermsModule/_loader.html.twig' %}
 {% set publishedTermsAndDepublicationLocked = terms.published() and terms.depublicationLocked %}
 
+{% if lastTermsVersion.isEnabled() %}
+    {% set lastEnabledVersion = lastTermsVersion %}
+{% else %}
+    {% set lastEnabledVersion = terms.versions|sort((a, b) => b.version <=> a.version)|slice(1, 1)|first %}
+{% endif %}
+
 <div class="terms-module-admin-body terms-module-admin-body-form ">
     <div class="terms-module-admin-edition-terms-name">{{ terms.name }}</div>
 
     {{ form_start(form, {'attr': {'id': 'terms-edition-form'}}) }}
         {{ form_row(form.isTermsPublished, {'attr': {'class': 'terms-module-form-field-small'}}) }}
+        {{ form_row(form.activateVersion) }}
 
         <div class="terms-module-admin-edition-add-version-container">
             <div class="terms-module-admin-edition-terms-version-tags">
                 {% for termsVersion in terms.versions|sort((a, b) => a.version <=> b.version) %}
-                    <div class="terms-version-tag {% if termsVersion.enabled %}enabled{% endif %}">
-                        {% if termsVersion.isEnabled() %}
+                    <a class="terms-version-tag {% if lastEnabledVersion != false and lastEnabledVersion.id == termsVersion.id %}enabled{% endif %} {% if currentTermsVersion.id == termsVersion.id %}current{% endif %}"
+                       {% if currentTermsVersion.id != termsVersion.id and termsVersion.id != lastTermsVersion.id %}href="{{ path('module_terms_admin_edition', {'terms': terms.id, 'version': termsVersion.version}) }}"{% endif %}
+                       {% if currentTermsVersion.id != termsVersion.id and termsVersion.id == lastTermsVersion.id %}href="{{ path('module_terms_admin_edition', {'terms': terms.id}) }}"{% endif %}
+                    >
+                        {% if termsVersion.id == lastTermsVersion.id and not termsVersion.isEnabled() %}
+                            <i class="icon-sync-alt-regular"></i>
+                        {% elseif lastEnabledVersion != false and lastEnabledVersion.id == termsVersion.id %}
                             <i class="icon-lock"></i>
                         {% else %}
-                            <i class="icon-sync-alt-regular"></i>
+                            <i class="icon-versions"></i>
                         {% endif %}
 
                         {{ 'terms_module.admin.edit.version'|trans({'%version%': termsVersion.version}, 'terms_module') }}
-                    </div>
+                    </a>
                 {% endfor %}
             </div>
 
             <div class="terms-module-admin-edition-version-management">
-                <button type="button" class="terms-module-button-secondary terms-module-button-secondary-small" onclick="createNewVersion()">
-                    <i class="icon-plus-circle-light"></i>
-                    {{ 'terms_module.admin.edit.new_version'|trans({}, 'terms_module') }}
-                </button>
+                {% if currentTermsVersion.id == lastTermsVersion.id and lastTermsVersion.isEnabled() %}
+                    <button type="button" class="terms-module-button-secondary terms-module-button-secondary-small" onclick="createNewVersion()" {% if currentTermsVersion.id is null %}disabled{% endif %}>
+                        <i class="icon-plus-circle-light"></i>
+                        {{ 'terms_module.admin.edit.new_version'|trans({}, 'terms_module') }}
+                    </button>
+                {% endif %}
 
-                <button type="button" class="terms-module-button-remove" onclick="removeVersion()">
-                    <i class="icon-trash"></i>
-                </button>
+                {% if currentTermsVersion.id != lastTermsVersion.id  %}
+                    <button type="button" class="terms-module-button-secondary terms-module-button-secondary-small" onclick="createNewVersion({{ currentTermsVersion.version }})" {% if not lastTermsVersion.isEnabled() %}disabled{% endif %}>
+                        <i class="icon-plus-circle-light"></i>
+                        {{ 'terms_module.admin.edit.duplicate'|trans({}, 'terms_module') }}
+                    </button>
+                {% endif %}
+
+                {% if currentTermsVersion.id is not null and  currentTermsVersion.id == lastTermsVersion.id and not lastTermsVersion.isEnabled() %}
+                    <button type="button" class="terms-module-button-secondary terms-module-button-secondary-small" onclick="activateVersion()">
+                        <i class="icon-check1"></i>
+                        {{ 'terms_module.admin.edit.activate_version'|trans({}, 'terms_module') }}
+                    </button>
+                {% endif %}
+
+                {% if currentTermsVersion.id is not null and not currentTermsVersion.isEnabled() and terms.versions|length > 1 %}
+                    <button type="button" class="terms-module-button-remove" onclick="removeVersion()">
+                        <i class="icon-trash"></i>
+                    </button>
+                {% endif %}
             </div>
         </div>
 
@@ -55,177 +85,10 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        window.saveTermsUrl = '{{ path('module_terms_admin_edition', {'terms': terms.id}) }}';
-        window.saveTermsVersion = {% if app.request.query.has('version') %}'{{ app.request.query.get('version') }}'{% else %}null{% endif %};
-        window.exitTermsCloseMessage = '{{ 'terms_module.admin.edit.close'|trans({}, 'terms_module') }}';
-        window.exitTermsCancelMessage = '{{ 'terms_module.admin.edit.cancel'|trans({}, 'terms_module') }}';
-
-        window.currentTermsVersion = {};
-        window.initialTermsVersion = {
-            isTermsPublished: {% if terms.isPublished %}true{% else %}false{% endif %},
-            title: '{{ termsVersion.title|e('js') }}',
-            content: '{{ termsVersion.content|e('js') }}',
-            publicationDate: {% if termsVersion.publicationDate is not null %}{{ termsVersion.publicationDate|date('Y-m-d') }}{% else %}''{% endif %},
-        };
-
-        Object.assign(window.currentTermsVersion, window.initialTermsVersion);
-
-        window.getSaveTermsUrl = function (exit) {
-            if (typeof exit === 'undefined' || exit === null) {
-                exit = false;
-            }
-            var data = [];
-
-            if (window.saveTermsVersion !== null) {
-                data.push('version=' + window.saveTermsVersion);
-            }
-
-            if (exit) {
-                data.push('exit=true');
-            }
-
-            if (data.length === 0) {
-                return window.saveTermsUrl;
-            }
-
-            return window.saveTermsUrl + '?' + data.join('&');
-        }
-
-        window.saveTerms = function (exit) {
-            document.getElementById('{{ form.isTermsPublished.vars.id }}').disabled = false
-            document.getElementById('terms-edition-form').action = window.getSaveTermsUrl(exit);
-            document.getElementById('terms-edition-form').submit();
-        }
-
-        window.createNewVersion = function () {
-            var xhr = new XMLHttpRequest();
-
-            xhr.open('POST', '{{ path('module_terms_add_terms_version', {'terms': terms.id}) }}');
-
-            xhr.onreadystatechange = function(){
-                if (xhr.readyState === 4 && xhr.status === 201){
-                    window.location.href = '{{ path('module_terms_admin_edition', {'terms': terms.id}) }}';
-                }
-            }
-
-            xhr.send(null);
-        }
-
-        window.removeVersion = function () {
-            var xhr = new XMLHttpRequest();
-
-            xhr.open('DELETE', '{{ path('module_terms_remove_terms_version', {'termsVersion': termsVersion.id}) }}');
-
-            xhr.onreadystatechange = function(){
-                if (xhr.readyState === 4 && xhr.status === 200){
-                    window.location.href = '{{ path('module_terms_admin_edition', {'terms': terms.id}) }}';
-                }
-            }
-
-            xhr.send(null);
-        }
-
-        window.isTermsPublished = function () {
-            let field = document.getElementById('{{ form.isTermsPublished.vars.id }}');
-            return field ? field.value === '1' : false;
-        }
-
-        window.getTermsVersionTitle = function () {
-            let field = document.getElementById('{{ form.title.vars.id }}');
-            return field ? field.value : '';
-        }
-
-        window.getTermsVersionPublicationDate = function () {
-            let field = document.getElementById('{{ form.publicationDate.vars.id }}');
-            return field ? field.value : '';
-        }
-
-        window.getTermsVersionContent = function () {
-            return CKEDITOR.instances.terms_version_form_content.getData();
-        }
-
-        window.computeTermsPublicationStatus = function () {
-            let publishedTermsAndDepublicationLocked = {% if publishedTermsAndDepublicationLocked %}true{% else %}false{% endif %};
-            document.getElementById('{{ form.isTermsPublished.vars.id }}').disabled = publishedTermsAndDepublicationLocked || window.getTermsVersionTitle() === '' || window.getTermsVersionContent() === '';
-        }
-
-        window.termsHasChanges = function () {
-            return window.currentTermsVersion.isTermsPublished !== window.initialTermsVersion.isTermsPublished
-                || window.currentTermsVersion.title !== window.initialTermsVersion.title
-                || window.currentTermsVersion.content !== window.initialTermsVersion.content
-                || window.currentTermsVersion.publicationDate !== window.initialTermsVersion.publicationDate;
-        }
-
-        window.computeSaveButtonStatus = function () {
-            let valid = window.currentTermsVersion.title !== '' && window.currentTermsVersion.content !== '';
-            let hasChanges = window.termsHasChanges();
-
-            let buttonSave = document.getElementById('save-terms');
-            let buttonSaveAndExit = document.getElementById('save-and-exit-terms');
-
-            buttonSave.disabled = !valid || !hasChanges;
-            buttonSaveAndExit.disabled = !valid || !hasChanges;
-        }
-
-        window.computeExitButtonText = function () {
-            let button = document.getElementById('exit-terms');
-
-            if (window.termsHasChanges()) {
-                button.text =  window.exitTermsCancelMessage;
-            } else {
-                button.text =  window.exitTermsCloseMessage;
-            }
-        }
-
-        window.computeTermsVersionContentStatus = function () {
-            {% if termsVersion.enabled %}
-                CKEDITOR.instances.terms_version_form_content.setReadOnly();
-            {% endif %}
-        }
-
-        window.initTermsEdition = function () {
-            window.computeTermsPublicationStatus();
-        }
-
-        document.getElementById('{{ form.isTermsPublished.vars.id }}').addEventListener('input', function () {
-            window.currentTermsVersion.isTermsPublished = window.isTermsPublished();
-            window.computeSaveButtonStatus();
-            window.computeExitButtonText();
-        });
-
-        document.getElementById('{{ form.title.vars.id }}').addEventListener('input', function () {
-            window.currentTermsVersion.title = window.getTermsVersionTitle();
-            window.computeTermsPublicationStatus();
-            window.computeSaveButtonStatus();
-            window.computeExitButtonText();
-        });
-
-        document.getElementById('{{ form.publicationDate.vars.id }}').addEventListener('input', function () {
-            window.currentTermsVersion.publicationDate = window.getTermsVersionPublicationDate();
-            window.computeSaveButtonStatus();
-            window.computeExitButtonText();
-        });
-
-        CKEDITOR.instances.terms_version_form_content.on('change', function () {
-            window.currentTermsVersion.content = window.getTermsVersionContent();
-            window.computeTermsPublicationStatus();
-            window.computeSaveButtonStatus();
-            window.computeExitButtonText();
-        });
-
-        CKEDITOR.instances.terms_version_form_content.on('instanceReady', function () {
-            window.initialTermsVersion.content = window.getTermsVersionContent();
-            window.currentTermsVersion.content = window.getTermsVersionContent();
-            window.computeTermsVersionContentStatus();
-
-            if (CKEDITOR.instances.terms_version_form_content.readOnly) {
-                let el = document.getElementById('{{ form.content.vars.id }}');
-
-                el.disabled = false
-                el.readOnly = true;
-            }
-        });
-
-        window.initTermsEdition();
+        {% include '@RichIdTermsModule/admin/edit/_partial/js/_init.js.twig' %}
+        {% include '@RichIdTermsModule/admin/edit/_partial/js/_getter.js.twig' %}
+        {% include '@RichIdTermsModule/admin/edit/_partial/js/_updater.js.twig' %}
+        {% include '@RichIdTermsModule/admin/edit/_partial/js/_ajax.js.twig' %}
+        {% include '@RichIdTermsModule/admin/edit/_partial/js/_listener.js.twig' %}
     });
 </script>

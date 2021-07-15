@@ -6,6 +6,7 @@ namespace RichId\TermsModuleBundle\Domain\UseCase;
 
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Event\TermsVersionEnabledEvent;
+use RichId\TermsModuleBundle\Domain\Exception\AlreadyEnabledTermsVersionException;
 use RichId\TermsModuleBundle\Domain\Port\EntityRecoderInterface;
 use RichId\TermsModuleBundle\Domain\Port\EventDispatcherInterface;
 
@@ -25,6 +26,10 @@ class ActivateTermsVersion
 
     public function __invoke(TermsVersion $termsVersion): void
     {
+        if ($termsVersion->isEnabled()) {
+            throw new AlreadyEnabledTermsVersionException($termsVersion);
+        }
+
         $termsVersion->enable();
         $this->entityRecoder->saveTermsVersion($termsVersion);
 

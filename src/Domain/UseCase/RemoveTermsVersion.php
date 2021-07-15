@@ -5,17 +5,23 @@ declare(strict_types=1);
 namespace RichId\TermsModuleBundle\Domain\UseCase;
 
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
+use RichId\TermsModuleBundle\Domain\Event\TermsVersionDeletedEvent;
 use RichId\TermsModuleBundle\Domain\Exception\EnabledVersionCannotBeDeletedException;
 use RichId\TermsModuleBundle\Domain\Port\EntityRemoverInterface;
+use RichId\TermsModuleBundle\Domain\Port\EventDispatcherInterface;
 
 class RemoveTermsVersion
 {
     /** @var EntityRemoverInterface */
     protected $entityRemover;
 
-    public function __construct(EntityRemoverInterface $entityRemover)
+    /** @var EventDispatcherInterface */
+    protected $eventDispatcher;
+
+    public function __construct(EntityRemoverInterface $entityRemover, EventDispatcherInterface $eventDispatcher)
     {
         $this->entityRemover = $entityRemover;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function __invoke(TermsVersion $termsVersion): void
@@ -25,5 +31,9 @@ class RemoveTermsVersion
         }
 
         $this->entityRemover->removeTermsVersion($termsVersion);
+
+        $this->eventDispatcher->dispatchTermsVersionDeletedEvent(
+            new TermsVersionDeletedEvent($termsVersion)
+        );
     }
 }

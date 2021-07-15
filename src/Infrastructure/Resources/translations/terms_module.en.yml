@@ -1,19 +1,19 @@
-terms_module.admin.edit.title: Terms management
-terms_module.admin.edit.label.title: Title
-terms_module.admin.edit.placeholder.title: Title to be displayed on the site
+terms_module.admin.edit.activate_version: Active
+terms_module.admin.edit.cancel: Cancel
+terms_module.admin.edit.close: Close
+terms_module.admin.edit.duplicate: Duplicate
 terms_module.admin.edit.label.content: Content
 terms_module.admin.edit.label.publication_date: Publication date
 terms_module.admin.edit.label.status: Status
-terms_module.admin.edit.status.enabled: Published
-terms_module.admin.edit.status.disabled: Unpublished
-terms_module.admin.edit.version: V. %version%
-
-terms_module.admin.edit.cancel: Cancel
-terms_module.admin.edit.close: Close
+terms_module.admin.edit.label.title: Title
 terms_module.admin.edit.new_version: New version
+terms_module.admin.edit.placeholder.title: Title to be displayed on the site
 terms_module.admin.edit.save: Save
 terms_module.admin.edit.save_and_exit: Save and exit
-
+terms_module.admin.edit.status.disabled: Unpublished
+terms_module.admin.edit.status.enabled: Published
+terms_module.admin.edit.title: Terms management
+terms_module.admin.edit.version: V. %version%
 
 terms_module.admin.list.title: Terms management
 

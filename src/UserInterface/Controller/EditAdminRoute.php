@@ -65,29 +65,32 @@ class EditAdminRoute extends AbstractController
         }
 
         $request = $this->requestStack->getCurrentRequest() ?? new Request();
-        $termsVersion = $this->getTermsVersion($terms);
+        $currentTermsVersion = $this->getTermsVersion($terms);
 
-        $model = new TermsEdition($termsVersion);
+        $model = new TermsEdition($currentTermsVersion);
 
         $form = $this->createForm(
             TermsVersionFormType::class,
             $model,
-            [TermsVersionFormType::TERMS_VERSION_ENTITY => $termsVersion]
+            [TermsVersionFormType::TERMS_VERSION_ENTITY => $currentTermsVersion]
         )->handleRequest($request);
 
         if ($request->getMethod() === Request::METHOD_POST && $form->isSubmitted() && $form->isValid()) {
             ($this->editTerms)($form->getData());
             $this->entityManager->flush();
 
-            return $this->getSubmissionRedirection($terms);
+            return $this->getSubmissionRedirection($terms, $currentTermsVersion);
         }
+
+        $lastTermsVersion = $terms->getLatestVersion() ?? TermsVersion::buildDefaultVersion($terms);
 
         return $this->render(
             '@RichIdTermsModule/admin/edit/main.html.twig',
             [
-                'terms'        => $terms,
-                'termsVersion' => $termsVersion,
-                'form'         => $form->createView(),
+                'terms'               => $terms,
+                'currentTermsVersion' => $currentTermsVersion,
+                'lastTermsVersion'    => $lastTermsVersion,
+                'form'                => $form->createView(),
             ]
         );
     }
@@ -113,13 +116,18 @@ class EditAdminRoute extends AbstractController
         return $terms->getLatestVersion() ?? TermsVersion::buildDefaultVersion($terms);
     }
 
-    private function getSubmissionRedirection(Terms $terms): RedirectResponse
+    private function getSubmissionRedirection(Terms $terms, TermsVersion $termsVersion): RedirectResponse
     {
         $request = $this->requestStack->getCurrentRequest() ?? new Request();
         $exit = $request->query->has('exit');
+        $hasSpecificVersion = $request->query->has('version');
 
         if ($exit) {
             return $this->redirectToRoute('module_terms_admin_list');
+        }
+
+        if ($hasSpecificVersion) {
+            return $this->redirectToRoute('module_terms_admin_edition', ['terms' => $terms->getId(), 'version' => $termsVersion->getVersion()]);
         }
 
         return $this->redirectToRoute('module_terms_admin_edition', ['terms' => $terms->getId()]);

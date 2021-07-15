@@ -34,6 +34,7 @@
         <service id="RichId\TermsModuleBundle\Domain\UseCase\EditTerms" />
         <service id="RichId\TermsModuleBundle\Domain\UseCase\HasSignLastTermsVersion" />
         <service id="RichId\TermsModuleBundle\Domain\UseCase\HasSignTerms" />
+        <service id="RichId\TermsModuleBundle\Domain\UseCase\RemoveTermsVersion" />
         <service id="RichId\TermsModuleBundle\Domain\UseCase\SignTerms" />
 
         <service id="RichId\TermsModuleBundle\Infrastructure\Listener\RedirectToSigningPageOnAccessDeniedListener">
@@ -56,6 +57,7 @@
         <service id="RichId\TermsModuleBundle\Infrastructure\TwigExtension\TermsExtension" />
 
         <service id="RichId\TermsModuleBundle\Infrastructure\ValidatorConstraints\CantContentChangeIfTermsPublished" />
+        <service id="RichId\TermsModuleBundle\Infrastructure\ValidatorConstraints\CantEnableVersionIfAlreadyEnabled" />
         <service id="RichId\TermsModuleBundle\Infrastructure\ValidatorConstraints\CantPublicationDateChangeIfTermsPublished" />
         <service id="RichId\TermsModuleBundle\Infrastructure\ValidatorConstraints\CantTitleChangeIfTermsPublished" />
         <service id="RichId\TermsModuleBundle\Infrastructure\ValidatorConstraints\CantUnpublishLockedPublishedTerms" />
@@ -63,6 +65,7 @@
         <service id="RichId\TermsModuleBundle\UserInterface\Controller\AddTermsVersionRoute" />
         <service id="RichId\TermsModuleBundle\UserInterface\Controller\EditAdminRoute" />
         <service id="RichId\TermsModuleBundle\UserInterface\Controller\ListAdminRoute" />
+        <service id="RichId\TermsModuleBundle\UserInterface\Controller\RemoveTermsVersionRoute" />
         <service id="RichId\TermsModuleBundle\UserInterface\Controller\SignRoute" />
     </services>
 </container>

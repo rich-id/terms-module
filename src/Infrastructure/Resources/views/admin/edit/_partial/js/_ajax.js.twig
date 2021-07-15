@@ -1,0 +1,47 @@
+window.saveTerms = function (exit) {
+    document.getElementById('{{ form.isTermsPublished.vars.id }}').disabled = false;
+    document.getElementById('terms-edition-form').action = window.getSaveTermsUrl(exit);
+    document.getElementById('terms-edition-form').submit();
+};
+
+window.createNewVersion = function (versionId) {
+    var xhr = new XMLHttpRequest();
+    let url ='{{ path('module_terms_add_terms_version', {'terms': terms.id}) }}';
+
+    if (typeof versionId !=='undefined' && versionId !== null) {
+        url += '?version=' +  versionId;
+    }
+
+    xhr.open('POST', url);
+
+    xhr.onreadystatechange = function(){
+        if (xhr.readyState === 4 && xhr.status === 201){
+            window.location.href = '{{ path('module_terms_admin_edition', {'terms': terms.id}) }}';
+        }
+    }
+
+    xhr.send(null);
+};
+
+window.removeVersion = function () {
+    {% if currentTermsVersion.id is not null %}
+        var xhr = new XMLHttpRequest();
+
+        xhr.open('DELETE', '{{ path('module_terms_remove_terms_version', {'termsVersion': currentTermsVersion.id}) }}');
+
+        xhr.onreadystatechange = function(){
+            if (xhr.readyState === 4 && xhr.status === 200){
+                window.location.href = '{{ path('module_terms_admin_edition', {'terms': terms.id}) }}';
+            }
+        }
+
+        xhr.send(null);
+    {% endif %}
+};
+
+window.activateVersion = function () {
+    {% if currentTermsVersion.id is not null %}
+        document.getElementById('{{ form.activateVersion.vars.id }}').value = true;
+        window.saveTerms();
+    {% endif %}
+};

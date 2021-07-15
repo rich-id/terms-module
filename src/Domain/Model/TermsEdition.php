@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ValidatorConstraints\CantContentChangeIfTermsPublished
+ * @ValidatorConstraints\CantEnableVersionIfAlreadyEnabled
  * @ValidatorConstraints\CantPublicationDateChangeIfTermsPublished
  * @ValidatorConstraints\CantTitleChangeIfTermsPublished
  * @ValidatorConstraints\CantUnpublishLockedPublishedTerms
@@ -49,6 +50,13 @@ class TermsEdition
      * @Assert\Type("datetime")
      */
     private $publicationDate;
+
+    /**
+     * @var bool|null
+     *
+     * @Assert\Type("bool")
+     */
+    private $activateVersion;
 
     public function __construct(TermsVersion $entity)
     {
@@ -109,6 +117,18 @@ class TermsEdition
     public function setPublicationDate(?\DateTime $publicationDate): self
     {
         $this->publicationDate = $publicationDate;
+
+        return $this;
+    }
+
+    public function getActivateVersion(): ?bool
+    {
+        return $this->activateVersion;
+    }
+
+    public function setActivateVersion(?bool $activateVersion): self
+    {
+        $this->activateVersion = $activateVersion;
 
         return $this;
     }
