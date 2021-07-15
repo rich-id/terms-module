@@ -106,6 +106,8 @@ final class TermsVersionTest extends TestCase
     public function testBuildFromCopy(): void
     {
         $termsVersion = $this->getReference(TermsVersion::class, 'v3-terms-1');
+        $this->assertSame(3, $termsVersion->getVersion());
+
         $entity = TermsVersion::buildFromCopy($termsVersion);
 
         $this->assertNull($entity->getId());
@@ -114,7 +116,7 @@ final class TermsVersionTest extends TestCase
         $this->assertEmpty($entity->getSignatures());
 
         $this->assertSame($termsVersion->getTerms(), $entity->getTerms());
-        $this->assertSame(4, $entity->getVersion());
+        $this->assertSame(5, $entity->getVersion());
         $this->assertSame('Title Version 3', $entity->getTitle());
         $this->assertSame('Content Version 3', $entity->getContent());
     }

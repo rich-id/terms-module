@@ -8,4 +8,5 @@ return [
     Symfony\Bundle\TwigBundle\TwigBundle::class                                             => ['all' => true],
     RichCongress\RecurrentFixturesTestBundle\RichCongressRecurrentFixturesTestBundle::class => ['all' => true],
     RichId\TermsModuleBundle\Infrastructure\RichIdTermsModuleBundle::class                  => ['all' => true],
+    FOS\CKEditorBundle\FOSCKEditorBundle::class                                             => ['all' => true],
 ];

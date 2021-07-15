@@ -49,7 +49,7 @@ class EditTerms
         $this->entityRecoder->saveTerms($terms);
         $this->entityRecoder->saveTermsVersion($termsVersion);
 
-        if ($termsEdition->getActivateVersion() === true) {
+        if ($termsEdition->needVersionActivation() === true) {
             ($this->activateTermsVersion)($termsVersion);
         }
 

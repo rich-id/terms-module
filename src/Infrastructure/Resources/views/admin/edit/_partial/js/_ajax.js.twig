@@ -41,7 +41,7 @@ window.removeVersion = function () {
 
 window.activateVersion = function () {
     {% if currentTermsVersion.id is not null %}
-        document.getElementById('{{ form.activateVersion.vars.id }}').value = true;
+        document.getElementById('{{ form.needVersionActivation.vars.id }}').value = true;
         window.saveTerms();
     {% endif %}
 };

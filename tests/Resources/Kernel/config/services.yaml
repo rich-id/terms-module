@@ -9,6 +9,7 @@ services:
 
     RichId\TermsModuleBundle\Infrastructure\Adapter\EntityRemover: ~
     RichId\TermsModuleBundle\Infrastructure\Adapter\TermsVersionRepository: ~
+    RichId\TermsModuleBundle\Infrastructure\FormType\TermsVersionFormType: ~
     RichId\TermsModuleBundle\Infrastructure\TwigExtension\TermsExtension: ~
 
     RichId\TermsModuleBundle\Tests\Resources\Controller\FrontRoute: ~
@@ -19,6 +20,7 @@ services:
     RichId\TermsModuleBundle\Tests\Resources\Stubs\EntityManagerStub: ~
     RichId\TermsModuleBundle\Tests\Resources\Stubs\EventDispatcherStub: ~
     RichId\TermsModuleBundle\Tests\Resources\Stubs\LoggerStub: ~
+    RichId\TermsModuleBundle\Tests\Resources\Stubs\ValidationContextStub: ~
 
     RichId\TermsModuleBundle\Tests\Resources\EventListener\Terms4SignedEventListener:
         tags:

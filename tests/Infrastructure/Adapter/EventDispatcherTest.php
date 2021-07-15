@@ -9,6 +9,7 @@ use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Event\TermsSignedEvent;
 use RichId\TermsModuleBundle\Domain\Event\TermsVersionCreatedEvent;
+use RichId\TermsModuleBundle\Domain\Event\TermsVersionDeletedEvent;
 use RichId\TermsModuleBundle\Domain\Event\TermsVersionEnabledEvent;
 use RichId\TermsModuleBundle\Domain\Event\TermsVersionUpdatedEvent;
 use RichId\TermsModuleBundle\Domain\Model\DummySubject;
@@ -48,6 +49,17 @@ final class EventDispatcherTest extends TestCase
         $event = new TermsVersionCreatedEvent($termsVersion);
 
         $this->adapter->dispatchTermsVersionCreatedEvent($event);
+
+        $this->assertCount(1, $this->eventDispatcherStub->getEvents());
+        $this->assertSame($event, $this->eventDispatcherStub->getEvents()[0]);
+    }
+
+    public function testDispatchTermsVersionDeletedEvent(): void
+    {
+        $termsVersion = $this->getReference(TermsVersion::class, 'v3-terms-1');
+        $event = new TermsVersionDeletedEvent($termsVersion);
+
+        $this->adapter->dispatchTermsVersionDeletedEvent($event);
 
         $this->assertCount(1, $this->eventDispatcherStub->getEvents());
         $this->assertSame($event, $this->eventDispatcherStub->getEvents()[0]);

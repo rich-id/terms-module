@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace RichId\TermsModuleBundle\Infrastructure\FormType;
 
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Model\TermsEdition;
 use Symfony\Component\Form\AbstractType;
@@ -18,13 +17,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TermsVersionFormType extends AbstractType
 {
-    public const TERMS_ENTITY = 'terms';
     public const TERMS_VERSION_ENTITY = 'termsVersion';
 
     /* @phpstan-ignore-next-line */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $terms = $options[self::TERMS_ENTITY] ?? new Terms();
         $termsVersion = $options[self::TERMS_VERSION_ENTITY] ?? new TermsVersion();
 
         $builder
@@ -82,7 +79,7 @@ class TermsVersionFormType extends AbstractType
                 ]
             )
             ->add(
-                'activateVersion',
+                'needVersionActivation',
                 HiddenType::class,
                 [
                     'required' => false,
@@ -95,7 +92,6 @@ class TermsVersionFormType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                self::TERMS_ENTITY         => null,
                 self::TERMS_VERSION_ENTITY => null,
                 'data_class'               => TermsEdition::class,
             ]

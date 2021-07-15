@@ -56,7 +56,7 @@ class TermsEdition
      *
      * @Assert\Type("bool")
      */
-    private $activateVersion;
+    private $needVersionActivation;
 
     public function __construct(TermsVersion $entity)
     {
@@ -121,14 +121,14 @@ class TermsEdition
         return $this;
     }
 
-    public function getActivateVersion(): ?bool
+    public function needVersionActivation(): ?bool
     {
-        return $this->activateVersion;
+        return $this->needVersionActivation;
     }
 
-    public function setActivateVersion(?bool $activateVersion): self
+    public function setNeedVersionActivation(?bool $needVersionActivation): self
     {
-        $this->activateVersion = $activateVersion;
+        $this->needVersionActivation = $needVersionActivation;
 
         return $this;
     }

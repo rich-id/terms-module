@@ -35,9 +35,9 @@ class CantEnableVersionIfAlreadyEnabled extends Constraint implements Constraint
 
         $originalTermsVersion = $value->getEntity();
 
-        if ($originalTermsVersion->isEnabled() && $value->getActivateVersion()) {
+        if ($originalTermsVersion->isEnabled() && $value->needVersionActivation()) {
             $this->context->buildViolation(self::MESSAGE)
-                ->atPath('activateVersion')
+                ->atPath('needVersionActivation')
                 ->setTranslationDomain('terms_module_validation')
                 ->addViolation();
         }
