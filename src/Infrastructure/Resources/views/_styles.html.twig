@@ -14,7 +14,7 @@
         --terms-module-button-border-radius: 4px;
 
         --terms-module-version-tag-background: #999999;
-        --terms-module-version-tag-active-background: #FF645B;
+        --terms-module-version-tag-active-background: var(--terms-module-secondary);
 
         --terms-module-background: #EEEEEE;
 
@@ -56,11 +56,13 @@
         border-radius: var(--terms-module-button-border-radius);
         border: 1px solid var(--terms-module-primary);
         color: var(--terms-module-white);
+        display: inline-block;
         font-family: var(--terms-module-font-family);
         font-size: 16px;
         letter-spacing: normal;
         line-height: 16px;
         padding: 11px 16px;
+        text-decoration: none !important;
     }
 
     .terms-module-button-primary:disabled,
@@ -81,11 +83,13 @@
         border-radius: var(--terms-module-button-border-radius);
         border: 1px solid var(--terms-module-primary);
         color: var(--terms-module-primary);
+        display: inline-block;
         font-family: var(--terms-module-font-family);
         font-size: 16px;
         letter-spacing: normal;
         line-height: 16px;
         padding: 11px 16px;
+        text-decoration: none !important;
     }
 
     .terms-module-button-secondary.terms-module-button-secondary-small {

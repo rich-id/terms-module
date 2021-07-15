@@ -17,8 +17,8 @@
         {{ form_row(form.activateVersion) }}
 
         <div class="terms-module-admin-edition-add-version-container">
-            <div class="terms-module-admin-edition-terms-version-tags">
-                {% for termsVersion in terms.versions|sort((a, b) => a.version <=> b.version) %}
+            <div id="terms-module-admin-edition-terms-version-tags" class="terms-module-admin-edition-terms-version-tags">
+                {% for termsVersion in terms.versions|sort((a, b) => b.version <=> a.version) %}
                     <a class="terms-version-tag {% if lastEnabledVersion != false and lastEnabledVersion.id == termsVersion.id %}enabled{% endif %} {% if currentTermsVersion.id == termsVersion.id %}current{% endif %}"
                        {% if currentTermsVersion.id != termsVersion.id and termsVersion.id != lastTermsVersion.id %}href="{{ path('module_terms_admin_edition', {'terms': terms.id, 'version': termsVersion.version}) }}"{% endif %}
                        {% if currentTermsVersion.id != termsVersion.id and termsVersion.id == lastTermsVersion.id %}href="{{ path('module_terms_admin_edition', {'terms': terms.id}) }}"{% endif %}
@@ -34,6 +34,10 @@
                         {{ 'terms_module.admin.edit.version'|trans({'%version%': termsVersion.version}, 'terms_module') }}
                     </a>
                 {% endfor %}
+
+                <div class="terms-version-tag terms-version-tag-next" onclick="openOtherVersion()">
+                    ...
+                </div>
             </div>
 
             <div class="terms-module-admin-edition-version-management">
@@ -76,7 +80,7 @@
         <div class="terms-module-admin-edition-actions">
             <button type="button" id="save-terms" class="terms-module-button-primary terms-module-action terms-module-action-space terms-module-open-loader" onclick="saveTerms()" disabled>{{ 'terms_module.admin.edit.save'|trans({}, 'terms_module') }}</button>
             <button type="button" id="save-and-exit-terms" class="terms-module-button-primary terms-module-action terms-module-action-space terms-module-open-loader" onclick="saveTerms(true)" disabled>{{ 'terms_module.admin.edit.save_and_exit'|trans({}, 'terms_module') }}</button>
-            <a class="terms-module-link terms-module-action-space" id="exit-terms" href="{{ path('module_terms_admin_list') }}">{{ 'terms_module.admin.edit.close'|trans({}, 'terms_module') }}</a>
+            <a class="terms-module-button-secondary terms-module-action-space" id="exit-terms" href="{{ path('module_terms_admin_list') }}">{{ 'terms_module.admin.edit.close'|trans({}, 'terms_module') }}</a>
         </div>
     {{ form_end(form) }}
 </div>

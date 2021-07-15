@@ -29,3 +29,8 @@ window.computeTermsVersionContentStatus = function () {
     CKEDITOR.instances.terms_version_form_content.setReadOnly();
     {% endif %}
 };
+
+
+window.openOtherVersion = function () {
+    document.getElementById('terms-module-admin-edition-terms-version-tags').classList.add('open');
+};

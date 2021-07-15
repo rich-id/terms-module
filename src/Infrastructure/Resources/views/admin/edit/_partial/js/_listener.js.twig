@@ -42,3 +42,13 @@ CKEDITOR.instances.terms_version_form_content.on('instanceReady', function () {
 });
 
 window.initTermsEdition();
+
+const resize_ob = new ResizeObserver(function(entries) {
+    let rect = entries[0].contentRect;
+
+    if (rect.height > 50) {
+        document.getElementById('terms-module-admin-edition-terms-version-tags').classList.add('with-next');
+    }
+});
+
+resize_ob.observe(document.getElementById('terms-module-admin-edition-terms-version-tags'));
