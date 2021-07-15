@@ -37,6 +37,6 @@ final class EntityRemoverTest extends TestCase
         $this->assertCount(1, $this->entityManagerStub->getRemovedEntities());
 
         // Skipped, waiting a correction in the test-framework
-        //$this->assertCount(5, $this->termsVersionRepository->findAll());
+        //$this->assertCount(6, $this->termsVersionRepository->findAll());
     }
 }
