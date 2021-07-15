@@ -62,7 +62,7 @@ final class EntityRecorderTest extends TestCase
 
     public function testSaveTermsVersion(): void
     {
-        $this->assertCount(6, $this->termsVersionRepository->findAll());
+        $this->assertCount(7, $this->termsVersionRepository->findAll());
         $terms = $this->getReference(Terms::class, '1');
 
         $termsVersion = TermsVersion::buildDefaultVersion($terms);
@@ -73,6 +73,6 @@ final class EntityRecorderTest extends TestCase
         $this->adapter->saveTermsVersion($termsVersion);
         $this->adapter->flush();
 
-        $this->assertCount(7, $this->termsVersionRepository->findAll());
+        $this->assertCount(8, $this->termsVersionRepository->findAll());
     }
 }

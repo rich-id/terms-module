@@ -28,7 +28,7 @@ final class EntityRemoverTest extends TestCase
 
     public function testRemoveTermsVersion(): void
     {
-        $this->assertCount(6, $this->termsVersionRepository->findAll());
+        $this->assertCount(7, $this->termsVersionRepository->findAll());
 
         $termsVersion = $this->getReference(TermsVersion::class, 'v4-terms-1');
 

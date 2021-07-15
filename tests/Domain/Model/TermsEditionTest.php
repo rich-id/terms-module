@@ -32,6 +32,7 @@ final class TermsEditionTest extends TestCase
         $this->assertSame('My content', $model->getContent());
         $this->assertSame($date, $model->getPublicationDate());
         $this->assertSame($termsVersion, $model->getEntity());
+        $this->assertNull($model->needVersionActivation());
     }
 
     public function testModel(): void
@@ -46,11 +47,13 @@ final class TermsEditionTest extends TestCase
         $model->setTitle('My title');
         $model->setContent('My content');
         $model->setPublicationDate($date);
+        $model->setNeedVersionActivation(true);
 
         $this->assertTrue($model->isTermsPublished());
         $this->assertSame('My title', $model->getTitle());
         $this->assertSame('My content', $model->getContent());
         $this->assertSame($date, $model->getPublicationDate());
         $this->assertSame($termsVersion, $model->getEntity());
+        $this->assertTrue($model->needVersionActivation());
     }
 }

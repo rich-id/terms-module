@@ -88,6 +88,18 @@ final class TermsVersionFixtures extends AbstractFixture implements DependentFix
                 'terms'     => $terms5,
             ]
         );
+
+        $this->createObject(
+            TermsVersion::class,
+            'v2-terms-5',
+            [
+                'version'   => 2,
+                'isEnabled' => false,
+                'title'     => 'Title Version 2',
+                'content'   => 'Content Version 2',
+                'terms'     => $terms5,
+            ]
+        );
     }
 
     public function getDependencies(): array

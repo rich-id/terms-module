@@ -4,8 +4,8 @@ services:
         autowire: true
         public: true
 
-    RichId\TermsModuleBundle\Domain\UseCase\HasSignTerms: ~
     RichId\TermsModuleBundle\Domain\UseCase\HasSignLastTermsVersion: ~
+    RichId\TermsModuleBundle\Domain\UseCase\HasSignTerms: ~
 
     RichId\TermsModuleBundle\Infrastructure\Adapter\EntityRemover: ~
     RichId\TermsModuleBundle\Infrastructure\Adapter\TermsVersionRepository: ~
