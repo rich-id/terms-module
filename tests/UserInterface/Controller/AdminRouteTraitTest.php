@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RichId\TermsModuleBundle\Tests\UserInterface\Controller;
 
 use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
-use RichCongress\TestSuite\TestCase\TestCase;
+use RichCongress\TestSuite\TestCase\ControllerTestCase;
 use RichId\TermsModuleBundle\Tests\Resources\Controller\DummyAdminRoute;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  * @covers \RichId\TermsModuleBundle\UserInterface\Controller\AdminRouteTrait
  * @TestConfig("kernel")
  */
-final class AdminRouteTraitTest extends TestCase
+final class AdminRouteTraitTest extends ControllerTestCase
 {
     /** @var DummyAdminRoute */
     public $route;

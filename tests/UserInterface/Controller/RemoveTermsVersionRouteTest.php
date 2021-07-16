@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RichId\TermsModuleBundle\Tests\UserInterface\Controller;
 
 use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
-use RichCongress\TestSuite\TestCase\TestCase;
+use RichCongress\TestSuite\TestCase\ControllerTestCase;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionRepository;
 use RichId\TermsModuleBundle\Tests\Resources\Entity\DummyUser;
@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @covers \RichId\TermsModuleBundle\UserInterface\Controller\RemoveTermsVersionRoute
  * @TestConfig("fixtures")
  */
-final class RemoveTermsVersionRouteTest extends TestCase
+final class RemoveTermsVersionRouteTest extends ControllerTestCase
 {
     /** @var TermsVersionRepository */
     public $termsVersionRepository;

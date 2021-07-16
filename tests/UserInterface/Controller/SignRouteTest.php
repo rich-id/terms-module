@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RichId\TermsModuleBundle\Tests\UserInterface\Controller;
 
 use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
-use RichCongress\TestSuite\TestCase\TestCase;
+use RichCongress\TestSuite\TestCase\ControllerTestCase;
 use RichId\TermsModuleBundle\Domain\Event\TermsSignedEvent;
 use RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionSignatureRepository;
 use RichId\TermsModuleBundle\Tests\Resources\Entity\DummyUser;
@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @TestConfig("fixtures")
  */
-final class SignRouteTest extends TestCase
+final class SignRouteTest extends ControllerTestCase
 {
     /** @var LoggerStub */
     public $loggerStub;

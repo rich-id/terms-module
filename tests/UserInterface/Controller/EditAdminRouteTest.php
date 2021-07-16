@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace RichId\TermsModuleBundle\Tests\UserInterface\Controller;
 
 use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
-use RichCongress\TestSuite\TestCase\TestCase;
+use RichCongress\TestSuite\TestCase\ControllerTestCase;
 use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
+use RichId\TermsModuleBundle\Infrastructure\FormType\TermsVersionFormType;
 use RichId\TermsModuleBundle\Tests\Resources\Entity\DummyUser;
 use RichId\TermsModuleBundle\Tests\Resources\Fixtures\DummyUserFixtures;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @covers \RichId\TermsModuleBundle\UserInterface\Controller\EditAdminRoute
  * @TestConfig("fixtures")
  */
-final class EditAdminRouteTest extends TestCase
+final class EditAdminRouteTest extends ControllerTestCase
 {
     public function testRouteNotLogged(): void
     {
@@ -212,5 +213,285 @@ final class EditAdminRouteTest extends TestCase
         $this->assertStringNotContainsString('New version', $content);
         $this->assertStringNotContainsString('icon-trash', $content);
         $this->assertStringNotContainsString('Active', $content);
+    }
+
+    public function testRoutePostTermsWithoutVersion(): void
+    {
+        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER_ADMIN);
+        $this->authenticateUser($user);
+
+        $terms = $this->getReference(Terms::class, '2');
+        $this->assertEmpty($terms->getVersions());
+        $this->assertFalse($terms->isPublished());
+
+        $response = $this->getClient()
+            ->post(
+                \sprintf(
+                    '/administration/terms/%d',
+                    $terms->getId()
+                ),
+                [],
+                [
+                    'terms_version_form' => [
+                        'title'                 => 'New title',
+                        'content'               => 'New content',
+                        'isTermsPublished'      => '0',
+                        'publicationDate'       => '',
+                        'needVersionActivation' => '',
+                        '_token'                => $this->getCsrfToken(TermsVersionFormType::class),
+                    ],
+                ]
+            );
+
+        $this->assertSame(Response::HTTP_FOUND, $response->getStatusCode());
+        $this->assertSame('/administration/terms/2', $response->headers->get('location'));
+        $this->assertFalse($terms->isPublished());
+        $this->assertCount(1, $terms->getVersions());
+
+        $termsVersion = $terms->getVersions()->first();
+
+        $this->assertSame('New title', $termsVersion->getTitle());
+        $this->assertSame('New content', $termsVersion->getContent());
+        $this->assertSame(1, $termsVersion->getVersion());
+        $this->assertNull($termsVersion->getPublicationDate());
+        $this->assertFalse($termsVersion->isEnabled());
+    }
+
+    public function testRoutePostTermsWithoutVersionPublishTerms(): void
+    {
+        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER_ADMIN);
+        $this->authenticateUser($user);
+
+        $terms = $this->getReference(Terms::class, '2');
+        $this->assertEmpty($terms->getVersions());
+        $this->assertFalse($terms->isPublished());
+
+        $response = $this->getClient()
+            ->post(
+                \sprintf(
+                    '/administration/terms/%d',
+                    $terms->getId()
+                ),
+                [],
+                [
+                    'terms_version_form' => [
+                        'title'                 => 'New title',
+                        'content'               => 'New content',
+                        'isTermsPublished'      => '1',
+                        'publicationDate'       => '',
+                        'needVersionActivation' => '',
+                        '_token'                => $this->getCsrfToken(TermsVersionFormType::class),
+                    ],
+                ]
+            );
+
+        $this->assertSame(Response::HTTP_FOUND, $response->getStatusCode());
+        $this->assertSame('/administration/terms/2', $response->headers->get('location'));
+        $this->assertTrue($terms->isPublished());
+        $this->assertCount(1, $terms->getVersions());
+
+        $termsVersion = $terms->getVersions()->first();
+
+        $this->assertSame('New title', $termsVersion->getTitle());
+        $this->assertSame('New content', $termsVersion->getContent());
+        $this->assertSame(1, $termsVersion->getVersion());
+        $this->assertNotNull($termsVersion->getPublicationDate());
+        $this->assertTrue($termsVersion->isEnabled());
+    }
+
+    public function testRoutePostWithExit(): void
+    {
+        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER_ADMIN);
+        $this->authenticateUser($user);
+
+        $terms = $this->getReference(Terms::class, '2');
+        $this->assertEmpty($terms->getVersions());
+        $this->assertFalse($terms->isPublished());
+
+        $response = $this->getClient()
+            ->post(
+                \sprintf(
+                    '/administration/terms/%d?exit=1',
+                    $terms->getId()
+                ),
+                [],
+                [
+                    'terms_version_form' => [
+                        'title'                 => 'New title',
+                        'content'               => 'New content',
+                        'isTermsPublished'      => '0',
+                        'publicationDate'       => '',
+                        'needVersionActivation' => '',
+                        '_token'                => $this->getCsrfToken(TermsVersionFormType::class),
+                    ],
+                ]
+            );
+
+        $this->assertSame(Response::HTTP_FOUND, $response->getStatusCode());
+        $this->assertSame('/administration/terms', $response->headers->get('location'));
+    }
+
+    public function testRoutePostChangeTitleContentPublicationDateOfEnabledVersion(): void
+    {
+        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER_ADMIN);
+        $this->authenticateUser($user);
+
+        $terms = $this->getReference(Terms::class, '5');
+        $termVersion = $this->getReference(TermsVersion::class, 'v2-terms-5');
+        $termVersion->enable();
+
+        $this->getManager()->persist($termVersion);
+        $this->getManager()->flush();
+
+        $response = $this->getClient()
+            ->post(
+                \sprintf(
+                    '/administration/terms/%d',
+                    $terms->getId()
+                ),
+                [],
+                [
+                    'terms_version_form' => [
+                        'title'                 => 'New title',
+                        'content'               => 'New content',
+                        'isTermsPublished'      => '1',
+                        'publicationDate'       => '2020-01-01',
+                        'needVersionActivation' => '',
+                        '_token'                => $this->getCsrfToken(TermsVersionFormType::class),
+                    ],
+                ]
+            );
+
+        $this->assertSame(Response::HTTP_OK, $response->getStatusCode());
+        $content = $response->getContent() !== false ? $response->getContent() : '';
+
+        $this->assertStringContainsString('The title cannot be changed when the version is published.', $content);
+        $this->assertStringContainsString('The publication date cannot be changed when the version is published.', $content);
+    }
+
+    public function testRoutePostUnpublishTermsLocked(): void
+    {
+        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER_ADMIN);
+        $this->authenticateUser($user);
+
+        $terms = $this->getReference(Terms::class, '1');
+
+        $response = $this->getClient()
+            ->post(
+                \sprintf(
+                    '/administration/terms/%d',
+                    $terms->getId()
+                ),
+                [],
+                [
+                    'terms_version_form' => [
+                        'title'                 => 'New title',
+                        'content'               => 'New content',
+                        'isTermsPublished'      => '0',
+                        'publicationDate'       => '',
+                        'needVersionActivation' => '',
+                        '_token'                => $this->getCsrfToken(TermsVersionFormType::class),
+                    ],
+                ]
+            );
+
+        $this->assertSame(Response::HTTP_OK, $response->getStatusCode());
+        $content = $response->getContent() !== false ? $response->getContent() : '';
+
+        $this->assertStringContainsString('It is not possible to unpublish a locked terms.', $content);
+    }
+
+    public function testRoutePostWithSpecificVersion(): void
+    {
+        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER_ADMIN);
+        $this->authenticateUser($user);
+
+        $terms = $this->getReference(Terms::class, '1');
+
+        $response = $this->getClient()
+            ->post(
+                \sprintf(
+                    '/administration/terms/%d?version=1',
+                    $terms->getId()
+                ),
+                [],
+                [
+                    'terms_version_form' => [
+                        'title'                 => 'Title Version 1',
+                        'content'               => 'Content Version 1',
+                        'isTermsPublished'      => '1',
+                        'publicationDate'       => '',
+                        'needVersionActivation' => '',
+                        '_token'                => $this->getCsrfToken(TermsVersionFormType::class),
+                    ],
+                ]
+            );
+
+        $this->assertSame(Response::HTTP_FOUND, $response->getStatusCode());
+        $this->assertSame('/administration/terms/1?version=1', $response->headers->get('location'));
+    }
+
+    public function testRoutePostActivateVersionAlreadyActivated(): void
+    {
+        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER_ADMIN);
+        $this->authenticateUser($user);
+
+        $terms = $this->getReference(Terms::class, '5');
+        $termVersion = $this->getReference(TermsVersion::class, 'v2-terms-5');
+        $termVersion->enable();
+
+        $this->getManager()->persist($termVersion);
+        $this->getManager()->flush();
+
+        $response = $this->getClient()
+            ->post(
+                \sprintf(
+                    '/administration/terms/%d',
+                    $terms->getId()
+                ),
+                [],
+                [
+                    'terms_version_form' => [
+                        'title'                 => $termVersion->getTitle(),
+                        'content'               => $termVersion->getContent(),
+                        'isTermsPublished'      => '1',
+                        'publicationDate'       => '',
+                        'needVersionActivation' => '1',
+                        '_token'                => $this->getCsrfToken(TermsVersionFormType::class),
+                    ],
+                ]
+            );
+
+        $this->assertSame(Response::HTTP_OK, $response->getStatusCode());
+    }
+
+    public function testRoutePostActivateVersion(): void
+    {
+        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER_ADMIN);
+        $this->authenticateUser($user);
+
+        $terms = $this->getReference(Terms::class, '5');
+        $termVersion = $this->getReference(TermsVersion::class, 'v2-terms-5');
+
+        $response = $this->getClient()
+            ->post(
+                \sprintf(
+                    '/administration/terms/%d',
+                    $terms->getId()
+                ),
+                [],
+                [
+                    'terms_version_form' => [
+                        'title'                 => $termVersion->getTitle(),
+                        'content'               => $termVersion->getContent(),
+                        'isTermsPublished'      => '1',
+                        'publicationDate'       => '',
+                        'needVersionActivation' => '1',
+                        '_token'                => $this->getCsrfToken(TermsVersionFormType::class),
+                    ],
+                ]
+            );
+
+        $this->assertSame(Response::HTTP_FOUND, $response->getStatusCode());
     }
 }

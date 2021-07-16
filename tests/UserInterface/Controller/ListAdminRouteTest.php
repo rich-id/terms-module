@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RichId\TermsModuleBundle\Tests\UserInterface\Controller;
 
 use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
-use RichCongress\TestSuite\TestCase\TestCase;
+use RichCongress\TestSuite\TestCase\ControllerTestCase;
 use RichId\TermsModuleBundle\Tests\Resources\Entity\DummyUser;
 use RichId\TermsModuleBundle\Tests\Resources\Fixtures\DummyUserFixtures;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @covers \RichId\TermsModuleBundle\UserInterface\Controller\ListAdminRoute
  * @TestConfig("fixtures")
  */
-final class ListAdminRouteTest extends TestCase
+final class ListAdminRouteTest extends ControllerTestCase
 {
     public function testRouteNotLogged(): void
     {
