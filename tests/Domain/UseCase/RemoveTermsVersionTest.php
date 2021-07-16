@@ -10,6 +10,7 @@ use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Event\TermsVersionDeletedEvent;
 use RichId\TermsModuleBundle\Domain\Exception\EnabledVersionCannotBeDeletedException;
+use RichId\TermsModuleBundle\Domain\Exception\FirstVersionCannotBeDeletedException;
 use RichId\TermsModuleBundle\Domain\UseCase\RemoveTermsVersion;
 use RichId\TermsModuleBundle\Tests\Resources\Stubs\EntityManagerStub;
 use RichId\TermsModuleBundle\Tests\Resources\Stubs\EventDispatcherStub;
@@ -41,6 +42,21 @@ final class RemoveTermsVersionTest extends TestCase
         $termsVersion->setTerms($terms);
         $termsVersion->setVersion(42);
         $termsVersion->enable();
+
+        ($this->useCase)($termsVersion);
+    }
+
+    public function testUseCaseFirstVersion(): void
+    {
+        $this->expectException(FirstVersionCannotBeDeletedException::class);
+        $this->expectExceptionMessage('First version of terms my_terms cannot be deleted.');
+
+        $terms = new Terms();
+        $terms->setSlug('my_terms');
+
+        $termsVersion = new TermsVersion();
+        $termsVersion->setTerms($terms);
+        $termsVersion->setVersion(42);
 
         ($this->useCase)($termsVersion);
     }

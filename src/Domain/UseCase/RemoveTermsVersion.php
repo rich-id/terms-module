@@ -7,6 +7,7 @@ namespace RichId\TermsModuleBundle\Domain\UseCase;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Event\TermsVersionDeletedEvent;
 use RichId\TermsModuleBundle\Domain\Exception\EnabledVersionCannotBeDeletedException;
+use RichId\TermsModuleBundle\Domain\Exception\FirstVersionCannotBeDeletedException;
 use RichId\TermsModuleBundle\Domain\Port\EntityRemoverInterface;
 use RichId\TermsModuleBundle\Domain\Port\EventDispatcherInterface;
 
@@ -26,8 +27,14 @@ class RemoveTermsVersion
 
     public function __invoke(TermsVersion $termsVersion): void
     {
+        $terms = $termsVersion->getTerms();
+
         if ($termsVersion->isEnabled()) {
             throw new EnabledVersionCannotBeDeletedException($termsVersion);
+        }
+
+        if ($termsVersion->getVersion() === 1 || $terms->getVersions()->count() <= 1) {
+            throw new FirstVersionCannotBeDeletedException($termsVersion);
         }
 
         $this->entityRemover->removeTermsVersion($termsVersion);

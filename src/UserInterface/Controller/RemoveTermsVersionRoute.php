@@ -6,6 +6,7 @@ namespace RichId\TermsModuleBundle\UserInterface\Controller;
 
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Exception\EnabledVersionCannotBeDeletedException;
+use RichId\TermsModuleBundle\Domain\Exception\FirstVersionCannotBeDeletedException;
 use RichId\TermsModuleBundle\Domain\UseCase\RemoveTermsVersion;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -44,7 +45,7 @@ class RemoveTermsVersionRoute extends AbstractController
             ($this->removeTermsVersion)($termsVersion);
 
             return JsonResponse::create(null, Response::HTTP_OK);
-        } catch (EnabledVersionCannotBeDeletedException $e) {
+        } catch (EnabledVersionCannotBeDeletedException | FirstVersionCannotBeDeletedException $e) {
             return JsonResponse::create($e->getMessage(), Response::HTTP_UNAUTHORIZED);
         }
     }
