@@ -7,8 +7,8 @@
         --terms-module-error: #DF4551;
         --terms-module-success: #A1C225;
 
-        --terms-module-form-field-border-color: #999999;
-        --terms-module-form-field-color: #333333;
+        --terms-module-form-field-placeholder: #999999;
+        --terms-module-form-field-color: var(--terms-module-dark);
         --terms-module-form-field-border-radius: 4px;
 
         --terms-module-button-border-radius: 4px;
@@ -231,7 +231,7 @@
 
     .terms-module-form-field-input {
         border-radius: var(--terms-module-form-field-border-radius);
-        border: 1px solid var(--terms-module-form-field-border-color);
+        border: 1px solid var(--terms-module-form-field-placeholder);
         box-sizing: border-box;
         color: var(--terms-module-form-field-color);
         font-family: var(--terms-module-font-family);
@@ -250,7 +250,7 @@
 
 
     .terms-module-form-field #cke_terms_version_form_content {
-        border: 1px solid var(--terms-module-form-field-border-color);
+        border: 1px solid var(--terms-module-form-field-placeholder);
         border-radius: var(--terms-module-form-field-border-radius);
     }
 

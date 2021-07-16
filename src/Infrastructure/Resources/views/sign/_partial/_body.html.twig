@@ -1,0 +1,39 @@
+<div class="terms-module-sign-content">
+    {% if hasSignTerms(terms.slug, subject.termsSubjectType, subject.termsSubjectIdentifier) == constant('RichId\\TermsModuleBundle\\Domain\\UseCase\\HasSignTerms::HAS_SIGN_OLD_VERSION') %}
+        <div class="terms-module-ribon">{{ 'terms_module.sign.new_version'|trans({}, 'terms_module') }}</div>
+    {% endif %}
+
+    <div class="terms-module-sign-content-title">{{ lastTermsVersion.title }}</div>
+    <div>{{ lastTermsVersion.content|raw }}</div>
+
+    <form id="terms-module-sign-form"
+          class="terms-module-center terms-module-sign-actions"
+          method="post"
+          action="{{ path('module_terms_sign', {'termsSlug': terms.slug, 'type': subject.termsSubjectType, 'identifier': subject.termsSubjectIdentifier}) }}"
+    >
+        <input type="hidden" name="accepted" id="terms-module-sign-accepted">
+
+        <button type="button" class="terms-module-button-secondary terms-module-action terms-module-action-space terms-module-open-loader" onclick="refuseTerms()">{{ 'terms_module.sign.refuse'|trans({}, 'terms_module') }}</button>
+        <button type="button" class="terms-module-button-primary terms-module-action terms-module-action-space terms-module-open-loader"  onclick="acceptTerms()">{{ 'terms_module.sign.accept'|trans({}, 'terms_module') }}</button>
+        <a class="terms-module-link terms-module-action-space terms-module-open-loader" onclick="ignoreTerms()">{{ 'terms_module.sign.prefer_answer_later'|trans({}, 'terms_module') }}</a>
+    </form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        window.refuseTerms = function () {
+            document.getElementById('terms-module-sign-accepted').value = 0;
+            document.getElementById('terms-module-sign-form').submit();
+        }
+
+        window.acceptTerms = function () {
+            document.getElementById('terms-module-sign-accepted').value = 1;
+            document.getElementById('terms-module-sign-form').submit();
+        }
+
+        window.ignoreTerms = function () {
+            document.getElementById('terms-module-sign-accepted').value = '';
+            document.getElementById('terms-module-sign-form').submit();
+        }
+    });
+</script>

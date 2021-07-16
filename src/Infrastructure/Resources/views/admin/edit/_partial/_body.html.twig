@@ -19,25 +19,10 @@
         <div class="terms-module-admin-edition-add-version-container">
             <div id="terms-module-admin-edition-terms-version-tags" class="terms-module-admin-edition-terms-version-tags">
                 {% for termsVersion in terms.versions|sort((a, b) => b.version <=> a.version) %}
-                    <a class="terms-version-tag {% if lastEnabledVersion != false and lastEnabledVersion.id == termsVersion.id %}enabled{% endif %} {% if currentTermsVersion.id == termsVersion.id %}current{% endif %}"
-                       {% if currentTermsVersion.id != termsVersion.id and termsVersion.id != lastTermsVersion.id %}href="{{ path('module_terms_admin_edition', {'terms': terms.id, 'version': termsVersion.version}) }}"{% endif %}
-                       {% if currentTermsVersion.id != termsVersion.id and termsVersion.id == lastTermsVersion.id %}href="{{ path('module_terms_admin_edition', {'terms': terms.id}) }}"{% endif %}
-                    >
-                        {% if termsVersion.id == lastTermsVersion.id and not termsVersion.isEnabled() %}
-                            <i class="icon-sync-alt-regular"></i>
-                        {% elseif lastEnabledVersion != false and lastEnabledVersion.id == termsVersion.id %}
-                            <i class="icon-lock"></i>
-                        {% else %}
-                            <i class="icon-versions"></i>
-                        {% endif %}
-
-                        {{ 'terms_module.admin.edit.version'|trans({'%version%': termsVersion.version}, 'terms_module') }}
-                    </a>
+                    {% include '@RichIdTermsModule/admin/edit/_partial/_terms_version_card.html.twig' %}
                 {% endfor %}
 
-                <div class="terms-version-tag terms-version-tag-next" onclick="openOtherVersion()">
-                    ...
-                </div>
+                <div class="terms-version-tag terms-version-tag-next" onclick="openOtherVersion()">...</div>
             </div>
 
             <div class="terms-module-admin-edition-version-management">
@@ -50,7 +35,7 @@
 
                 {% if currentTermsVersion.id != lastTermsVersion.id  %}
                     <button type="button" class="terms-module-button-secondary terms-module-button-secondary-small" onclick="createNewVersion({{ currentTermsVersion.version }})" {% if not lastTermsVersion.isEnabled() %}disabled{% endif %}>
-                        <i class="icon-plus-circle-light"></i>
+                        <i class="icon-layer-plus-light"></i>
                         {{ 'terms_module.admin.edit.duplicate'|trans({}, 'terms_module') }}
                     </button>
                 {% endif %}
