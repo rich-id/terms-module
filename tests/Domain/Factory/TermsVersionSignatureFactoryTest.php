@@ -25,7 +25,7 @@ final class TermsVersionSignatureFactoryTest extends TestCase
     {
         $termsVersion = new TermsVersion();
 
-        $entity = $this->factory->sign($termsVersion, DummySubject::create('user', '42'));
+        $entity = ($this->factory)($termsVersion, DummySubject::create('user', '42'));
 
         $this->assertNull($entity->getId());
         $this->assertInstanceOf(\DateTime::class, $entity->getDate());
@@ -52,13 +52,13 @@ final class TermsVersionSignatureFactoryTest extends TestCase
         $this->getManager()->persist($termsVersion);
         $this->getManager()->flush();
 
-        $entity1 = $this->factory->sign($termsVersion, DummySubject::create('user', '42'));
+        $entity1 = ($this->factory)($termsVersion, DummySubject::create('user', '42'));
         $this->getManager()->persist($entity1);
         $this->getManager()->flush();
 
         $this->expectException(UniqueConstraintViolationException::class);
 
-        $entity2 = $this->factory->sign($termsVersion, DummySubject::create('user', '42'));
+        $entity2 = ($this->factory)($termsVersion, DummySubject::create('user', '42'));
         $this->getManager()->persist($entity2);
         $this->getManager()->flush();
     }

@@ -27,7 +27,7 @@ final class TermsUpdaterTest extends TestCase
         $entity = new Terms();
         $model = new TermsEdition($termsVersion);
 
-        $this->updater->update($entity, $model);
+        ($this->updater)($entity, $model);
 
         $this->assertNull($entity->getId());
         $this->assertNull($entity->getSlug());

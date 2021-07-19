@@ -10,7 +10,7 @@ use RichId\TermsModuleBundle\Domain\Model\TermsEdition;
 
 class TermsVersionUpdater
 {
-    public function update(TermsVersion $termsVersion, TermsEdition $termsEdition): TermsVersion
+    public function __invoke(TermsVersion $termsVersion, TermsEdition $termsEdition): TermsVersion
     {
         if ($termsEdition->getTitle() === null || $termsEdition->getTitle() === '') {
             throw new InvalidValueException('title', $termsEdition->getTitle());

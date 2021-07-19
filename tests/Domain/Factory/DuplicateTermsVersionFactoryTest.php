@@ -6,62 +6,45 @@ namespace RichId\TermsModuleBundle\Tests\Domain\Factory;
 
 use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
-use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Exception\InvalidValueException;
-use RichId\TermsModuleBundle\Domain\Factory\TermsVersionFactory;
+use RichId\TermsModuleBundle\Domain\Factory\DuplicateTermsVersionFactory;
 
 /**
- * @covers \RichId\TermsModuleBundle\Domain\Factory\TermsVersionFactory
+ * @covers \RichId\TermsModuleBundle\Domain\Factory\DuplicateTermsVersionFactory
  * @TestConfig("fixtures")
  */
-final class TermsVersionFactoryTest extends TestCase
+final class DuplicateTermsVersionFactoryTest extends TestCase
 {
-    /** @var TermsVersionFactory */
+    /** @var DuplicateTermsVersionFactory */
     public $factory;
 
-    public function testBuildDefaultVersion(): void
-    {
-        $terms = new Terms();
-
-        $entity = $this->factory->buildDefaultVersion($terms);
-
-        $this->assertNull($entity->getId());
-        $this->assertSame($terms, $entity->getTerms());
-        $this->assertSame(1, $entity->getVersion());
-        $this->assertFalse($entity->isEnabled());
-        $this->assertNull($entity->getTitle());
-        $this->assertNull($entity->getContent());
-        $this->assertNull($entity->getPublicationDate());
-        $this->assertEmpty($entity->getSignatures());
-    }
-
-    public function testBuildFromCopyWithBadTitle(): void
+    public function testFactoryWithBadTitle(): void
     {
         $this->expectException(InvalidValueException::class);
 
         $termsVersion = $this->getReference(TermsVersion::class, 'v3-terms-1');
         $termsVersion->setTitle('');
 
-        $this->factory->buildFromCopy($termsVersion);
+        ($this->factory)($termsVersion);
     }
 
-    public function testBuildFromCopyWithBadContent(): void
+    public function testFactoryWithBadContent(): void
     {
         $this->expectException(InvalidValueException::class);
 
         $termsVersion = $this->getReference(TermsVersion::class, 'v3-terms-1');
         $termsVersion->setContent('');
 
-        $this->factory->buildFromCopy($termsVersion);
+        ($this->factory)($termsVersion);
     }
 
-    public function testBuildFromCopy(): void
+    public function testFactory(): void
     {
         $termsVersion = $this->getReference(TermsVersion::class, 'v3-terms-1');
         $this->assertSame(3, $termsVersion->getVersion());
 
-        $entity = $this->factory->buildFromCopy($termsVersion);
+        $entity = ($this->factory)($termsVersion);
 
         $this->assertNull($entity->getId());
         $this->assertNull($entity->getPublicationDate());

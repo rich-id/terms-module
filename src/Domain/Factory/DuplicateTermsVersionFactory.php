@@ -4,24 +4,12 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Domain\Factory;
 
-use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Exception\InvalidValueException;
 
-class TermsVersionFactory
+class DuplicateTermsVersionFactory
 {
-    public function buildDefaultVersion(Terms $terms): TermsVersion
-    {
-        $entity = new TermsVersion();
-
-        $entity->setTerms($terms);
-        $entity->setVersion(1);
-        $terms->addVersion($entity);
-
-        return $entity;
-    }
-
-    public function buildFromCopy(TermsVersion $termsVersion): TermsVersion
+    public function __invoke(TermsVersion $termsVersion): TermsVersion
     {
         if ($termsVersion->getTitle() === null || $termsVersion->getTitle() === '') {
             throw new InvalidValueException('title', $termsVersion->getTitle());

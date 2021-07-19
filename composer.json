@@ -16,20 +16,20 @@
         "issues": "https://github.com/rich-id/terms-module/issues"
     },
     "require": {
-        "php": ">=7.3",
+        "php": ">=7.3|^8.0",
         "doctrine/migrations": "^3.0",
         "doctrine/orm": "^2.7",
         "friendsofsymfony/ckeditor-bundle": "^2.3",
         "psr/log": "^1.1",
-        "richcongress/bundle-toolbox": "^1.0",
-        "sensio/framework-extra-bundle": "^5.0",
-        "symfony/form": "^4.0",
-        "symfony/http-foundation": "^4.4",
-        "symfony/routing": "^4.0",
-        "symfony/security-bundle": "^4.0",
-        "symfony/translation": "^4.0",
-        "symfony/twig-bundle": "^4.0",
-        "symfony/validator": "^4.0"
+        "richcongress/bundle-toolbox": "*",
+        "sensio/framework-extra-bundle": "^5.0|^6.0",
+        "symfony/form": "^4.0|^5.0",
+        "symfony/http-foundation": "^4.4|^5.0",
+        "symfony/routing": "^4.0|^5.0",
+        "symfony/security-bundle": "^4.0|^5.0",
+        "symfony/translation": "^4.0|^5.0",
+        "symfony/twig-bundle": "^4.0|^5.0",
+        "symfony/validator": "^4.0|^5.0"
     },
     "require-dev": {
         "doctrine/doctrine-bundle": "^2.0",

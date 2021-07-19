@@ -34,7 +34,7 @@ final class TermsVersionUpdaterTest extends TestCase
         $model->setContent('My content');
         $model->setPublicationDate($date);
 
-        $this->updater->update($entity, $model);
+        ($this->updater)($entity, $model);
     }
 
     public function testUpdateWithInvalidContent(): void
@@ -50,7 +50,7 @@ final class TermsVersionUpdaterTest extends TestCase
         $model->setTitle('My Title');
         $model->setPublicationDate($date);
 
-        $this->updater->update($entity, $model);
+        ($this->updater)($entity, $model);
     }
 
     public function testUpdate(): void
@@ -65,7 +65,7 @@ final class TermsVersionUpdaterTest extends TestCase
         $model->setContent('My content');
         $model->setPublicationDate($date);
 
-        $this->updater->update($entity, $model);
+        ($this->updater)($entity, $model);
 
         $this->assertNull($entity->getId());
         $this->assertNull($entity->getVersion());

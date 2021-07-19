@@ -55,8 +55,8 @@ class EditTerms
         $termsVersion = $termsEdition->getEntity();
         $terms = $termsVersion->getTerms();
 
-        $this->termsVersionUpdater->update($termsVersion, $termsEdition);
-        $this->termsUpdater->update($terms, $termsEdition);
+        ($this->termsVersionUpdater)($termsVersion, $termsEdition);
+        ($this->termsUpdater)($terms, $termsEdition);
 
         $this->entityRecoder->saveTermsVersion($termsVersion);
         $this->entityRecoder->saveTerms($terms);

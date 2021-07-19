@@ -49,7 +49,7 @@ class SignTerms
         $lastVersion = ($this->getTermsVersionToSign)($termsSlug, $subject);
 
         if ($accepted === true) {
-            $signature = $this->termsVersionSignatureFactory->sign($lastVersion, $subject);
+            $signature = ($this->termsVersionSignatureFactory)($lastVersion, $subject);
             $this->entityRecoder->saveSignature($signature);
         }
 

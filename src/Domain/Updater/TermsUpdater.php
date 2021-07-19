@@ -9,7 +9,7 @@ use RichId\TermsModuleBundle\Domain\Model\TermsEdition;
 
 class TermsUpdater
 {
-    public function update(Terms $terms, TermsEdition $termsEdition): Terms
+    public function __invoke(Terms $terms, TermsEdition $termsEdition): Terms
     {
         $terms->setIsPublished($termsEdition->isTermsPublished() ?? false);
 

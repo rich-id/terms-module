@@ -10,7 +10,7 @@ use RichId\TermsModuleBundle\Domain\Entity\TermsVersionSignature;
 
 class TermsVersionSignatureFactory
 {
-    public function sign(TermsVersion $version, TermsSubjectInterface $subject): TermsVersionSignature
+    public function __invoke(TermsVersion $version, TermsSubjectInterface $subject): TermsVersionSignature
     {
         $entity = new TermsVersionSignature();
 

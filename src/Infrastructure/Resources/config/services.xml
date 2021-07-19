@@ -19,7 +19,8 @@
             <tag name="kernel.event_listener" event="RichId\TermsModuleBundle\Domain\Event\TermsVersionUpdatedEvent" />
         </service>
 
-        <service id="RichId\TermsModuleBundle\Domain\Factory\TermsVersionFactory" />
+        <service id="RichId\TermsModuleBundle\Domain\Factory\DefaultTermsVersionFactory" />
+        <service id="RichId\TermsModuleBundle\Domain\Factory\DuplicateTermsVersionFactory" />
         <service id="RichId\TermsModuleBundle\Domain\Factory\TermsVersionSignatureFactory" />
 
         <service id="RichId\TermsModuleBundle\Domain\Fetcher\GetTermsVersionToSign" />

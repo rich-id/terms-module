@@ -7,6 +7,7 @@ namespace RichId\TermsModuleBundle\UserInterface\Controller;
 use Doctrine\ORM\EntityManagerInterface;
 use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
+use RichId\TermsModuleBundle\Domain\Factory\DefaultTermsVersionFactory;
 use RichId\TermsModuleBundle\Domain\Factory\TermsVersionFactory;
 use RichId\TermsModuleBundle\Domain\Model\TermsEdition;
 use RichId\TermsModuleBundle\Domain\UseCase\EditTerms;
@@ -28,8 +29,8 @@ class EditAdminRoute extends AbstractController
     /** @var EditTerms */
     protected $editTerms;
 
-    /** @var TermsVersionFactory */
-    protected $termsVersionFactory;
+    /** @var DefaultTermsVersionFactory */
+    protected $defaultTermsVersionFactory;
 
     /** @var TermsVersionRepository */
     protected $termsVersionRepository;
@@ -45,14 +46,14 @@ class EditAdminRoute extends AbstractController
 
     public function __construct(
         EditTerms $editTerms,
-        TermsVersionFactory $termsVersionFactory,
+        DefaultTermsVersionFactory $defaultTermsVersionFactory,
         TermsVersionRepository $termsVersionRepository,
         EntityManagerInterface $entityManager,
         ParameterBagInterface $parameterBag,
         RequestStack $requestStack
     ) {
         $this->editTerms = $editTerms;
-        $this->termsVersionFactory = $termsVersionFactory;
+        $this->defaultTermsVersionFactory = $defaultTermsVersionFactory;
         $this->termsVersionRepository = $termsVersionRepository;
         $this->entityManager = $entityManager;
         $this->requestStack = $requestStack;
@@ -89,7 +90,7 @@ class EditAdminRoute extends AbstractController
             return $this->getSubmissionRedirection($terms, $currentTermsVersion);
         }
 
-        $lastTermsVersion = $terms->getLatestVersion() ?? $this->termsVersionFactory->buildDefaultVersion($terms);
+        $lastTermsVersion = $terms->getLatestVersion() ?? ($this->defaultTermsVersionFactory)($terms);
 
         return $this->render(
             '@RichIdTermsModule/admin/edit/main.html.twig',
@@ -120,7 +121,7 @@ class EditAdminRoute extends AbstractController
             throw new NotFoundHttpException(\sprintf('No terms version found with version %s', $version));
         }
 
-        return $terms->getLatestVersion() ?? $this->termsVersionFactory->buildDefaultVersion($terms);
+        return $terms->getLatestVersion() ?? ($this->defaultTermsVersionFactory)($terms);
     }
 
     private function getSubmissionRedirection(Terms $terms, TermsVersion $termsVersion): RedirectResponse
