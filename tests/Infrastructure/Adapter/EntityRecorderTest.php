@@ -9,7 +9,6 @@ use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersionSignature;
-use RichId\TermsModuleBundle\Domain\Model\DummySubject;
 use RichId\TermsModuleBundle\Infrastructure\Adapter\EntityRecorder;
 use RichId\TermsModuleBundle\Infrastructure\Repository\TermsRepository;
 use RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionRepository;
@@ -37,9 +36,13 @@ final class EntityRecorderTest extends TestCase
     {
         $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
         $version = $this->getReference(TermsVersion::class, 'v3-terms-1');
-        $subject = DummySubject::create('user', '42');
 
-        $signature = TermsVersionSignature::sign($version, $subject);
+        $signature = new TermsVersionSignature();
+        $signature->setVersion($version);
+        $signature->setSubjectType('user');
+        $signature->setSubjectIdentifier('42');
+        $signature->setDate(new \DateTime());
+
         $this->adapter->saveSignature($signature);
         $this->adapter->flush();
 
@@ -65,7 +68,8 @@ final class EntityRecorderTest extends TestCase
         $this->assertCount(7, $this->termsVersionRepository->findAll());
         $terms = $this->getReference(Terms::class, '1');
 
-        $termsVersion = TermsVersion::buildDefaultVersion($terms);
+        $termsVersion = new TermsVersion();
+        $termsVersion->setTerms($terms);
         $termsVersion->setVersion(15);
         $termsVersion->setTitle('Title');
         $termsVersion->setContent('Content');

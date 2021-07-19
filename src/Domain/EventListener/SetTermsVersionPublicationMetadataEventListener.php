@@ -8,7 +8,7 @@ use RichId\TermsModuleBundle\Domain\Event\TermsVersionEnabledEvent;
 use RichId\TermsModuleBundle\Domain\Port\EntityRecoderInterface;
 use RichId\TermsModuleBundle\Domain\UseCase\ActivateTermsVersion;
 
-final class TermsVersionEnabledEventListener
+final class SetTermsVersionPublicationMetadataEventListener
 {
     /** @var ActivateTermsVersion */
     private $activateTermsVersion;

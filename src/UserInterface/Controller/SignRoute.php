@@ -13,6 +13,7 @@ use RichId\TermsModuleBundle\Domain\Fetcher\GetTermsVersionToSign;
 use RichId\TermsModuleBundle\Domain\Model\DummySubject;
 use RichId\TermsModuleBundle\Domain\Model\DummyTermsGuardValidation;
 use RichId\TermsModuleBundle\Domain\UseCase\SignTerms;
+use RichId\TermsModuleBundle\Infrastructure\SecurityVoter\TermsGuardVoter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -48,7 +49,7 @@ class SignRoute extends AbstractController
         $subject = $this->getSubject($request);
         $termsGuardValidation = DummyTermsGuardValidation::create($termsSlug, $subject->getTermsSubjectType(), $subject->getTermsSubjectIdentifier());
 
-        if (!$this->isGranted('MODULE_TERMS_GUARD_VALID', $termsGuardValidation)) {
+        if (!$this->isGranted(TermsGuardVoter::MODULE_TERMS_GUARD_VALID, $termsGuardValidation)) {
             throw new AccessDeniedException();
         }
 
@@ -97,10 +98,6 @@ class SignRoute extends AbstractController
     {
         $accepted = $request->request->get('accepted');
 
-        if ($accepted === '') {
-            return null;
-        }
-
-        return (bool) $accepted;
+        return $accepted !== '' ? (bool) $accepted : null;
     }
 }

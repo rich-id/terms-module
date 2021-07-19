@@ -8,16 +8,16 @@ use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Event\TermsVersionEnabledEvent;
-use RichId\TermsModuleBundle\Domain\EventListener\TermsVersionEnabledEventListener;
+use RichId\TermsModuleBundle\Domain\EventListener\SetTermsVersionPublicationMetadataEventListener;
 use RichId\TermsModuleBundle\Tests\Resources\Stubs\EntityManagerStub;
 
 /**
- * @covers \RichId\TermsModuleBundle\Domain\EventListener\TermsVersionEnabledEventListener
+ * @covers \RichId\TermsModuleBundle\Domain\EventListener\SetTermsVersionPublicationMetadataEventListener
  * @TestConfig("kernel")
  */
-final class TermsVersionEnabledEventListenerTest extends TestCase
+final class SetTermsVersionPublicationMetadataEventListenerTest extends TestCase
 {
-    /** @var TermsVersionEnabledEventListener */
+    /** @var SetTermsVersionPublicationMetadataEventListener */
     public $listener;
 
     /** @var EntityManagerStub */

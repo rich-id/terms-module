@@ -5,29 +5,29 @@ declare(strict_types=1);
 namespace RichId\TermsModuleBundle\Infrastructure\TwigExtension;
 
 use RichId\TermsModuleBundle\Domain\Model\DummySubject;
-use RichId\TermsModuleBundle\Domain\UseCase\HasSignTerms;
+use RichId\TermsModuleBundle\Domain\UseCase\HasSignedTerms;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class TermsExtension extends AbstractExtension
 {
-    /** @var HasSignTerms */
-    protected $hasSignTerms;
+    /** @var HasSignedTerms */
+    protected $hasSignedTerms;
 
-    public function __construct(HasSignTerms $hasSignTerms)
+    public function __construct(HasSignedTerms $hasSignedTerms)
     {
-        $this->hasSignTerms = $hasSignTerms;
+        $this->hasSignedTerms = $hasSignedTerms;
     }
 
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('hasSignTerms', [$this, 'hasSignTerms']),
+            new TwigFunction('hasSignedTerms', [$this, 'hasSignedTerms']),
         ];
     }
 
-    public function hasSignTerms(string $termsSlug, string $subjectType, string $subjectIdentifier): int
+    public function hasSignedTerms(string $termsSlug, string $subjectType, string $subjectIdentifier): int
     {
-        return ($this->hasSignTerms)($termsSlug, DummySubject::create($subjectType, $subjectIdentifier));
+        return ($this->hasSignedTerms)($termsSlug, DummySubject::create($subjectType, $subjectIdentifier));
     }
 }

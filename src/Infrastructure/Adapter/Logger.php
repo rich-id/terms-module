@@ -30,6 +30,8 @@ class Logger implements LoggerInterface
 
     public function logTermsSigned(string $termsSlug, TermsSubjectInterface $subject, ?bool $accepted): void
     {
+        $message = 'terms_module.log.terms_signed';
+
         $user = $this->security->getUser();
         $userUsername = $user !== null ? $user->getUsername() : '';
         $choice = $this->getTermsSignedChoice($accepted);
@@ -37,7 +39,7 @@ class Logger implements LoggerInterface
 
         $this->logger->info(
             $this->translator->trans(
-                'terms_module.log.terms_signed',
+                $message,
                 [
                     '%terms_slug%' => $termsSlug,
                     '%choice%'     => $choice,

@@ -125,7 +125,11 @@ final class EditTermsTest extends TestCase
     public function testUseCaseFirstTermsVersionAndTermsPublished(): void
     {
         $terms = $this->getReference(Terms::class, '2');
-        $termsVersion = TermsVersion::buildDefaultVersion($terms);
+
+        $termsVersion = new TermsVersion();
+        $termsVersion->setTerms($terms);
+        $termsVersion->setVersion(1);
+        $terms->addVersion($termsVersion);
 
         $model = new TermsEdition($termsVersion);
         $model->setTitle('New title');

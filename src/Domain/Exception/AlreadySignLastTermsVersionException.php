@@ -16,10 +16,11 @@ class AlreadySignLastTermsVersionException extends TermsModuleException
 
     public function __construct(string $termsSlug, TermsSubjectInterface $subject)
     {
-        parent::__construct(\sprintf('Terms %s is already sign by this subject.', $termsSlug));
-
         $this->termsSlug = $termsSlug;
         $this->subject = $subject;
+        $message = \sprintf('Terms %s is already sign by this subject.', $termsSlug);
+
+        parent::__construct($message);
     }
 
     public function getTermsSlug(): string

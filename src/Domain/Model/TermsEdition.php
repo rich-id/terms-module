@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace RichId\TermsModuleBundle\Domain\Model;
 
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
-use RichId\TermsModuleBundle\Infrastructure\ValidatorConstraints;
+use RichId\TermsModuleBundle\Infrastructure\ValidatorConstraints as Constraints;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ValidatorConstraints\CantContentChangeIfTermsPublished
- * @ValidatorConstraints\CantEnableVersionIfAlreadyEnabled
- * @ValidatorConstraints\CantPublicationDateChangeIfTermsPublished
- * @ValidatorConstraints\CantTitleChangeIfTermsPublished
- * @ValidatorConstraints\CantUnpublishLockedPublishedTerms
+ * @Constraints\CantContentChangeIfTermsPublished
+ * @Constraints\CantEnableVersionIfAlreadyEnabled
+ * @Constraints\CantPublicationDateChangeIfTermsPublished
+ * @Constraints\CantTitleChangeIfTermsPublished
+ * @Constraints\CantUnpublishLockedPublishedTerms
  */
 class TermsEdition
 {

@@ -17,13 +17,13 @@ class UserVoter extends Voter
     /** @var AuthorizationCheckerInterface */
     protected $authorizationChecker;
 
-    /** @var array<string> */
-    protected $moduleAdminRoles;
+    /** @var ParameterBagInterface */
+    protected $parameterBag;
 
     public function __construct(AuthorizationCheckerInterface $authorizationChecker, ParameterBagInterface $parameterBag)
     {
         $this->authorizationChecker = $authorizationChecker;
-        $this->moduleAdminRoles = $parameterBag->get('rich_id_terms_module.admin_roles');
+        $this->parameterBag = $parameterBag;
     }
 
     protected function supports($attribute, $subject): bool
@@ -39,7 +39,9 @@ class UserVoter extends Voter
             return false;
         }
 
-        foreach ($this->moduleAdminRoles as $adminRole) {
+        $moduleAdminRoles = $this->parameterBag->get('rich_id_terms_module.admin_roles');
+
+        foreach ($moduleAdminRoles as $adminRole) {
             if ($this->authorizationChecker->isGranted($adminRole, $user)) {
                 return true;
             }

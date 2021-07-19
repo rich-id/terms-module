@@ -33,7 +33,7 @@ class ActivateTermsVersion
         $termsVersion->enable();
         $this->entityRecoder->saveTermsVersion($termsVersion);
 
-        $this->eventDispatcher->dispatchTermsVersionEnabledEvent(
+        $this->eventDispatcher->dispatchTermsEvent(
             new TermsVersionEnabledEvent($termsVersion)
         );
     }

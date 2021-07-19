@@ -13,11 +13,10 @@ class CannotAddVersionToTermsException extends TermsModuleException
 
     public function __construct(Terms $terms)
     {
-        parent::__construct(
-            \sprintf('Cannot add new version to the terms %s.', $terms->getSlug())
-        );
-
         $this->terms = $terms;
+        $message = \sprintf('Cannot add new version to the terms %s.', $terms->getSlug());
+
+        parent::__construct($message);
     }
 
     public function getTerms(): Terms

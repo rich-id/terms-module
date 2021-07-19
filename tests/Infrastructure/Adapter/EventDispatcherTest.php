@@ -29,7 +29,7 @@ final class EventDispatcherTest extends TestCase
     /** @var EventDispatcherStub */
     public $eventDispatcherStub;
 
-    public function testDispatchTermsSignedEvent(): void
+    public function testDispatchWithTermsSignedEvent(): void
     {
         $termsVersion = $this->getReference(TermsVersion::class, 'v3-terms-1');
         $response = new Response();
@@ -37,51 +37,51 @@ final class EventDispatcherTest extends TestCase
 
         $event = new TermsSignedEvent($termsVersion, $subject, true, $response);
 
-        $this->adapter->dispatchTermsSignedEvent($event);
+        $this->adapter->dispatchTermsEvent($event);
 
         $this->assertCount(1, $this->eventDispatcherStub->getEvents());
         $this->assertSame($event, $this->eventDispatcherStub->getEvents()[0]);
     }
 
-    public function testDispatchTermsVersionCreatedEvent(): void
+    public function testDispatchWithTermsVersionCreatedEvent(): void
     {
         $termsVersion = $this->getReference(TermsVersion::class, 'v3-terms-1');
         $event = new TermsVersionCreatedEvent($termsVersion);
 
-        $this->adapter->dispatchTermsVersionCreatedEvent($event);
+        $this->adapter->dispatchTermsEvent($event);
 
         $this->assertCount(1, $this->eventDispatcherStub->getEvents());
         $this->assertSame($event, $this->eventDispatcherStub->getEvents()[0]);
     }
 
-    public function testDispatchTermsVersionDeletedEvent(): void
+    public function testDispatchWithTermsVersionDeletedEvent(): void
     {
         $termsVersion = $this->getReference(TermsVersion::class, 'v3-terms-1');
         $event = new TermsVersionDeletedEvent($termsVersion);
 
-        $this->adapter->dispatchTermsVersionDeletedEvent($event);
+        $this->adapter->dispatchTermsEvent($event);
 
         $this->assertCount(1, $this->eventDispatcherStub->getEvents());
         $this->assertSame($event, $this->eventDispatcherStub->getEvents()[0]);
     }
 
-    public function testDispatchTermsVersionEnabledEvent(): void
+    public function testDispatchWithTermsVersionEnabledEvent(): void
     {
         $termsVersion = $this->getReference(TermsVersion::class, 'v3-terms-1');
         $event = new TermsVersionEnabledEvent($termsVersion);
 
-        $this->adapter->dispatchTermsVersionEnabledEvent($event);
+        $this->adapter->dispatchTermsEvent($event);
 
         $this->assertCount(1, $this->eventDispatcherStub->getEvents());
         $this->assertSame($event, $this->eventDispatcherStub->getEvents()[0]);
     }
 
-    public function testDispatchTermsVersionUpdatedEvent(): void
+    public function testDispatchWithTermsVersionUpdatedEvent(): void
     {
         $termsVersion = $this->getReference(TermsVersion::class, 'v3-terms-1');
         $event = new TermsVersionUpdatedEvent($termsVersion);
 
-        $this->adapter->dispatchTermsVersionUpdatedEvent($event);
+        $this->adapter->dispatchTermsEvent($event);
 
         $this->assertCount(1, $this->eventDispatcherStub->getEvents());
         $this->assertSame($event, $this->eventDispatcherStub->getEvents()[0]);

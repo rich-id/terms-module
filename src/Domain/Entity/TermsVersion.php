@@ -7,7 +7,6 @@ namespace RichId\TermsModuleBundle\Domain\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use RichId\TermsModuleBundle\Domain\Model\TermsEdition;
 
 /**
  * @ORM\Entity(repositoryClass="RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionRepository")
@@ -177,42 +176,6 @@ class TermsVersion
     public function removeSignature(TermsVersionSignature $signature): self
     {
         $this->signatures->removeElement($signature);
-
-        return $this;
-    }
-
-    public static function buildDefaultVersion(Terms $terms): self
-    {
-        $entity = new self();
-
-        $entity->setTerms($terms);
-        $entity->setVersion(1);
-        $terms->addVersion($entity);
-
-        return $entity;
-    }
-
-    public static function buildFromCopy(TermsVersion $termsVersion): self
-    {
-        $terms = $termsVersion->getTerms();
-        $lastVersion = $terms->getLatestVersion();
-        $nextVersion = $lastVersion !== null ? $lastVersion->getVersion() + 1 : 1;
-
-        $entity = new self();
-
-        $entity->setTerms($terms);
-        $entity->setVersion($nextVersion);
-        $entity->setTitle($termsVersion->getTitle()); /* @phpstan-ignore-line */
-        $entity->setContent($termsVersion->getContent()); /* @phpstan-ignore-line */
-
-        return $entity;
-    }
-
-    public function update(TermsEdition $termsEdition): self
-    {
-        $this->title = $termsEdition->getTitle(); /* @phpstan-ignore-line */
-        $this->content = $termsEdition->getContent(); /* @phpstan-ignore-line */
-        $this->publicationDate = $termsEdition->getPublicationDate();
 
         return $this;
     }

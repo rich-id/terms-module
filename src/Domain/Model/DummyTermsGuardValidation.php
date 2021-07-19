@@ -15,7 +15,7 @@ final class DummyTermsGuardValidation implements TermsGuardValidationInterface
     /** @var string */
     private $identifier;
 
-    public function __construct()
+    private function __construct()
     {
         // Avoid instantiation
     }

@@ -14,7 +14,7 @@ class DummySubject implements TermsSubjectInterface
     /** @var string */
     protected $identifier;
 
-    public function __construct()
+    private function __construct()
     {
         // Avoid instantiation
     }

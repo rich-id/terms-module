@@ -9,11 +9,19 @@ use RichId\TermsModuleBundle\Domain\Model\TermsEdition;
 use RichId\TermsModuleBundle\Domain\Port\EntityRecoderInterface;
 use RichId\TermsModuleBundle\Domain\Port\EventDispatcherInterface;
 use RichId\TermsModuleBundle\Domain\Port\ValidatorInterface;
+use RichId\TermsModuleBundle\Domain\Updater\TermsUpdater;
+use RichId\TermsModuleBundle\Domain\Updater\TermsVersionUpdater;
 
 class EditTerms
 {
     /** @var ActivateTermsVersion */
     protected $activateTermsVersion;
+
+    /** @var TermsUpdater */
+    protected $termsUpdater;
+
+    /** @var TermsVersionUpdater */
+    protected $termsVersionUpdater;
 
     /** @var EntityRecoderInterface */
     protected $entityRecoder;
@@ -26,11 +34,15 @@ class EditTerms
 
     public function __construct(
         ActivateTermsVersion $activateTermsVersion,
+        TermsUpdater $termsUpdater,
+        TermsVersionUpdater $termsVersionUpdater,
         EntityRecoderInterface $entityRecoder,
         EventDispatcherInterface $eventDispatcher,
         ValidatorInterface $validator
     ) {
         $this->activateTermsVersion = $activateTermsVersion;
+        $this->termsUpdater = $termsUpdater;
+        $this->termsVersionUpdater = $termsVersionUpdater;
         $this->entityRecoder = $entityRecoder;
         $this->eventDispatcher = $eventDispatcher;
         $this->validator = $validator;
@@ -43,8 +55,8 @@ class EditTerms
         $termsVersion = $termsEdition->getEntity();
         $terms = $termsVersion->getTerms();
 
-        $termsVersion->update($termsEdition);
-        $terms->update($termsEdition);
+        $this->termsVersionUpdater->update($termsVersion, $termsEdition);
+        $this->termsUpdater->update($terms, $termsEdition);
 
         $this->entityRecoder->saveTerms($terms);
         $this->entityRecoder->saveTermsVersion($termsVersion);
@@ -53,7 +65,7 @@ class EditTerms
             ($this->activateTermsVersion)($termsVersion);
         }
 
-        $this->eventDispatcher->dispatchTermsVersionUpdatedEvent(
+        $this->eventDispatcher->dispatchTermsEvent(
             new TermsVersionUpdatedEvent($termsVersion)
         );
     }

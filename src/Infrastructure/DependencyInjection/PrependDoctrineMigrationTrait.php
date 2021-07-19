@@ -15,8 +15,10 @@ trait PrependDoctrineMigrationTrait
         }
 
         $doctrineConfig = $container->getExtensionConfig('doctrine_migrations');
+        $doctrineMigrationPaths = \array_pop($doctrineConfig)['migrations_paths'] ?? [];
+
         $container->prependExtensionConfig('doctrine_migrations', [
-            'migrations_paths' => \array_merge(\array_pop($doctrineConfig)['migrations_paths'] ?? [], [
+            'migrations_paths' => \array_merge($doctrineMigrationPaths, [
                 'RichId\TermsModuleBundle\Infrastructure\Migrations' => '@RichIdTermsModuleBundle/Migrations',
             ]),
         ]);

@@ -39,7 +39,7 @@ class RemoveTermsVersion
 
         $this->entityRemover->removeTermsVersion($termsVersion);
 
-        $this->eventDispatcher->dispatchTermsVersionDeletedEvent(
+        $this->eventDispatcher->dispatchTermsEvent(
             new TermsVersionDeletedEvent($termsVersion)
         );
     }

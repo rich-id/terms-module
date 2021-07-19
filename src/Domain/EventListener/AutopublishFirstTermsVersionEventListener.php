@@ -7,7 +7,7 @@ namespace RichId\TermsModuleBundle\Domain\EventListener;
 use RichId\TermsModuleBundle\Domain\Event\TermsVersionUpdatedEvent;
 use RichId\TermsModuleBundle\Domain\UseCase\ActivateTermsVersion;
 
-final class TermsVersionUpdatedEventListener
+final class AutopublishFirstTermsVersionEventListener
 {
     /** @var ActivateTermsVersion */
     private $activateTermsVersion;

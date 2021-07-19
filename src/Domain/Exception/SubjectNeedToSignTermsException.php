@@ -16,10 +16,10 @@ class SubjectNeedToSignTermsException extends TermsModuleException
 
     public function __construct(string $termsSlug, TermsSubjectInterface $subject)
     {
-        parent::__construct();
-
         $this->termsSlug = $termsSlug;
         $this->subject = $subject;
+
+        parent::__construct();
     }
 
     public function getTermsSlug(): string

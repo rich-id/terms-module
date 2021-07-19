@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 trait AdminRouteTrait
 {
-    /** @return array<string> */
+    /** @return string[] */
     abstract protected function getAdminRoles(): array;
 
     protected function buildAccessDeniedException(): AccessDeniedException

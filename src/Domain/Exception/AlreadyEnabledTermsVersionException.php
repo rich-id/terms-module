@@ -14,12 +14,10 @@ class AlreadyEnabledTermsVersionException extends TermsModuleException
     public function __construct(TermsVersion $termsVersion)
     {
         $terms = $termsVersion->getTerms();
-
-        parent::__construct(
-            \sprintf('Version %d of terms %s is already enabled.', $termsVersion->getVersion(), $terms->getSlug())
-        );
-
         $this->termsVersion = $termsVersion;
+        $message = \sprintf('Version %d of terms %s is already enabled.', $termsVersion->getVersion(), $terms->getSlug());
+
+        parent::__construct($message);
     }
 
     public function getTermsVersion(): TermsVersion

@@ -87,7 +87,9 @@ final class RemoveTermsVersionRouteTest extends ControllerTestCase
 
         $terms = $this->getReference(Terms::class, '2');
 
-        $termsVersion = TermsVersion::buildDefaultVersion($terms);
+        $termsVersion = new TermsVersion();
+        $termsVersion->setVersion(1);
+        $termsVersion->setTerms($terms);
         $termsVersion->setTitle('My title');
         $termsVersion->setContent('My content');
 

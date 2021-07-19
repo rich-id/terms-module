@@ -11,9 +11,10 @@ class NotFoundTermsException extends TermsModuleException
 
     public function __construct(string $termsSlug)
     {
-        parent::__construct(\sprintf('Not found terms %s.', $termsSlug));
-
         $this->termsSlug = $termsSlug;
+        $message = \sprintf('Not found terms %s.', $termsSlug);
+
+        parent::__construct($message);
     }
 
     public function getTermsSlug(): string

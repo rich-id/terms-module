@@ -27,31 +27,31 @@ final class TermsExtensionTest extends TestCase
         $this->assertInstanceOf(TwigFunction::class, $this->extension->getFunctions()[0]);
     }
 
-    public function testHasSignTermsTermsNotExist(): void
+    public function testHasSignedTermsTermsNotExist(): void
     {
         $this->expectException(NotFoundTermsException::class);
         $this->expectDeprecationMessage('Not found terms terms-999.');
 
-        $this->extension->hasSignTerms('terms-999', 'user', '42');
+        $this->extension->hasSignedTerms('terms-999', 'user', '42');
     }
 
-    public function testHasSignTermsSubjectNotExist(): void
+    public function testHasSignedTermsSubjectNotExist(): void
     {
-        $code = $this->extension->hasSignTerms('terms-1', 'user', '999');
+        $code = $this->extension->hasSignedTerms('terms-1', 'user', '999');
 
         $this->assertSame(2, $code);
     }
 
-    public function testHasSignTermsHasSignOldVersion(): void
+    public function testHasSignedTermsHasSignOldVersion(): void
     {
-        $code = $this->extension->hasSignTerms('terms-1', 'user', '42');
+        $code = $this->extension->hasSignedTerms('terms-1', 'user', '42');
 
         $this->assertSame(1, $code);
     }
 
-    public function testHasSignTermsHasSignLatestVersion(): void
+    public function testHasSignedTermsHasSignLatestVersion(): void
     {
-        $code = $this->extension->hasSignTerms('terms-1', 'user', '43');
+        $code = $this->extension->hasSignedTerms('terms-1', 'user', '43');
 
         $this->assertSame(0, $code);
     }

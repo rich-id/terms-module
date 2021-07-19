@@ -60,9 +60,23 @@ class TermsVersionSignature
         return $this->id;
     }
 
+    public function setDate(\DateTime $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
     public function getDate(): ?\DateTime
     {
         return $this->date;
+    }
+
+    public function setSubjectType(string $subjectType): self
+    {
+        $this->subjectType = $subjectType;
+
+        return $this;
     }
 
     public function getSubjectType(): ?string
@@ -70,25 +84,27 @@ class TermsVersionSignature
         return $this->subjectType;
     }
 
+    public function setSubjectIdentifier(string $subjectIdentifier): self
+    {
+        $this->subjectIdentifier = $subjectIdentifier;
+
+        return $this;
+    }
+
     public function getSubjectIdentifier(): ?string
     {
         return $this->subjectIdentifier;
     }
 
+    public function setVersion(TermsVersion $version): self
+    {
+        $this->version = $version;
+
+        return $this;
+    }
+
     public function getVersion(): ?TermsVersion
     {
         return $this->version;
-    }
-
-    public static function sign(TermsVersion $version, TermsSubjectInterface $subject): self
-    {
-        $entity = new self();
-
-        $entity->version = $version;
-        $entity->subjectType = $subject->getTermsSubjectType();
-        $entity->subjectIdentifier = $subject->getTermsSubjectIdentifier();
-        $entity->date = new \DateTime();
-
-        return $entity;
     }
 }

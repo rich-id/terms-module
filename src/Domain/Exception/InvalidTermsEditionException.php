@@ -15,9 +15,10 @@ class InvalidTermsEditionException extends TermsModuleException
     /** @param ConstraintViolationListInterface<int, ConstraintViolationInterface> $violations */
     public function __construct(ConstraintViolationListInterface $violations)
     {
-        parent::__construct('Invalid model TermsEdition.');
-
         $this->violations = $violations;
+        $message = 'Invalid model TermsEdition.';
+
+        parent::__construct($message);
     }
 
     /** @return ConstraintViolationListInterface<int, ConstraintViolationInterface> */

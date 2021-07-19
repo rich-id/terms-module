@@ -8,7 +8,7 @@ use RichId\TermsModuleBundle\Domain\Entity\TermsSubjectInterface;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use Symfony\Component\HttpFoundation\Response;
 
-final class TermsSignedEvent
+final class TermsSignedEvent extends TermsEvent
 {
     /** @var TermsVersion */
     private $termsVersion;

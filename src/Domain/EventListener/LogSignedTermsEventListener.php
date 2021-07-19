@@ -7,7 +7,7 @@ namespace RichId\TermsModuleBundle\Domain\EventListener;
 use RichId\TermsModuleBundle\Domain\Event\TermsSignedEvent;
 use RichId\TermsModuleBundle\Domain\Port\LoggerInterface;
 
-final class TermsSignedEventListener
+final class LogSignedTermsEventListener
 {
     /** @var LoggerInterface */
     private $logger;

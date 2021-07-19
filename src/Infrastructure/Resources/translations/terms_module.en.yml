@@ -20,7 +20,7 @@ terms_module.admin.list.title: Terms management
 terms_module.log.terms_signed: 'A decision has been made for the terms %terms_slug%. Decision: %choice%. Date: %date%. User: %user%.'
 
 terms_module.sign.accept: I agree
-terms_module.sign.new_version: New version !
+terms_module.sign.new_version: New version!
 terms_module.sign.prefer_answer_later: I prefer to answer later
 terms_module.sign.refuse: I refuse
 

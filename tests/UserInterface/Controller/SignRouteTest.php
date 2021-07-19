@@ -220,7 +220,7 @@ final class SignRouteTest extends ControllerTestCase
         $this->assertStringContainsString('I refuse', $content);
         $this->assertStringContainsString('I agree', $content);
         $this->assertStringContainsString('I prefer to answer later', $content);
-        $this->assertStringContainsString('New version !', $content);
+        $this->assertStringContainsString('New version!', $content);
     }
 
     public function testRouteSubjectHasNotSignOldVersion(): void

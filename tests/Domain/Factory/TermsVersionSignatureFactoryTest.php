@@ -2,40 +2,39 @@
 
 declare(strict_types=1);
 
-namespace RichId\TermsModuleBundle\Tests\Domain\Entity;
+namespace RichId\TermsModuleBundle\Tests\Domain\Factory;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
-use RichId\TermsModuleBundle\Domain\Entity\TermsVersionSignature;
+use RichId\TermsModuleBundle\Domain\Factory\TermsVersionSignatureFactory;
+use RichId\TermsModuleBundle\Domain\Model\DummySubject;
 
 /**
- * @covers \RichId\TermsModuleBundle\Domain\Entity\TermsVersionSignature
+ * @covers \RichId\TermsModuleBundle\Domain\Factory\TermsVersionSignatureFactory
  * @TestConfig("kernel")
  */
-final class TermsVersionSignatureTest extends TestCase
+final class TermsVersionSignatureFactoryTest extends TestCase
 {
-    public function testEntity(): void
-    {
-        $date = new \DateTime();
-        $termsVersion = new TermsVersion();
-        $entity = new TermsVersionSignature();
+    /** @var TermsVersionSignatureFactory */
+    public $factory;
 
-        $entity->setVersion($termsVersion);
-        $entity->setSubjectType('user');
-        $entity->setSubjectIdentifier('42');
-        $entity->setDate($date);
+    public function testSign(): void
+    {
+        $termsVersion = new TermsVersion();
+
+        $entity = $this->factory->sign($termsVersion, DummySubject::create('user', '42'));
 
         $this->assertNull($entity->getId());
-        $this->assertSame($termsVersion, $entity->getVersion());
+        $this->assertInstanceOf(\DateTime::class, $entity->getDate());
         $this->assertSame('user', $entity->getSubjectType());
         $this->assertSame('42', $entity->getSubjectIdentifier());
-        $this->assertSame($date, $entity->getDate());
+        $this->assertSame($termsVersion, $entity->getVersion());
     }
 
-    public function testSignatureUniqueForTermsVersionAndSubject(): void
+    public function testSignUniqueForTermsVersionAndSubject(): void
     {
         $terms = new Terms();
         $terms->setSlug('slug');
@@ -53,23 +52,13 @@ final class TermsVersionSignatureTest extends TestCase
         $this->getManager()->persist($termsVersion);
         $this->getManager()->flush();
 
-        $entity1 = new TermsVersionSignature();
-        $entity1->setVersion($termsVersion);
-        $entity1->setSubjectType('user');
-        $entity1->setSubjectIdentifier('42');
-        $entity1->setDate(new \DateTime());
-
+        $entity1 = $this->factory->sign($termsVersion, DummySubject::create('user', '42'));
         $this->getManager()->persist($entity1);
         $this->getManager()->flush();
 
         $this->expectException(UniqueConstraintViolationException::class);
 
-        $entity2 = new TermsVersionSignature();
-        $entity2->setVersion($termsVersion);
-        $entity2->setSubjectType('user');
-        $entity2->setSubjectIdentifier('42');
-        $entity2->setDate(new \DateTime());
-
+        $entity2 = $this->factory->sign($termsVersion, DummySubject::create('user', '42'));
         $this->getManager()->persist($entity2);
         $this->getManager()->flush();
     }

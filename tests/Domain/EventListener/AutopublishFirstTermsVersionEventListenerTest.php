@@ -9,16 +9,16 @@ use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Event\TermsVersionUpdatedEvent;
-use RichId\TermsModuleBundle\Domain\EventListener\TermsVersionUpdatedEventListener;
+use RichId\TermsModuleBundle\Domain\EventListener\AutopublishFirstTermsVersionEventListener;
 use RichId\TermsModuleBundle\Tests\Resources\Stubs\EntityManagerStub;
 
 /**
- * @covers \RichId\TermsModuleBundle\Domain\EventListener\TermsVersionUpdatedEventListener
+ * @covers \RichId\TermsModuleBundle\Domain\EventListener\AutopublishFirstTermsVersionEventListener
  * @TestConfig("kernel")
  */
-final class TermsVersionUpdatedEventListenerTest extends TestCase
+final class AutopublishFirstTermsVersionEventListenerTest extends TestCase
 {
-    /** @var TermsVersionUpdatedEventListener */
+    /** @var AutopublishFirstTermsVersionEventListener */
     public $listener;
 
     /** @var EntityManagerStub */

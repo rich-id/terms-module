@@ -6,7 +6,7 @@ namespace RichId\TermsModuleBundle\Domain\Event;
 
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 
-final class TermsVersionDeletedEvent
+final class TermsVersionDeletedEvent extends TermsEvent
 {
     /** @var TermsVersion */
     private $termsVersion;

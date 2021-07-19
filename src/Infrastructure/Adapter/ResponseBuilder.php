@@ -15,21 +15,13 @@ class ResponseBuilder implements ResponseBuilderInterface
     /** @var RouterInterface */
     protected $router;
 
-    /** @var string */
-    protected $defaultAcceptationRoute;
-
-    /** @var string */
-    protected $defaultRefuseRoute;
-
-    /** @var string */
-    protected $defaultIgnoreRoute;
+    /** @var ParameterBagInterface */
+    protected $parameterBag;
 
     public function __construct(RouterInterface $router, ParameterBagInterface $parameterBag)
     {
         $this->router = $router;
-        $this->defaultAcceptationRoute = $parameterBag->get('rich_id_terms_module.default_redirection_routes.acceptation');
-        $this->defaultRefuseRoute = $parameterBag->get('rich_id_terms_module.default_redirection_routes.refusal');
-        $this->defaultIgnoreRoute = $parameterBag->get('rich_id_terms_module.default_redirection_routes.ignore');
+        $this->parameterBag = $parameterBag;
     }
 
     public function buildDefaultTermsSignedResponse(?bool $accepted): Response
@@ -42,13 +34,13 @@ class ResponseBuilder implements ResponseBuilderInterface
     protected function getRoute(?bool $accepted): string
     {
         if ($accepted === null) {
-            return $this->defaultIgnoreRoute;
+            return $this->parameterBag->get('rich_id_terms_module.default_redirection_routes.ignore');
         }
 
         if ($accepted) {
-            return $this->defaultAcceptationRoute;
+            return $this->parameterBag->get('rich_id_terms_module.default_redirection_routes.acceptation');
         }
 
-        return $this->defaultRefuseRoute;
+        return $this->parameterBag->get('rich_id_terms_module.default_redirection_routes.refusal');
     }
 }

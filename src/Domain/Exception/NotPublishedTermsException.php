@@ -11,9 +11,10 @@ class NotPublishedTermsException extends TermsModuleException
 
     public function __construct(string $termsSlug)
     {
-        parent::__construct(\sprintf('Terms %s is not published.', $termsSlug));
-
         $this->termsSlug = $termsSlug;
+        $message = \sprintf('Terms %s is not published.', $termsSlug);
+
+        parent::__construct($message);
     }
 
     public function getTermsSlug(): string

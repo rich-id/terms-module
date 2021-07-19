@@ -13,9 +13,10 @@ class TermsHasNoPublishedVersionException extends TermsModuleException
 
     public function __construct(Terms $terms)
     {
-        parent::__construct(\sprintf('Terms %s hasn\'t published version.', $terms->getSlug()));
-
         $this->terms = $terms;
+        $message = \sprintf('Terms %s hasn\'t published version.', $terms->getSlug());
+
+        parent::__construct($message);
     }
 
     public function getTerms(): Terms

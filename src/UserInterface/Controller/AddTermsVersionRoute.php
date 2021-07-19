@@ -9,6 +9,7 @@ use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Exception\CannotAddVersionToTermsException;
 use RichId\TermsModuleBundle\Domain\UseCase\CreateTermsVersion;
 use RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionRepository;
+use RichId\TermsModuleBundle\Infrastructure\SecurityVoter\UserVoter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -30,8 +31,8 @@ class AddTermsVersionRoute extends AbstractController
     /** @var RequestStack */
     protected $requestStack;
 
-    /** @var array<string> */
-    protected $adminRoles;
+    /** @var ParameterBagInterface */
+    protected $parameterBag;
 
     public function __construct(
         CreateTermsVersion $createTermsVersion,
@@ -42,18 +43,18 @@ class AddTermsVersionRoute extends AbstractController
         $this->createTermsVersion = $createTermsVersion;
         $this->termsVersionRepository = $termsVersionRepository;
         $this->requestStack = $requestStack;
-        $this->adminRoles = $parameterBag->get('rich_id_terms_module.admin_roles');
+        $this->parameterBag = $parameterBag;
     }
 
-    /** @return array<string> */
+    /** @return string[] */
     protected function getAdminRoles(): array
     {
-        return $this->adminRoles;
+        return $this->parameterBag->get('rich_id_terms_module.admin_roles');
     }
 
     public function __invoke(Terms $terms): Response
     {
-        if (!$this->isGranted('MODULE_TERMS_ADMIN')) {
+        if (!$this->isGranted(UserVoter::MODULE_TERMS_ADMIN)) {
             throw $this->buildAccessDeniedException();
         }
 

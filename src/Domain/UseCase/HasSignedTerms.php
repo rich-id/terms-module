@@ -9,11 +9,11 @@ use RichId\TermsModuleBundle\Domain\Exception\NotFoundTermsException;
 use RichId\TermsModuleBundle\Domain\Port\TermsRepositoryInterface;
 use RichId\TermsModuleBundle\Domain\Port\TermsVersionRepositoryInterface;
 
-class HasSignTerms
+class HasSignedTerms
 {
-    public const HAS_SIGN_LATEST_VERSION = 0;
-    public const HAS_SIGN_OLD_VERSION = 1;
-    public const HAS_NOT_SIGN = 2;
+    public const HAS_SIGNED_LATEST_VERSION = 0;
+    public const HAS_SIGNED_OLD_VERSION = 1;
+    public const HAS_NOT_SIGNED = 2;
 
     /** @var TermsRepositoryInterface */
     protected $termsRepository;
@@ -36,22 +36,22 @@ class HasSignTerms
         }
 
         if (!$terms->isPublished()) {
-            return self::HAS_NOT_SIGN;
+            return self::HAS_NOT_SIGNED;
         }
 
         $lastSignedVersion = $this->termsVersionRepository->findLastSignedVersionForTermsSubject($termsSlug, $subject);
 
         if ($lastSignedVersion === null) {
-            return self::HAS_NOT_SIGN;
+            return self::HAS_NOT_SIGNED;
         }
 
         $terms = $lastSignedVersion->getTerms();
         $lastVersion = $terms->getLatestPublishedVersion();
 
         if ($lastVersion === null || $lastVersion->getId() !== $lastSignedVersion->getId()) {
-            return self::HAS_SIGN_OLD_VERSION;
+            return self::HAS_SIGNED_OLD_VERSION;
         }
 
-        return self::HAS_SIGN_LATEST_VERSION;
+        return self::HAS_SIGNED_LATEST_VERSION;
     }
 }

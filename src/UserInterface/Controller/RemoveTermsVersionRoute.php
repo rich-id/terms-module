@@ -8,6 +8,7 @@ use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Exception\EnabledVersionCannotBeDeletedException;
 use RichId\TermsModuleBundle\Domain\Exception\FirstVersionCannotBeDeletedException;
 use RichId\TermsModuleBundle\Domain\UseCase\RemoveTermsVersion;
+use RichId\TermsModuleBundle\Infrastructure\SecurityVoter\UserVoter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,24 +21,24 @@ class RemoveTermsVersionRoute extends AbstractController
     /** @var RemoveTermsVersion */
     protected $removeTermsVersion;
 
-    /** @var array<string> */
-    protected $adminRoles;
+    /** @var ParameterBagInterface */
+    protected $parameterBag;
 
     public function __construct(RemoveTermsVersion $removeTermsVersion, ParameterBagInterface $parameterBag)
     {
         $this->removeTermsVersion = $removeTermsVersion;
-        $this->adminRoles = $parameterBag->get('rich_id_terms_module.admin_roles');
+        $this->parameterBag = $parameterBag;
     }
 
-    /** @return array<string> */
+    /** @return string[] */
     protected function getAdminRoles(): array
     {
-        return $this->adminRoles;
+        return $this->parameterBag->get('rich_id_terms_module.admin_roles');
     }
 
     public function __invoke(TermsVersion $termsVersion): Response
     {
-        if (!$this->isGranted('MODULE_TERMS_ADMIN')) {
+        if (!$this->isGranted(UserVoter::MODULE_TERMS_ADMIN)) {
             throw $this->buildAccessDeniedException();
         }
 

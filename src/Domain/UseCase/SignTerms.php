@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace RichId\TermsModuleBundle\Domain\UseCase;
 
 use RichId\TermsModuleBundle\Domain\Entity\TermsSubjectInterface;
-use RichId\TermsModuleBundle\Domain\Entity\TermsVersionSignature;
 use RichId\TermsModuleBundle\Domain\Event\TermsSignedEvent;
+use RichId\TermsModuleBundle\Domain\Factory\TermsVersionSignatureFactory;
 use RichId\TermsModuleBundle\Domain\Fetcher\GetTermsVersionToSign;
 use RichId\TermsModuleBundle\Domain\Port\EntityRecoderInterface;
 use RichId\TermsModuleBundle\Domain\Port\EventDispatcherInterface;
@@ -15,6 +15,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SignTerms
 {
+    /** @var TermsVersionSignatureFactory */
+    protected $termsVersionSignatureFactory;
+
     /** @var EntityRecoderInterface */
     protected $entityRecoder;
 
@@ -28,11 +31,13 @@ class SignTerms
     protected $getTermsVersionToSign;
 
     public function __construct(
+        TermsVersionSignatureFactory $termsVersionSignatureFactory,
         EntityRecoderInterface $entityRecoder,
         EventDispatcherInterface $eventDispatcher,
         ResponseBuilderInterface $responseBuilder,
         GetTermsVersionToSign $getTermsVersionToSign
     ) {
+        $this->termsVersionSignatureFactory = $termsVersionSignatureFactory;
         $this->eventDispatcher = $eventDispatcher;
         $this->entityRecoder = $entityRecoder;
         $this->responseBuilder = $responseBuilder;
@@ -44,14 +49,14 @@ class SignTerms
         $lastVersion = ($this->getTermsVersionToSign)($termsSlug, $subject);
 
         if ($accepted === true) {
-            $signature = TermsVersionSignature::sign($lastVersion, $subject);
+            $signature = $this->termsVersionSignatureFactory->sign($lastVersion, $subject);
             $this->entityRecoder->saveSignature($signature);
             $this->entityRecoder->flush();
         }
 
         $defaultResponse = $this->responseBuilder->buildDefaultTermsSignedResponse($accepted);
         $event = new TermsSignedEvent($lastVersion, $subject, $accepted, $defaultResponse);
-        $this->eventDispatcher->dispatchTermsSignedEvent($event);
+        $this->eventDispatcher->dispatchTermsEvent($event);
 
         return $event->getResponse();
     }

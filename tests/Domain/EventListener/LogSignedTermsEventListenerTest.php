@@ -8,7 +8,7 @@ use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Event\TermsSignedEvent;
-use RichId\TermsModuleBundle\Domain\EventListener\TermsSignedEventListener;
+use RichId\TermsModuleBundle\Domain\EventListener\LogSignedTermsEventListener;
 use RichId\TermsModuleBundle\Domain\Model\DummySubject;
 use RichId\TermsModuleBundle\Tests\Resources\Entity\DummyUser;
 use RichId\TermsModuleBundle\Tests\Resources\Fixtures\DummyUserFixtures;
@@ -16,12 +16,12 @@ use RichId\TermsModuleBundle\Tests\Resources\Stubs\LoggerStub;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @covers \RichId\TermsModuleBundle\Domain\EventListener\TermsSignedEventListener
+ * @covers \RichId\TermsModuleBundle\Domain\EventListener\LogSignedTermsEventListener
  * @TestConfig("fixtures")
  */
-final class TermsSignedEventListenerTest extends TestCase
+final class LogSignedTermsEventListenerTest extends TestCase
 {
-    /** @var TermsSignedEventListener */
+    /** @var LogSignedTermsEventListener */
     public $listener;
 
     /** @var LoggerStub */

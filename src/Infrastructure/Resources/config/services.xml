@@ -7,17 +7,20 @@
     <services>
         <defaults autowire="true" autoconfigure="true" public="false"/>
 
-        <service id="RichId\TermsModuleBundle\Domain\EventListener\TermsSignedEventListener">
+        <service id="RichId\TermsModuleBundle\Domain\EventListener\LogSignedTermsEventListener">
             <tag name="kernel.event_listener" event="RichId\TermsModuleBundle\Domain\Event\TermsSignedEvent" />
         </service>
 
-        <service id="RichId\TermsModuleBundle\Domain\EventListener\TermsVersionEnabledEventListener">
+        <service id="RichId\TermsModuleBundle\Domain\EventListener\SetTermsVersionPublicationMetadataEventListener">
             <tag name="kernel.event_listener" event="RichId\TermsModuleBundle\Domain\Event\TermsVersionEnabledEvent" />
         </service>
 
-        <service id="RichId\TermsModuleBundle\Domain\EventListener\TermsVersionUpdatedEventListener">
+        <service id="RichId\TermsModuleBundle\Domain\EventListener\AutopublishFirstTermsVersionEventListener">
             <tag name="kernel.event_listener" event="RichId\TermsModuleBundle\Domain\Event\TermsVersionUpdatedEvent" />
         </service>
+
+        <service id="RichId\TermsModuleBundle\Domain\Factory\TermsVersionFactory" />
+        <service id="RichId\TermsModuleBundle\Domain\Factory\TermsVersionSignatureFactory" />
 
         <service id="RichId\TermsModuleBundle\Domain\Fetcher\GetTermsVersionToSign" />
         <service id="RichId\TermsModuleBundle\Domain\Port\EntityRecoderInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\EntityRecorder"/>
@@ -29,11 +32,13 @@
         <service id="RichId\TermsModuleBundle\Domain\Port\TermsVersionRepositoryInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\TermsVersionRepository"/>
         <service id="RichId\TermsModuleBundle\Domain\Port\ValidatorInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\Validator"/>
 
+        <service id="RichId\TermsModuleBundle\Domain\Updater\TermsUpdater" />
+        <service id="RichId\TermsModuleBundle\Domain\Updater\TermsVersionUpdater" />
+
         <service id="RichId\TermsModuleBundle\Domain\UseCase\ActivateTermsVersion" />
         <service id="RichId\TermsModuleBundle\Domain\UseCase\CreateTermsVersion" />
         <service id="RichId\TermsModuleBundle\Domain\UseCase\EditTerms" />
-        <service id="RichId\TermsModuleBundle\Domain\UseCase\HasSignLastTermsVersion" />
-        <service id="RichId\TermsModuleBundle\Domain\UseCase\HasSignTerms" />
+        <service id="RichId\TermsModuleBundle\Domain\UseCase\HasSignedTerms" />
         <service id="RichId\TermsModuleBundle\Domain\UseCase\RemoveTermsVersion" />
         <service id="RichId\TermsModuleBundle\Domain\UseCase\SignTerms" />
 

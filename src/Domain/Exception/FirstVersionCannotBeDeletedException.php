@@ -14,12 +14,10 @@ class FirstVersionCannotBeDeletedException extends TermsModuleException
     public function __construct(TermsVersion $termsVersion)
     {
         $terms = $termsVersion->getTerms();
-
-        parent::__construct(
-            \sprintf('First version of terms %s cannot be deleted.', $terms->getSlug())
-        );
-
         $this->termsVersion = $termsVersion;
+        $message = \sprintf('First version of terms %s cannot be deleted.', $terms->getSlug());
+
+        parent::__construct($message);
     }
 
     public function getTermsVersion(): TermsVersion
