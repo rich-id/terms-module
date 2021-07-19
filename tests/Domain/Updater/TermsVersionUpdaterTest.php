@@ -8,6 +8,7 @@ use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
+use RichId\TermsModuleBundle\Domain\Exception\InvalidValueException;
 use RichId\TermsModuleBundle\Domain\Model\TermsEdition;
 use RichId\TermsModuleBundle\Domain\Updater\TermsVersionUpdater;
 
@@ -19,6 +20,38 @@ final class TermsVersionUpdaterTest extends TestCase
 {
     /** @var TermsVersionUpdater */
     public $updater;
+
+    public function testUpdateWithInvalidTitle(): void
+    {
+        $this->expectException(InvalidValueException::class);
+
+        $date = new \DateTime();
+        $entity = new TermsVersion();
+        $entity->setTerms(new Terms());
+
+        $model = new TermsEdition($entity);
+
+        $model->setContent('My content');
+        $model->setPublicationDate($date);
+
+        $this->updater->update($entity, $model);
+    }
+
+    public function testUpdateWithInvalidContent(): void
+    {
+        $this->expectException(InvalidValueException::class);
+
+        $date = new \DateTime();
+        $entity = new TermsVersion();
+        $entity->setTerms(new Terms());
+
+        $model = new TermsEdition($entity);
+
+        $model->setTitle('My Title');
+        $model->setPublicationDate($date);
+
+        $this->updater->update($entity, $model);
+    }
 
     public function testUpdate(): void
     {

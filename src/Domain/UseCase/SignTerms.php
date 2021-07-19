@@ -51,7 +51,6 @@ class SignTerms
         if ($accepted === true) {
             $signature = $this->termsVersionSignatureFactory->sign($lastVersion, $subject);
             $this->entityRecoder->saveSignature($signature);
-            $this->entityRecoder->flush();
         }
 
         $defaultResponse = $this->responseBuilder->buildDefaultTermsSignedResponse($accepted);

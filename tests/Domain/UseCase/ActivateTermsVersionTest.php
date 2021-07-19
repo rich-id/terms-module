@@ -47,12 +47,13 @@ final class ActivateTermsVersionTest extends TestCase
 
     public function testUseCase(): void
     {
-        $terms = new Terms();
-        $terms->setSlug('my_terms');
+        $terms = $this->getReference(Terms::class, '1');
 
         $termsVersion = new TermsVersion();
         $termsVersion->setTerms($terms);
         $termsVersion->setVersion(42);
+        $termsVersion->setTitle('Title');
+        $termsVersion->setContent('Content');
 
         ($this->useCase)($termsVersion);
 

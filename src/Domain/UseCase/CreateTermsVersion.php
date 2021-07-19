@@ -41,7 +41,6 @@ class CreateTermsVersion
         $newTermVersion = $this->termsVersionFactory->buildFromCopy($basedTermsVersion);
 
         $this->entityRecoder->saveTermsVersion($newTermVersion);
-        $this->entityRecoder->flush();
 
         $this->eventDispatcher->dispatchTermsEvent(
             new TermsVersionCreatedEvent($newTermVersion)

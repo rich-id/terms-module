@@ -6,6 +6,7 @@ namespace RichId\TermsModuleBundle\Tests\Domain\EventListener;
 
 use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
+use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Event\TermsVersionEnabledEvent;
 use RichId\TermsModuleBundle\Domain\EventListener\SetTermsVersionPublicationMetadataEventListener;
@@ -13,7 +14,7 @@ use RichId\TermsModuleBundle\Tests\Resources\Stubs\EntityManagerStub;
 
 /**
  * @covers \RichId\TermsModuleBundle\Domain\EventListener\SetTermsVersionPublicationMetadataEventListener
- * @TestConfig("kernel")
+ * @TestConfig("fixtures")
  */
 final class SetTermsVersionPublicationMetadataEventListenerTest extends TestCase
 {
@@ -40,7 +41,13 @@ final class SetTermsVersionPublicationMetadataEventListenerTest extends TestCase
 
     public function testListenerWithoutExistingPublicationDate(): void
     {
+        $terms = $this->getReference(Terms::class, '1');
+
         $termsVersion = new TermsVersion();
+        $termsVersion->setTerms($terms);
+        $termsVersion->setVersion(42);
+        $termsVersion->setTitle('Title');
+        $termsVersion->setContent('Content');
 
         $event = new TermsVersionEnabledEvent($termsVersion);
 

@@ -44,7 +44,6 @@ final class EntityRecorderTest extends TestCase
         $signature->setDate(new \DateTime());
 
         $this->adapter->saveSignature($signature);
-        $this->adapter->flush();
 
         $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
     }
@@ -58,7 +57,6 @@ final class EntityRecorderTest extends TestCase
         $terms->setName('My terms');
 
         $this->adapter->saveTerms($terms);
-        $this->adapter->flush();
 
         $this->assertCount(6, $this->termsRepository->findAll());
     }
@@ -75,7 +73,6 @@ final class EntityRecorderTest extends TestCase
         $termsVersion->setContent('Content');
 
         $this->adapter->saveTermsVersion($termsVersion);
-        $this->adapter->flush();
 
         $this->assertCount(8, $this->termsVersionRepository->findAll());
     }

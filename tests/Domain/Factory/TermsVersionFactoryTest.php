@@ -8,6 +8,7 @@ use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
+use RichId\TermsModuleBundle\Domain\Exception\InvalidValueException;
 use RichId\TermsModuleBundle\Domain\Factory\TermsVersionFactory;
 
 /**
@@ -33,6 +34,26 @@ final class TermsVersionFactoryTest extends TestCase
         $this->assertNull($entity->getContent());
         $this->assertNull($entity->getPublicationDate());
         $this->assertEmpty($entity->getSignatures());
+    }
+
+    public function testBuildFromCopyWithBadTitle(): void
+    {
+        $this->expectException(InvalidValueException::class);
+
+        $termsVersion = $this->getReference(TermsVersion::class, 'v3-terms-1');
+        $termsVersion->setTitle('');
+
+        $this->factory->buildFromCopy($termsVersion);
+    }
+
+    public function testBuildFromCopyWithBadContent(): void
+    {
+        $this->expectException(InvalidValueException::class);
+
+        $termsVersion = $this->getReference(TermsVersion::class, 'v3-terms-1');
+        $termsVersion->setContent('');
+
+        $this->factory->buildFromCopy($termsVersion);
     }
 
     public function testBuildFromCopy(): void

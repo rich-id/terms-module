@@ -4,6 +4,7 @@ services:
         autowire: true
         public: true
 
+    RichId\TermsModuleBundle\Domain\UseCase\HasSignedLastTermsVersion: ~
     RichId\TermsModuleBundle\Domain\UseCase\HasSignedTerms: ~
 
     RichId\TermsModuleBundle\Infrastructure\Adapter\EntityRemover: ~

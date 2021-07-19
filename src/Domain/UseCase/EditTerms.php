@@ -58,8 +58,8 @@ class EditTerms
         $this->termsVersionUpdater->update($termsVersion, $termsEdition);
         $this->termsUpdater->update($terms, $termsEdition);
 
-        $this->entityRecoder->saveTerms($terms);
         $this->entityRecoder->saveTermsVersion($termsVersion);
+        $this->entityRecoder->saveTerms($terms);
 
         if ($termsEdition->needVersionActivation() === true) {
             ($this->activateTermsVersion)($termsVersion);

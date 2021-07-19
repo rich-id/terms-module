@@ -14,7 +14,7 @@ use RichId\TermsModuleBundle\Tests\Resources\Stubs\EntityManagerStub;
 
 /**
  * @covers \RichId\TermsModuleBundle\Domain\EventListener\AutopublishFirstTermsVersionEventListener
- * @TestConfig("kernel")
+ * @TestConfig("fixtures")
  */
 final class AutopublishFirstTermsVersionEventListenerTest extends TestCase
 {
@@ -90,13 +90,13 @@ final class AutopublishFirstTermsVersionEventListenerTest extends TestCase
 
     public function testListenerActivateVersion(): void
     {
-        $terms = new Terms();
-        $terms->setName('Terms');
-        $terms->setSlug('my_terms');
-        $terms->setIsPublished(true);
+        $terms = $this->getReference(Terms::class, '3');
 
         $termsVersion = new TermsVersion();
         $termsVersion->setTerms($terms);
+        $termsVersion->setVersion(1);
+        $termsVersion->setTitle('Title');
+        $termsVersion->setContent('Content');
         $terms->addVersion($termsVersion);
 
         $event = new TermsVersionUpdatedEvent($termsVersion);

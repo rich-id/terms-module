@@ -15,6 +15,4 @@ interface EntityRecoderInterface
     public function saveTerms(Terms $terms): void;
 
     public function saveTermsVersion(TermsVersion $termsVersion): void;
-
-    public function flush(): void;
 }
