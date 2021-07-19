@@ -20,7 +20,6 @@
            controller="RichId\TermsModuleBundle\UserInterface\Controller\ListAdminRoute"
            methods="GET" />
 
-
     <route id="module_terms_remove_terms_version" path="/administration/terms-version/{termsVersion}"
            controller="RichId\TermsModuleBundle\UserInterface\Controller\RemoveTermsVersionRoute"
            methods="DELETE">

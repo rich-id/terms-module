@@ -8,7 +8,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Factory\DefaultTermsVersionFactory;
-use RichId\TermsModuleBundle\Domain\Factory\TermsVersionFactory;
 use RichId\TermsModuleBundle\Domain\Model\TermsEdition;
 use RichId\TermsModuleBundle\Domain\UseCase\EditTerms;
 use RichId\TermsModuleBundle\Infrastructure\FormType\TermsVersionFormType;
