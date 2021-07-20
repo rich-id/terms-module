@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Infrastructure\Migrations;
 
@@ -8,8 +10,7 @@ trait TermsMigrationTrait
         string $slug,
         string $name,
         int $startVersion = 1
-    ): void
-    {
+    ): void {
         $this->addSQL("
             INSERT INTO module_terms_terms 
             (slug, name, is_published, is_depublication_locked) 

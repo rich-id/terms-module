@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Infrastructure\TwigExtension;
 
-use RichId\TermsModuleBundle\Domain\Model\DummySubject;
+use RichId\TermsModuleBundle\Domain\Entity\Terms;
+use RichId\TermsModuleBundle\Domain\Entity\TermsSubjectInterface;
 use RichId\TermsModuleBundle\Domain\UseCase\HasSignedTerms;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -26,8 +27,8 @@ class TermsExtension extends AbstractExtension
         ];
     }
 
-    public function hasSignedTerms(string $termsSlug, string $subjectType, string $subjectIdentifier): int
+    public function hasSignedTerms(Terms $terms, TermsSubjectInterface $subject): int
     {
-        return ($this->hasSignedTerms)($termsSlug, DummySubject::create($subjectType, $subjectIdentifier));
+        return ($this->hasSignedTerms)($terms->getSlug(), $subject);
     }
 }

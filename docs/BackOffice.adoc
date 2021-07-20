@@ -1,0 +1,3 @@
+== Administrate the Terms
+
+The module provides a set of routes and template to easily manage the terms.

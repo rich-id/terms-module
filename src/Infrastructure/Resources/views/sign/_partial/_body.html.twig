@@ -1,5 +1,5 @@
 <div class="terms-module-sign-content">
-    {% if hasSignedTerms(terms.slug, subject.termsSubjectType, subject.termsSubjectIdentifier) == constant('RichId\\TermsModuleBundle\\Domain\\UseCase\\HasSignedTerms::HAS_SIGNED_OLD_VERSION') %}
+    {% if hasSignedTerms(terms, subject) == constant('RichId\\TermsModuleBundle\\Domain\\UseCase\\HasSignedTerms::HAS_SIGNED_OLD_VERSION') %}
         <div class="terms-module-ribon">{{ 'terms_module.sign.new_version'|trans({}, 'terms_module') }}</div>
     {% endif %}
 
