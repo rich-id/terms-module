@@ -39,6 +39,7 @@
         <service id="RichId\TermsModuleBundle\Domain\UseCase\ActivateTermsVersion" />
         <service id="RichId\TermsModuleBundle\Domain\UseCase\CreateTermsVersion" />
         <service id="RichId\TermsModuleBundle\Domain\UseCase\EditTerms" />
+        <service id="RichId\TermsModuleBundle\Domain\UseCase\GenerateSigningRoute" />
         <service id="RichId\TermsModuleBundle\Domain\UseCase\HasSignedLastTermsVersion" />
         <service id="RichId\TermsModuleBundle\Domain\UseCase\HasSignedTerms" />
         <service id="RichId\TermsModuleBundle\Domain\UseCase\RemoveTermsVersion" />

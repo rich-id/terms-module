@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace RichId\TermsModuleBundle\Infrastructure\Listener;
 
 use RichId\TermsModuleBundle\Domain\Exception\SubjectNeedToSignTermsException;
+use RichId\TermsModuleBundle\Domain\UseCase\GenerateSigningRoute;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
-use Symfony\Component\Routing\RouterInterface;
 
 class RedirectToSigningPageOnAccessDeniedListener
 {
-    /** @var RouterInterface */
-    protected $router;
+    /** @var GenerateSigningRoute */
+    protected $generateSigningRoute;
 
-    public function __construct(RouterInterface $router)
+    public function __construct(GenerateSigningRoute $generateSigningRoute)
     {
-        $this->router = $router;
+        $this->generateSigningRoute = $generateSigningRoute;
     }
 
     public function onKernelException(ExceptionEvent $event): void
@@ -29,14 +29,7 @@ class RedirectToSigningPageOnAccessDeniedListener
 
         $event->setResponse(
             new RedirectResponse(
-                $this->router->generate(
-                    'module_terms_sign',
-                    [
-                        'termsSlug'  => $exception->getTermsSlug(),
-                        'type'       => $exception->getSubject()->getTermsSubjectType(),
-                        'identifier' => $exception->getSubject()->getTermsSubjectIdentifier(),
-                    ]
-                )
+                ($this->generateSigningRoute)($exception->getTermsSlug(), $exception->getSubject())
             )
         );
     }
