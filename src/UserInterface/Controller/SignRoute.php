@@ -83,11 +83,11 @@ class SignRoute extends AbstractController
         $subjectType = $request->query->get('type');
         $subjectIdentifier = $request->query->get('identifier');
 
-        if (!is_string($subjectType) || $subjectType === '') {
+        if (!\is_string($subjectType) || $subjectType === '') {
             throw new BadRequestHttpException('Query parameter type is missing.');
         }
 
-        if (!is_string($subjectIdentifier) || $subjectIdentifier === '') {
+        if (!\is_string($subjectIdentifier) || $subjectIdentifier === '') {
             throw new BadRequestHttpException('Query parameter identifier is missing.');
         }
 

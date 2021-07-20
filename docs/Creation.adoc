@@ -1,0 +1,27 @@
+== Create Terms
+
+The only way to create a new term is to make a migration. Since a term should always have at least one version, the migration will also create a version.
+
+Hopefully, there is trait that might help you to do so. Here is an example of the usage of this trait:
+
+[source, php]
+----
+use Doctrine\DBAL\Schema\Schema;
+use Doctrine\Migrations\AbstractMigration;
+use RichId\TermsModuleBundle\Infrastructure\Migrations\TermsMigrationTrait;
+
+final class RandomMigration extends AbstractMigration
+{
+    use TermsMigrationTrait;
+
+    public function up(Schema $schema): void
+    {
+        $this->createTerms('my_slug', 'My Terms');
+    }
+
+    public function down(Schema $schema): void
+    {
+        $this->deleteTerms('my_slug');
+    }
+}
+----
