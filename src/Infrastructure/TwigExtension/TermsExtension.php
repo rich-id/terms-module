@@ -35,11 +35,11 @@ class TermsExtension extends AbstractExtension
 
     public function generateSigningRoute(Terms $terms, TermsSubjectInterface $subject): string
     {
-        return ($this->generateSigningRoute)($terms->getSlug(), $subject);
+        return ($this->generateSigningRoute)($terms->getSlug() ?? '', $subject);
     }
 
     public function hasSignedTerms(Terms $terms, TermsSubjectInterface $subject): int
     {
-        return ($this->hasSignedTerms)($terms->getSlug(), $subject);
+        return ($this->hasSignedTerms)($terms->getSlug() ?? '', $subject);
     }
 }
