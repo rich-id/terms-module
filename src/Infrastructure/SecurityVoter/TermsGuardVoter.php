@@ -22,12 +22,12 @@ class TermsGuardVoter extends Voter
         $this->guards = $guards;
     }
 
-    protected function supports(string $attribute, $subject): bool
+    protected function supports($attribute, $subject): bool
     {
         return $subject instanceof TermsGuardValidationInterface && $attribute === self::MODULE_TERMS_GUARD_VALID;
     }
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
         $guard = $this->findGuard($subject);
 
