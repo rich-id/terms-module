@@ -26,8 +26,7 @@ final class LoggerTest extends TestCase
 
     public function testLogTermsSignedPreferAnswerLater(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $subject = DummySubject::create('user', '42');
 
@@ -57,8 +56,7 @@ final class LoggerTest extends TestCase
 
     public function testLogTermsRefuse(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $subject = DummySubject::create('user', '42');
 
@@ -88,8 +86,7 @@ final class LoggerTest extends TestCase
 
     public function testLogTermsSignedAcceptation(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $subject = DummySubject::create('user', '42');
 

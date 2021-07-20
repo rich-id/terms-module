@@ -10,4 +10,5 @@ return [
     RichCongress\RecurrentFixturesTestBundle\RichCongressRecurrentFixturesTestBundle::class => ['all' => true],
     RichId\TermsModuleBundle\Infrastructure\RichIdTermsModuleBundle::class                  => ['all' => true],
     FOS\CKEditorBundle\FOSCKEditorBundle::class                                             => ['all' => true],
+    Symfony\Bundle\MonologBundle\MonologBundle::class                                       => ['all' => true],
 ];

@@ -29,8 +29,7 @@ final class LogSignedTermsEventListenerTest extends TestCase
 
     public function testListener(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $termsVersion = $this->getReference(TermsVersion::class, 'v3-terms-1');
         $response = new Response();

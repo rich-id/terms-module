@@ -21,7 +21,7 @@
         "doctrine/orm": "^2.7",
         "friendsofsymfony/ckeditor-bundle": "^2.3",
         "psr/log": "^1.1",
-        "richcongress/bundle-toolbox": "*",
+        "richcongress/bundle-toolbox": "^1.1",
         "sensio/framework-extra-bundle": "^5.0|^6.0",
         "symfony/form": "^4.0|^5.0",
         "symfony/http-foundation": "^4.4|^5.0",
@@ -33,10 +33,11 @@
     },
     "require-dev": {
         "doctrine/doctrine-bundle": "^2.0",
-        "phpunit/phpunit": "^8.5",
+        "phpunit/phpunit": "^9.5",
         "richcongress/static-analysis": "^0.1",
         "richcongress/test-suite": "^0.1",
-        "roave/security-advisories": "dev-latest"
+        "roave/security-advisories": "dev-latest",
+        "symfony/monolog-bundle": "^3.7"
     },
     "autoload": {
         "psr-4": {

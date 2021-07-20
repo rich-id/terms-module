@@ -43,11 +43,9 @@ final class RemoveTermsVersionRouteTest extends ControllerTestCase
 
     public function testRouteBadRole(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $termsVersion = $this->getReference(TermsVersion::class, 'v4-terms-1');
-
         $response = $this->getClient()
             ->delete(
                 \sprintf(
@@ -61,8 +59,7 @@ final class RemoveTermsVersionRouteTest extends ControllerTestCase
 
     public function testRouteWithEnabledVersion(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER_ADMIN);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER_ADMIN);
 
         $termsVersion = $this->getReference(TermsVersion::class, 'v3-terms-1');
 
@@ -82,8 +79,7 @@ final class RemoveTermsVersionRouteTest extends ControllerTestCase
 
     public function testRouteRemoveFirstVersion(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER_ADMIN);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER_ADMIN);
 
         $terms = $this->getReference(Terms::class, '2');
 
@@ -114,8 +110,7 @@ final class RemoveTermsVersionRouteTest extends ControllerTestCase
     {
         $this->assertCount(7, $this->termsVersionRepository->findAll());
 
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER_ADMIN);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER_ADMIN);
 
         $termsVersion = $this->getReference(TermsVersion::class, 'v4-terms-1');
 

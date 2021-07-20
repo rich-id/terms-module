@@ -6,19 +6,14 @@ namespace RichId\TermsModuleBundle\Domain\EventListener;
 
 use RichId\TermsModuleBundle\Domain\Event\TermsVersionEnabledEvent;
 use RichId\TermsModuleBundle\Domain\Port\EntityRecoderInterface;
-use RichId\TermsModuleBundle\Domain\UseCase\ActivateTermsVersion;
 
 final class SetTermsVersionPublicationMetadataEventListener
 {
-    /** @var ActivateTermsVersion */
-    private $activateTermsVersion;
-
     /** @var EntityRecoderInterface */
     private $entityRecoder;
 
-    public function __construct(ActivateTermsVersion $activateTermsVersion, EntityRecoderInterface $entityRecoder)
+    public function __construct(EntityRecoderInterface $entityRecoder)
     {
-        $this->activateTermsVersion = $activateTermsVersion;
         $this->entityRecoder = $entityRecoder;
     }
 

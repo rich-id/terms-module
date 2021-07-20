@@ -80,14 +80,14 @@ class SignRoute extends AbstractController
 
     protected function getSubject(Request $request): TermsSubjectInterface
     {
-        $subjectType = $request->query->get('type', null);
-        $subjectIdentifier = $request->query->get('identifier', null);
+        $subjectType = $request->query->get('type');
+        $subjectIdentifier = $request->query->get('identifier');
 
-        if ($subjectType === null || $subjectType === '') {
+        if (!is_string($subjectType) || $subjectType === '') {
             throw new BadRequestHttpException('Query parameter type is missing.');
         }
 
-        if ($subjectIdentifier === null || $subjectIdentifier === '') {
+        if (!is_string($subjectIdentifier) || $subjectIdentifier === '') {
             throw new BadRequestHttpException('Query parameter identifier is missing.');
         }
 

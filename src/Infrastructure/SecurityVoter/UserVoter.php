@@ -26,12 +26,12 @@ class UserVoter extends Voter
         $this->parameterBag = $parameterBag;
     }
 
-    protected function supports($attribute, $subject): bool
+    protected function supports(string $attribute, $subject): bool
     {
         return $attribute === self::MODULE_TERMS_ADMIN;
     }
 
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
 

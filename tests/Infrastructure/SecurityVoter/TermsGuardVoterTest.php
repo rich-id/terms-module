@@ -69,10 +69,9 @@ final class TermsGuardVoterTest extends VoterTestCase
         $this->assertSame(Voter::ACCESS_DENIED, $result);
     }
 
-    public function testVoterCheckUnautorized(): void
+    public function testVoterCheckUnauthorized(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $subject = DummyTermsGuardValidation::create('terms-5', 'user', '42');
 
@@ -84,10 +83,9 @@ final class TermsGuardVoterTest extends VoterTestCase
         $this->assertSame(Voter::ACCESS_DENIED, $result);
     }
 
-    public function testVoterCheckAutorized(): void
+    public function testVoterCheckAuthorized(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $subject = DummyTermsGuardValidation::create('terms-5', 'user', 'my_user_1');
 
