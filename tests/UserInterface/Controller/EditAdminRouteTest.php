@@ -36,8 +36,7 @@ final class EditAdminRouteTest extends ControllerTestCase
 
     public function testRouteBadRole(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $terms = $this->getReference(Terms::class, '1');
 
@@ -54,8 +53,7 @@ final class EditAdminRouteTest extends ControllerTestCase
 
     public function testRouteSpecificVersionNotFound(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER_ADMIN);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER_ADMIN);
 
         $terms = $this->getReference(Terms::class, '1');
 
@@ -75,8 +73,7 @@ final class EditAdminRouteTest extends ControllerTestCase
 
     public function testRouteTermsWithoutVersion(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER_ADMIN);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER_ADMIN);
 
         $terms = $this->getReference(Terms::class, '2');
 
@@ -104,8 +101,7 @@ final class EditAdminRouteTest extends ControllerTestCase
 
     public function testRouteTermsWithMultipleVersionLastVersionNotActive(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER_ADMIN);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER_ADMIN);
 
         $terms = $this->getReference(Terms::class, '1');
 
@@ -139,8 +135,7 @@ final class EditAdminRouteTest extends ControllerTestCase
 
     public function testRouteTermsLastVersionActive(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER_ADMIN);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER_ADMIN);
 
         $termVersion = $this->getReference(TermsVersion::class, 'v2-terms-5');
         $termVersion->enable();
@@ -178,8 +173,7 @@ final class EditAdminRouteTest extends ControllerTestCase
 
     public function testRouteTermsLastVersionActiveAndSpecificVersion(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER_ADMIN);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER_ADMIN);
 
         $termVersion = $this->getReference(TermsVersion::class, 'v2-terms-5');
         $termVersion->enable();
@@ -217,8 +211,7 @@ final class EditAdminRouteTest extends ControllerTestCase
 
     public function testRoutePostTermsWithoutVersion(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER_ADMIN);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER_ADMIN);
 
         $terms = $this->getReference(Terms::class, '2');
         $this->assertEmpty($terms->getVersions());
@@ -259,8 +252,7 @@ final class EditAdminRouteTest extends ControllerTestCase
 
     public function testRoutePostTermsWithoutVersionPublishTerms(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER_ADMIN);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER_ADMIN);
 
         $terms = $this->getReference(Terms::class, '2');
         $this->assertEmpty($terms->getVersions());
@@ -301,8 +293,7 @@ final class EditAdminRouteTest extends ControllerTestCase
 
     public function testRoutePostWithExit(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER_ADMIN);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER_ADMIN);
 
         $terms = $this->getReference(Terms::class, '2');
         $this->assertEmpty($terms->getVersions());
@@ -333,8 +324,7 @@ final class EditAdminRouteTest extends ControllerTestCase
 
     public function testRoutePostChangeTitleContentPublicationDateOfEnabledVersion(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER_ADMIN);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER_ADMIN);
 
         $terms = $this->getReference(Terms::class, '5');
         $termVersion = $this->getReference(TermsVersion::class, 'v2-terms-5');
@@ -371,8 +361,7 @@ final class EditAdminRouteTest extends ControllerTestCase
 
     public function testRoutePostUnpublishTermsLocked(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER_ADMIN);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER_ADMIN);
 
         $terms = $this->getReference(Terms::class, '1');
 
@@ -403,8 +392,7 @@ final class EditAdminRouteTest extends ControllerTestCase
 
     public function testRoutePostWithSpecificVersion(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER_ADMIN);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER_ADMIN);
 
         $terms = $this->getReference(Terms::class, '1');
 
@@ -433,8 +421,7 @@ final class EditAdminRouteTest extends ControllerTestCase
 
     public function testRoutePostActivateVersionAlreadyActivated(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER_ADMIN);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER_ADMIN);
 
         $terms = $this->getReference(Terms::class, '5');
         $termVersion = $this->getReference(TermsVersion::class, 'v2-terms-5');
@@ -467,8 +454,7 @@ final class EditAdminRouteTest extends ControllerTestCase
 
     public function testRoutePostActivateVersion(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER_ADMIN);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER_ADMIN);
 
         $terms = $this->getReference(Terms::class, '5');
         $termVersion = $this->getReference(TermsVersion::class, 'v2-terms-5');

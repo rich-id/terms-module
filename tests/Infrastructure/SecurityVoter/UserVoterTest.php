@@ -43,7 +43,7 @@ final class UserVoterTest extends VoterTestCase
     public function testVoterLoggedByBadRole(): void
     {
         $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $result = $this->vote(
             null,
@@ -57,7 +57,7 @@ final class UserVoterTest extends VoterTestCase
     public function testVoterLoggedAndGoodRole(): void
     {
         $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER_ADMIN);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER_ADMIN);
 
         $result = $this->vote(
             null,

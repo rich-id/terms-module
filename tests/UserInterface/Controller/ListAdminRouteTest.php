@@ -24,8 +24,7 @@ final class ListAdminRouteTest extends ControllerTestCase
 
     public function testRouteBadRole(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $response = $this->getClient()->get('/administration/terms');
         $this->assertSame(Response::HTTP_FORBIDDEN, $response->getStatusCode());
@@ -33,8 +32,7 @@ final class ListAdminRouteTest extends ControllerTestCase
 
     public function testRouteAsAdmin(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER_ADMIN);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER_ADMIN);
 
         $response = $this->getClient()->get('/administration/terms');
         $this->assertSame(Response::HTTP_OK, $response->getStatusCode());

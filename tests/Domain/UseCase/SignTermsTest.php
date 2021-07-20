@@ -80,8 +80,7 @@ final class SignTermsTest extends TestCase
 
     public function testUseCasePreferAnswerLater(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
 
@@ -114,8 +113,7 @@ final class SignTermsTest extends TestCase
 
     public function testUseCaseRefuse(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
 
@@ -148,8 +146,7 @@ final class SignTermsTest extends TestCase
 
     public function testUseCaseAcceptation(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
 
@@ -182,8 +179,7 @@ final class SignTermsTest extends TestCase
 
     public function testUseCasePreferAnswerLaterWithCustomRedirection(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
 
@@ -216,8 +212,7 @@ final class SignTermsTest extends TestCase
 
     public function testUseCaseRefuseWithCustomRedirection(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
 
@@ -250,8 +245,7 @@ final class SignTermsTest extends TestCase
 
     public function testUseCaseAcceptationWithCustomRedirection(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
 

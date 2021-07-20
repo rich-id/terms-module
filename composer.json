@@ -33,10 +33,11 @@
     },
     "require-dev": {
         "doctrine/doctrine-bundle": "^2.0",
-        "phpunit/phpunit": "^8.5",
+        "phpunit/phpunit": "^9.5",
         "richcongress/static-analysis": "^0.1",
         "richcongress/test-suite": "^0.1",
-        "roave/security-advisories": "dev-latest"
+        "roave/security-advisories": "dev-latest",
+        "symfony/monolog-bundle": "^3.7"
     },
     "autoload": {
         "psr-4": {

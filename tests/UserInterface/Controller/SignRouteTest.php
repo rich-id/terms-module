@@ -148,8 +148,7 @@ final class SignRouteTest extends ControllerTestCase
 
     public function testRouteGuardInvalidNotAllowedSubjectType(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $response = $this->getClient()
             ->get(
@@ -165,8 +164,7 @@ final class SignRouteTest extends ControllerTestCase
 
     public function testRouteGuardInvalidNotAllowedSubjectIdentifier(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $response = $this->getClient()
             ->get(
@@ -182,8 +180,7 @@ final class SignRouteTest extends ControllerTestCase
 
     public function testRouteGuardValid(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $response = $this->getClient()
             ->get(
@@ -251,8 +248,7 @@ final class SignRouteTest extends ControllerTestCase
 
     public function testRoutePostPreferAnswerLater(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
 
@@ -292,8 +288,7 @@ final class SignRouteTest extends ControllerTestCase
 
     public function testRoutePostRefuse(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
 
@@ -333,8 +328,7 @@ final class SignRouteTest extends ControllerTestCase
 
     public function testRoutePostAcceptation(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
 
@@ -374,8 +368,7 @@ final class SignRouteTest extends ControllerTestCase
 
     public function testRoutePostPreferAnswerLaterWithCustomRedirection(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
 
@@ -418,8 +411,7 @@ final class SignRouteTest extends ControllerTestCase
 
     public function testRoutePostRefuseWithCustomRedirection(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
 
@@ -462,8 +454,7 @@ final class SignRouteTest extends ControllerTestCase
 
     public function testRoutePostAcceptationWithCustomRedirection(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
 
@@ -506,8 +497,7 @@ final class SignRouteTest extends ControllerTestCase
 
     public function testRoutePostGuardNotAllowedSubjectType(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $response = $this->getClient()
             ->post(
@@ -526,8 +516,7 @@ final class SignRouteTest extends ControllerTestCase
 
     public function testRoutePostGuardNotAllowedSubjectIdentifier(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $response = $this->getClient()
             ->post(
@@ -546,8 +535,7 @@ final class SignRouteTest extends ControllerTestCase
 
     public function testRoutePostGuardValid(): void
     {
-        $user = $this->getReference(DummyUser::class, DummyUserFixtures::USER);
-        $this->authenticateUser($user);
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
         $response = $this->getClient()
             ->post(
