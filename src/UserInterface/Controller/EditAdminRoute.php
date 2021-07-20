@@ -59,12 +59,6 @@ class EditAdminRoute extends AbstractController
         $this->parameterBag = $parameterBag;
     }
 
-    /** @return string[] */
-    protected function getAdminRoles(): array
-    {
-        return $this->parameterBag->get('rich_id_terms_module.admin_roles');
-    }
-
     public function __invoke(Terms $terms): Response
     {
         if (!$this->isGranted(UserVoter::MODULE_TERMS_ADMIN)) {
@@ -100,6 +94,12 @@ class EditAdminRoute extends AbstractController
                 'form'                => $form->createView(),
             ]
         );
+    }
+
+    /** @return string[] */
+    protected function getAdminRoles(): array
+    {
+        return $this->parameterBag->get('rich_id_terms_module.admin_roles');
     }
 
     private function getTermsVersion(Terms $terms): TermsVersion

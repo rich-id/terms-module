@@ -12,12 +12,10 @@ class Configuration extends AbstractConfiguration
 {
     public const CONFIG_NODE = 'rich_id_terms_module';
 
-    protected function buildConfiguration(ArrayNodeDefinition $rootNode): void
+    protected function buildConfig(NodeBuilder $nodeBuilder): void
     {
-        $children = $rootNode->children();
-
-        $this->addAdminRoles($children);
-        $this->addDefaultRedirectionRoutes($children);
+        $this->addAdminRoles($nodeBuilder);
+        $this->addDefaultRedirectionRoutes($nodeBuilder);
     }
 
     protected function addAdminRoles(NodeBuilder $nodeBuilder): void
@@ -37,7 +35,7 @@ class Configuration extends AbstractConfiguration
 
         $this->addDefaultAcceptationRoute($children);
         $this->addDefaultRefusalRoute($children);
-        $this->addDefaulIgnoreRoute($children);
+        $this->addDefaultIgnoreRoute($children);
     }
 
     protected function addDefaultAcceptationRoute(NodeBuilder $nodeBuilder): void
@@ -54,7 +52,7 @@ class Configuration extends AbstractConfiguration
             ->isRequired();
     }
 
-    protected function addDefaulIgnoreRoute(NodeBuilder $nodeBuilder): void
+    protected function addDefaultIgnoreRoute(NodeBuilder $nodeBuilder): void
     {
         $nodeBuilder
             ->scalarNode('ignore')

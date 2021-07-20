@@ -30,12 +30,6 @@ class RemoveTermsVersionRoute extends AbstractController
         $this->parameterBag = $parameterBag;
     }
 
-    /** @return string[] */
-    protected function getAdminRoles(): array
-    {
-        return $this->parameterBag->get('rich_id_terms_module.admin_roles');
-    }
-
     public function __invoke(TermsVersion $termsVersion): Response
     {
         if (!$this->isGranted(UserVoter::MODULE_TERMS_ADMIN)) {
@@ -49,5 +43,11 @@ class RemoveTermsVersionRoute extends AbstractController
         } catch (EnabledVersionCannotBeDeletedException | FirstVersionCannotBeDeletedException $e) {
             return JsonResponse::create($e->getMessage(), Response::HTTP_UNAUTHORIZED);
         }
+    }
+
+    /** @return string[] */
+    protected function getAdminRoles(): array
+    {
+        return $this->parameterBag->get('rich_id_terms_module.admin_roles');
     }
 }

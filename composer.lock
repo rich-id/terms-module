@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1d189e38c8d8c481b718b43ba458a171",
+    "content-hash": "e059253f2e94379b3f70cd0b42bb84bf",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -1742,16 +1742,16 @@
         },
         {
             "name": "richcongress/bundle-toolbox",
-            "version": "v1.1.1",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/richcongress/bundle-toolbox.git",
-                "reference": "c35f39efb84de16bf8287891355ffeae15b31ed5"
+                "url": "https://github.com/rich-id/bundle-toolbox.git",
+                "reference": "e54a52352d3532e670f84839d6ba0d5cecfc2a2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/richcongress/bundle-toolbox/zipball/c35f39efb84de16bf8287891355ffeae15b31ed5",
-                "reference": "c35f39efb84de16bf8287891355ffeae15b31ed5",
+                "url": "https://api.github.com/repos/rich-id/bundle-toolbox/zipball/e54a52352d3532e670f84839d6ba0d5cecfc2a2d",
+                "reference": "e54a52352d3532e670f84839d6ba0d5cecfc2a2d",
                 "shasum": ""
             },
             "require": {
@@ -1782,10 +1782,10 @@
             ],
             "description": "A set of classes and tools to quickly build a bundle",
             "support": {
-                "issues": "https://github.com/richcongress/bundle-toolbox/issues",
-                "source": "https://github.com/richcongress/bundle-toolbox/tree/master"
+                "issues": "https://github.com/rich-id/bundle-toolbox/issues",
+                "source": "https://github.com/rich-id/bundle-toolbox/tree/v1.1.2"
             },
-            "time": "2020-06-29T16:35:48+00:00"
+            "time": "2021-06-11T14:28:15+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",
