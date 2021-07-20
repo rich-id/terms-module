@@ -31,6 +31,7 @@ class UserVoter extends Voter
         return $attribute === self::MODULE_TERMS_ADMIN;
     }
 
+    /** @param string $attribute */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();

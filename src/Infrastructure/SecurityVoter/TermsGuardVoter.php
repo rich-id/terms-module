@@ -27,6 +27,7 @@ class TermsGuardVoter extends Voter
         return $subject instanceof TermsGuardValidationInterface && $attribute === self::MODULE_TERMS_GUARD_VALID;
     }
 
+    /** @param string $attribute */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
         $guard = $this->findGuard($subject);
