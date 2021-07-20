@@ -3,3 +3,35 @@ services:
         autoconfigure: true
         autowire: true
         public: true
+
+    RichId\TermsModuleBundle\Domain\UseCase\HasSignedLastTermsVersion: ~
+    RichId\TermsModuleBundle\Domain\UseCase\HasSignedTerms: ~
+
+    RichId\TermsModuleBundle\Infrastructure\Adapter\EntityRemover: ~
+    RichId\TermsModuleBundle\Infrastructure\Adapter\TermsVersionRepository: ~
+    RichId\TermsModuleBundle\Infrastructure\FormType\TermsVersionFormType: ~
+    RichId\TermsModuleBundle\Infrastructure\TwigExtension\TermsExtension: ~
+
+    RichId\TermsModuleBundle\Tests\Resources\Controller\FrontRoute: ~
+    RichId\TermsModuleBundle\Tests\Resources\Controller\OtherFrontRoute: ~
+    RichId\TermsModuleBundle\Tests\Resources\Controller\WithAccessRoute: ~
+    RichId\TermsModuleBundle\Tests\Resources\Controller\WithExceptionRoute: ~
+
+    RichId\TermsModuleBundle\Tests\Resources\Stubs\EntityManagerStub: ~
+    RichId\TermsModuleBundle\Tests\Resources\Stubs\EventDispatcherStub: ~
+    RichId\TermsModuleBundle\Tests\Resources\Stubs\LoggerStub: ~
+    RichId\TermsModuleBundle\Tests\Resources\Stubs\ValidationContextStub: ~
+
+    RichId\TermsModuleBundle\Tests\Resources\EventListener\Terms4SignedEventListener:
+        tags:
+            - { name: 'kernel.event_listener', event: RichId\TermsModuleBundle\Domain\Event\TermsSignedEvent }
+
+    RichId\TermsModuleBundle\Tests\Resources\Fixtures\DummyUserFixtures: ~
+    RichId\TermsModuleBundle\Tests\Resources\Fixtures\TermsFixtures: ~
+    RichId\TermsModuleBundle\Tests\Resources\Fixtures\TermsVersionFixtures: ~
+    RichId\TermsModuleBundle\Tests\Resources\Fixtures\TermsVersionSignatureFixtures: ~
+
+    RichId\TermsModuleBundle\Infrastructure\SecurityVoter\TermsGuardVoter: ~
+    RichId\TermsModuleBundle\Infrastructure\SecurityVoter\UserVoter: ~
+
+    RichId\TermsModuleBundle\Tests\Resources\Guard\Terms5Guard: ~

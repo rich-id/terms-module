@@ -1,0 +1,14 @@
+window.saveTermsUrl = '{{ path('module_terms_admin_edition', {'terms': terms.id}) }}';
+window.saveTermsVersion = {% if app.request.query.has('version') %}'{{ app.request.query.get('version') }}'{% else %}null{% endif %};
+window.exitTermsCloseMessage = '{{ 'terms_module.admin.edit.close'|trans({}, 'terms_module') }}';
+window.exitTermsCancelMessage = '{{ 'terms_module.admin.edit.cancel'|trans({}, 'terms_module') }}';
+
+window.currentTermsVersion = {};
+window.initialTermsVersion = {
+    isTermsPublished: {% if terms.isPublished %}true{% else %}false{% endif %},
+    title: '{{ currentTermsVersion.title|e('js') }}',
+    content: '{{ currentTermsVersion.content|e('js') }}',
+    publicationDate: {% if currentTermsVersion.publicationDate is not null %}'{{ currentTermsVersion.publicationDate|date('Y-m-d') }}'{% else %}''{% endif %},
+};
+
+Object.assign(window.currentTermsVersion, window.initialTermsVersion);

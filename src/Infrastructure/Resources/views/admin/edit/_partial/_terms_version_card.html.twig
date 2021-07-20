@@ -1,0 +1,14 @@
+<a class="terms-version-tag {% if lastEnabledVersion != false and lastEnabledVersion.id == termsVersion.id %}enabled{% endif %} {% if currentTermsVersion.id == termsVersion.id %}current{% endif %}"
+   {% if currentTermsVersion.id != termsVersion.id and termsVersion.id != lastTermsVersion.id %}href="{{ path('module_terms_admin_edition', {'terms': terms.id, 'version': termsVersion.version}) }}"{% endif %}
+        {% if currentTermsVersion.id != termsVersion.id and termsVersion.id == lastTermsVersion.id %}href="{{ path('module_terms_admin_edition', {'terms': terms.id}) }}"{% endif %}
+>
+    {% if termsVersion.id == lastTermsVersion.id and not termsVersion.isEnabled() %}
+        <i class="icon-sync-alt-regular"></i>
+    {% elseif lastEnabledVersion != false and lastEnabledVersion.id == termsVersion.id %}
+        <i class="icon-lock"></i>
+    {% else %}
+        <i class="icon-versions"></i>
+    {% endif %}
+
+    {{ 'terms_module.admin.edit.version'|trans({'%version%': termsVersion.version}, 'terms_module') }}
+</a>

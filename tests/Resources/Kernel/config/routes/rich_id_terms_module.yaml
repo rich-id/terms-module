@@ -1,0 +1,2 @@
+rich_id_terms_module:
+    resource: "@RichIdTermsModuleBundle/Resources/config/routing/routing.xml"

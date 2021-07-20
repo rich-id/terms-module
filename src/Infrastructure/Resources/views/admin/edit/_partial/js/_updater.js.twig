@@ -1,0 +1,36 @@
+window.computeTermsPublicationStatus = function () {
+    let publishedTermsAndDepublicationLocked = {% if publishedTermsAndDepublicationLocked %}true{% else %}false{% endif %};
+    document.getElementById('{{ form.isTermsPublished.vars.id }}').disabled = publishedTermsAndDepublicationLocked || window.getTermsVersionTitle() === '' || window.getTermsVersionContent() === '';
+};
+
+window.computeSaveButtonStatus = function () {
+    let valid = window.currentTermsVersion.title !== '' && window.currentTermsVersion.content !== '';
+    let hasChanges = window.termsHasChanges();
+
+    let buttonSave = document.getElementById('save-terms');
+    let buttonSaveAndExit = document.getElementById('save-and-exit-terms');
+
+    buttonSave.disabled = !valid || !hasChanges;
+    buttonSaveAndExit.disabled = !valid || !hasChanges;
+};
+
+window.computeExitButtonText = function () {
+    let button = document.getElementById('exit-terms');
+
+    if (window.termsHasChanges()) {
+        button.text =  window.exitTermsCancelMessage;
+    } else {
+        button.text =  window.exitTermsCloseMessage;
+    }
+};
+
+window.computeTermsVersionContentStatus = function () {
+    {% if currentTermsVersion.isEnabled() %}
+    CKEDITOR.instances.terms_version_form_content.setReadOnly();
+    {% endif %}
+};
+
+
+window.openOtherVersion = function () {
+    document.getElementById('terms-module-admin-edition-terms-version-tags').classList.add('open');
+};

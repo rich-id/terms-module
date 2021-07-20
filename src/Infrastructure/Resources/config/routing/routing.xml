@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://symfony.com/schema/routing"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing
+    https://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="module_terms_add_terms_version" path="/administration/terms/{terms}/new-version"
+           controller="RichId\TermsModuleBundle\UserInterface\Controller\AddTermsVersionRoute"
+           methods="POST">
+        <requirement key="terms">\d+</requirement>
+    </route>
+
+    <route id="module_terms_admin_edition" path="/administration/terms/{terms}"
+           controller="RichId\TermsModuleBundle\UserInterface\Controller\EditAdminRoute"
+           methods="GET|POST">
+        <requirement key="terms">\d+</requirement>
+    </route>
+
+    <route id="module_terms_admin_list" path="/administration/terms"
+           controller="RichId\TermsModuleBundle\UserInterface\Controller\ListAdminRoute"
+           methods="GET" />
+
+    <route id="module_terms_remove_terms_version" path="/administration/terms-version/{termsVersion}"
+           controller="RichId\TermsModuleBundle\UserInterface\Controller\RemoveTermsVersionRoute"
+           methods="DELETE">
+        <requirement key="termsVersion">\d+</requirement>
+    </route>
+
+    <route id="module_terms_sign" path="/terms/{termsSlug}/sign"
+           controller="RichId\TermsModuleBundle\UserInterface\Controller\SignRoute"
+           methods="GET|POST" />
+</routes>
+

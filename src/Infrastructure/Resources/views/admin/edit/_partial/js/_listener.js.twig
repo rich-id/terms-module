@@ -1,0 +1,54 @@
+window.initTermsEdition = function () {
+    window.computeTermsPublicationStatus();
+};
+
+document.getElementById('{{ form.isTermsPublished.vars.id }}').addEventListener('input', function () {
+    window.currentTermsVersion.isTermsPublished = window.isTermsPublished();
+    window.computeSaveButtonStatus();
+    window.computeExitButtonText();
+});
+
+document.getElementById('{{ form.title.vars.id }}').addEventListener('input', function () {
+    window.currentTermsVersion.title = window.getTermsVersionTitle();
+    window.computeTermsPublicationStatus();
+    window.computeSaveButtonStatus();
+    window.computeExitButtonText();
+});
+
+document.getElementById('{{ form.publicationDate.vars.id }}').addEventListener('input', function () {
+    window.currentTermsVersion.publicationDate = window.getTermsVersionPublicationDate();
+    window.computeSaveButtonStatus();
+    window.computeExitButtonText();
+});
+
+CKEDITOR.instances.terms_version_form_content.on('change', function () {
+    window.currentTermsVersion.content = window.getTermsVersionContent();
+    window.computeTermsPublicationStatus();
+    window.computeSaveButtonStatus();
+    window.computeExitButtonText();
+});
+
+CKEDITOR.instances.terms_version_form_content.on('instanceReady', function () {
+    window.initialTermsVersion.content = window.getTermsVersionContent();
+    window.currentTermsVersion.content = window.getTermsVersionContent();
+    window.computeTermsVersionContentStatus();
+
+    if (CKEDITOR.instances.terms_version_form_content.readOnly) {
+        let el = document.getElementById('{{ form.content.vars.id }}');
+
+        el.disabled = false
+        el.readOnly = true;
+    }
+});
+
+window.initTermsEdition();
+
+const resize_ob = new ResizeObserver(function(entries) {
+    let rect = entries[0].contentRect;
+
+    if (rect.height > 50) {
+        document.getElementById('terms-module-admin-edition-terms-version-tags').classList.add('with-next');
+    }
+});
+
+resize_ob.observe(document.getElementById('terms-module-admin-edition-terms-version-tags'));

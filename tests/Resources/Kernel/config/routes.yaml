@@ -1,0 +1,35 @@
+app_front:
+    controller: RichId\TermsModuleBundle\Tests\Resources\Controller\FrontRoute
+    methods: GET
+    path: /
+
+app_acceptation_front:
+    controller: RichId\TermsModuleBundle\Tests\Resources\Controller\FrontRoute
+    methods: GET
+    path: /acceptation
+
+app_refusal_front:
+    controller: RichId\TermsModuleBundle\Tests\Resources\Controller\FrontRoute
+    methods: GET
+    path: /refusal
+
+app_ignore_front:
+    controller: RichId\TermsModuleBundle\Tests\Resources\Controller\FrontRoute
+    methods: GET
+    path: /ignore
+
+app_other_front:
+    controller: RichId\TermsModuleBundle\Tests\Resources\Controller\OtherFrontRoute
+    methods: GET
+    path: /other
+
+app_with_access_front:
+    controller: RichId\TermsModuleBundle\Tests\Resources\Controller\WithAccessRoute
+    methods: GET
+    path: /with-access
+
+
+app_with_exception_front:
+    controller: RichId\TermsModuleBundle\Tests\Resources\Controller\WithExceptionRoute
+    methods: GET
+    path: /with-exception

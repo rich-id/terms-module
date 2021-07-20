@@ -1,0 +1,157 @@
+<style>
+    .terms-module-admin-edition-terms-name {
+        color: var(--terms-module-dark);
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 32px;
+        padding-bottom: 45px;
+        padding-top: 20px;
+        text-align: center;
+    }
+
+    .terms-module-admin-edition-actions {
+        padding-top: 35px;
+        text-align: center;
+    }
+
+    .terms-module-admin-edition-title-block {
+        flex-direction: column;
+    }
+
+    @media(min-width: 1024px) {
+        .terms-module-admin-edition-title-block {
+            flex-direction: row;
+        }
+    }
+
+    .terms-module-admin-edition-title {
+        box-sizing: border-box;
+        flex: 10;
+        width: 100%;
+    }
+
+    .terms-module-admin-edition-publication-date {
+        box-sizing: content-box;
+        max-width: 164px;
+        width: auto;
+    }
+
+    .terms-module-admin-row {
+        margin: 0 -15px;
+        display: flex;
+    }
+
+    .terms-module-admin-col {
+        padding: 0 15px;
+    }
+
+    .terms-module-admin-edition-terms-version-tags {
+        display: flex;
+        flex-direction: row-reverse;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        position: relative;
+    }
+
+    .terms-module-admin-edition-terms-version-tags.with-next {
+        height: 40px;
+        overflow: hidden;
+        padding-left: 47px;
+    }
+
+    .terms-module-admin-edition-terms-version-tags.open {
+        height: auto;
+        overflow: initial;
+        padding-left: 0;
+    }
+
+    .terms-version-tag-next {
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 32px;
+    }
+
+    .terms-module-admin-edition-terms-version-tags:not(.with-next) .terms-version-tag-next,
+    .terms-module-admin-edition-terms-version-tags.open .terms-version-tag-next {
+        display: none;
+    }
+
+    .terms-version-tag,
+    .terms-version-tag:focus {
+        align-items: center;
+        background: var(--terms-module-white);
+        border-radius: var(--terms-module-button-border-radius);
+        border: 1px solid var(--terms-module-version-tag-background);
+        box-sizing: border-box;
+        color: var(--terms-module-version-tag-background);
+        display: inline-flex;
+        font-size: 16px;
+        height: 32px;
+        margin-bottom: 8px;
+        margin-right: 15px;
+        outline: none;
+        padding: 5px 7px;
+        text-decoration: none !important;
+    }
+
+    .terms-version-tag:hover {
+        background: var(--terms-module-version-tag-background);
+        color: var(--terms-module-white);
+        cursor: pointer;
+        text-decoration: none !important;
+    }
+
+    .terms-version-tag.current {
+        background: var(--terms-module-version-tag-background);
+        color: var(--terms-module-white);
+    }
+
+    .terms-version-tag.current:hover {
+        cursor: not-allowed;
+    }
+
+    .terms-version-tag.enabled {
+        color: var(--terms-module-version-tag-active-background);
+        border: 1px solid var(--terms-module-version-tag-active-background);
+    }
+
+    .terms-version-tag.enabled.current {
+        background: var(--terms-module-version-tag-active-background);
+        border: 1px solid var(--terms-module-version-tag-active-background);
+        color: var(--terms-module-white);
+    }
+
+    .terms-version-tag i {
+        padding-right: 8px;
+    }
+
+    .terms-version-tag.enabled:hover {
+        background: var(--terms-module-version-tag-active-background);
+        color: var(--terms-module-white);
+        border: 1px solid var(--terms-module-version-tag-active-background);
+        cursor: pointer;
+        text-decoration: none !important;
+    }
+
+    .terms-module-admin-edition-add-version-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 18px 0 20px 0;
+    }
+
+    @media(min-width: 768px) {
+        .terms-module-admin-edition-add-version-container {
+            flex-direction: row;
+        }
+    }
+
+    .terms-module-admin-edition-version-management {
+        white-space: nowrap;
+    }
+
+    .terms-module-admin-edition-version-management button+button {
+        margin-left: 15px;
+    }
+</style>

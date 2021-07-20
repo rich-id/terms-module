@@ -1,0 +1,46 @@
+window.getSaveTermsUrl = function (exit) {
+    if (typeof exit === 'undefined' || exit === null) {
+        exit = false;
+    }
+    var data = [];
+
+    if (window.saveTermsVersion !== null) {
+        data.push('version=' + window.saveTermsVersion);
+    }
+
+    if (exit) {
+        data.push('exit=true');
+    }
+
+    if (data.length === 0) {
+        return window.saveTermsUrl;
+    }
+
+    return window.saveTermsUrl + '?' + data.join('&');
+};
+
+window.isTermsPublished = function () {
+    let field = document.getElementById('{{ form.isTermsPublished.vars.id }}');
+    return field ? field.value === '1' : false;
+};
+
+window.getTermsVersionTitle = function () {
+    let field = document.getElementById('{{ form.title.vars.id }}');
+    return field ? field.value : '';
+};
+
+window.getTermsVersionPublicationDate = function () {
+    let field = document.getElementById('{{ form.publicationDate.vars.id }}');
+    return field ? field.value : '';
+};
+
+window.getTermsVersionContent = function () {
+    return CKEDITOR.instances.terms_version_form_content.getData();
+};
+
+window.termsHasChanges = function () {
+    return window.currentTermsVersion.isTermsPublished !== window.initialTermsVersion.isTermsPublished
+        || window.currentTermsVersion.title !== window.initialTermsVersion.title
+        || window.currentTermsVersion.content !== window.initialTermsVersion.content
+        || window.currentTermsVersion.publicationDate !== window.initialTermsVersion.publicationDate;
+};
