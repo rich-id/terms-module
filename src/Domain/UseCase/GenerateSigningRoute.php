@@ -22,7 +22,7 @@ class GenerateSigningRoute
         return $this->router->generate(
             'module_terms_sign',
             [
-                'termsSlug'  =>$termsSlug,
+                'termsSlug'  => $termsSlug,
                 'type'       => $subject->getTermsSubjectType(),
                 'identifier' => $subject->getTermsSubjectIdentifier(),
             ]
