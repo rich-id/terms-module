@@ -35,24 +35,47 @@ class DummySubject implements TermsSubjectInterface
 ----
 
 
-=== Check if a subject has signed
+=== Check if a subject has signed, and sign
 
 
-In Twig, you can check that the user signed the latest version using the function `hasSignedTerms()`. The returned values are `0` for everything is alright, `1` when a new version is available and not signed, and finally `2` when no version has been signed at all.
+In Twig, you can check that the user signed the latest version using the function `hasSignedTerms()`. The returned values are `0` for everything is alright, `1` when a new version is available and not signed, and finally `2` when no version has been signed at all. +
+Moreover, the function `generateSigningRoute` generate a route to redirect if the terms needs to be signed.
 
 [source, twig]
 ----
-{% set signRoute = path('module_terms_sign', {
-    'termsSlug': terms.slug,
-    'type': subject.termsSubjectType,
-    'identifier': subject.termsSubjectIdentifier
-}) %}
+{% set signingRoute = generateSigningRoute(terms, subject) %}
 
 {% if hasSignedTerms(terms, subject) same as 0 %}
     Everything is alright!
 {% elseif hasSignedTerms(subject) same as 1 %}
-    You didn't signed the latest version of the terms. Please sign <a href="">here</a>.
+    You didn't signed the latest version of the terms. Please sign <a href="{{ signingRoute }}">here</a>.
 {% else %}
-    You didn't signed the terms. Please sign <a href="">here</a>.
+    You didn't signed the terms. Please sign <a href="{{ signingRoute }}">here</a>.
 {% endif %}
+----
+
+
+From the code, you can check if the use has signed using the use case `HasSignTerms`. Or you can use `HasSignedLastTermsVersion` swell.
+
+[source, php]
+----
+final class ProtectedRoute extends AbstractController
+{
+    /** @var HasSignedLastTermsVersion */
+    protected $hasSignedLastTermsVersion;
+
+    /** @var GenerateSigningRedirectResponse */
+    protected $generateSigningRedirectResponse;
+
+    public function __invoke(): Response
+    {
+        // ...
+
+        $isTermsSigned = ($this->hasSignedLastTermsVersion)($terms->getSlug(), $subject);
+
+        if (!$isTermsSigned) {
+            return ($this->redirectSigningRedirectResponse)($terms, $subject);
+        }
+    }
+}
 ----
