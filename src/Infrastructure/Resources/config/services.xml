@@ -23,7 +23,9 @@
         <service id="RichId\TermsModuleBundle\Domain\Factory\DuplicateTermsVersionFactory" />
         <service id="RichId\TermsModuleBundle\Domain\Factory\TermsVersionSignatureFactory" />
 
+        <service id="RichId\TermsModuleBundle\Domain\Fetcher\GetLastPublishedTermsVersion" />
         <service id="RichId\TermsModuleBundle\Domain\Fetcher\GetTermsVersionToSign" />
+
         <service id="RichId\TermsModuleBundle\Domain\Port\EntityRecoderInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\EntityRecorder"/>
         <service id="RichId\TermsModuleBundle\Domain\Port\EntityRemoverInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\EntityRemover"/>
         <service id="RichId\TermsModuleBundle\Domain\Port\EventDispatcherInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\EventDispatcher"/>
@@ -40,6 +42,7 @@
         <service id="RichId\TermsModuleBundle\Domain\UseCase\CreateTermsVersion" />
         <service id="RichId\TermsModuleBundle\Domain\UseCase\EditTerms" />
         <service id="RichId\TermsModuleBundle\Domain\UseCase\GenerateSigningRoute" />
+        <service id="RichId\TermsModuleBundle\Domain\UseCase\GenerateTermsRoute" />
         <service id="RichId\TermsModuleBundle\Domain\UseCase\HasSignedLastTermsVersion" />
         <service id="RichId\TermsModuleBundle\Domain\UseCase\HasSignedTerms" />
         <service id="RichId\TermsModuleBundle\Domain\UseCase\RemoveTermsVersion" />
@@ -75,5 +78,6 @@
         <service id="RichId\TermsModuleBundle\UserInterface\Controller\ListAdminRoute" />
         <service id="RichId\TermsModuleBundle\UserInterface\Controller\RemoveTermsVersionRoute" />
         <service id="RichId\TermsModuleBundle\UserInterface\Controller\SignRoute" />
+        <service id="RichId\TermsModuleBundle\UserInterface\Controller\TermsRoute" />
     </services>
 </container>

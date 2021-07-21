@@ -36,13 +36,13 @@ class TermsGuardVoter extends Voter
             return true;
         }
 
-        return $guard->check($subject->getTermsSlug(), $subject->getTermsSubjectType(), $subject->getTermsSubjectIdentifier());
+        return $guard->check($subject->getTermsSlug(), $subject);
     }
 
     protected function findGuard(TermsGuardValidationInterface $subject): ?TermsGuardInterface
     {
         foreach ($this->guards as $guard) {
-            if ($guard->supports($subject->getTermsSlug(), $subject->getTermsSubjectType(), $subject->getTermsSubjectIdentifier())) {
+            if ($guard->supports($subject->getTermsSlug(), $subject)) {
                 return $guard;
             }
         }

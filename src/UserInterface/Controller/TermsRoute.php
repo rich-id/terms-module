@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\UserInterface\Controller;
 
-use RichId\TermsModuleBundle\Domain\Exception\AlreadySignLastTermsVersionException;
 use RichId\TermsModuleBundle\Domain\Exception\NotFoundTermsException;
 use RichId\TermsModuleBundle\Domain\Exception\NotPublishedTermsException;
 use RichId\TermsModuleBundle\Domain\Exception\TermsHasNoPublishedVersionException;
-use RichId\TermsModuleBundle\Domain\Fetcher\GetTermsVersionToSign;
+use RichId\TermsModuleBundle\Domain\Fetcher\GetLastPublishedTermsVersion;
 use RichId\TermsModuleBundle\Domain\Model\DummyTermsGuardValidation;
-use RichId\TermsModuleBundle\Domain\UseCase\SignTerms;
+use RichId\TermsModuleBundle\Domain\UseCase\HasSignedTerms;
 use RichId\TermsModuleBundle\Infrastructure\SecurityVoter\TermsGuardVoter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,26 +18,26 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class SignRoute extends AbstractController
+class TermsRoute extends AbstractController
 {
     use RouteHelpersTrait;
 
-    /** @var GetTermsVersionToSign */
-    protected $getTermsVersionToSign;
+    /** @var GetLastPublishedTermsVersion */
+    protected $getLastPublishedTermsVersion;
 
-    /** @var SignTerms */
-    protected $signTerms;
+    /** @var HasSignedTerms */
+    protected $hasSignedTerms;
 
     /** @var RequestStack */
     protected $requestStack;
 
     public function __construct(
-        GetTermsVersionToSign $getTermsVersionToSign,
-        SignTerms $signTerms,
+        GetLastPublishedTermsVersion $getLastPublishedTermsVersion,
+        HasSignedTerms $hasSignedTerms,
         RequestStack $requestStack
     ) {
-        $this->getTermsVersionToSign = $getTermsVersionToSign;
-        $this->signTerms = $signTerms;
+        $this->getLastPublishedTermsVersion = $getLastPublishedTermsVersion;
+        $this->hasSignedTerms = $hasSignedTerms;
         $this->requestStack = $requestStack;
     }
 
@@ -53,34 +52,22 @@ class SignRoute extends AbstractController
         }
 
         try {
-            $lastVersion = ($this->getTermsVersionToSign)($termsSlug, $subject);
+            $lastVersion = ($this->getLastPublishedTermsVersion)($termsSlug);
             $terms = $lastVersion->getTerms();
 
-            if ($request->getMethod() === Request::METHOD_POST) {
-                $accepted = $this->getIsAcceptedFromRequest($request);
-
-                return ($this->signTerms)($termsSlug, $subject, $accepted);
+            if (($this->hasSignedTerms)($termsSlug, $subject) !== HasSignedTerms::HAS_SIGNED_LATEST_VERSION) {
+                throw new AccessDeniedException('You must sign the terms to access it.');
             }
 
             return $this->render(
-                '@RichIdTermsModule/sign/main.html.twig',
+                '@RichIdTermsModule/terms/main.html.twig',
                 [
                     'terms'            => $terms,
                     'lastTermsVersion' => $lastVersion,
-                    'subject'          => $subject,
                 ]
             );
         } catch (NotFoundTermsException | NotPublishedTermsException | TermsHasNoPublishedVersionException $e) {
             throw new NotFoundHttpException($e->getMessage());
-        } catch (AlreadySignLastTermsVersionException $e) {
-            throw new AccessDeniedException('You have already signed this terms.');
         }
-    }
-
-    protected function getIsAcceptedFromRequest(Request $request): ?bool
-    {
-        $accepted = $request->request->get('accepted');
-
-        return $accepted !== '' ? (bool) $accepted : null;
     }
 }
