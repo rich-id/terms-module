@@ -9,7 +9,7 @@
     <form id="terms-module-sign-form"
           class="terms-module-center terms-module-sign-actions"
           method="post"
-          action="{{ path('module_terms_sign', {'termsSlug': terms.slug, 'type': subject.termsSubjectType, 'identifier': subject.termsSubjectIdentifier}) }}"
+          action="{{ generateSigningRoute(terms, subject) }}"
     >
         <input type="hidden" name="accepted" id="terms-module-sign-accepted">
 
