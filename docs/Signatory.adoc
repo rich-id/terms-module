@@ -39,37 +39,51 @@ class DummySubject implements TermsSubjectInterface
 
 
 In Twig, you can check that the user signed the latest version using the function `hasSignedTerms()`. The returned values are `0` for everything is alright, `1` when a new version is available and not signed, and finally `2` when no version has been signed at all. +
+You can also check if the terms are published using the function `isTermsPublished()`. +
 Moreover, the function `generateSigningRoute` generate a route to redirect if the terms needs to be signed.
 
 [source, twig]
 ----
 {% set signingRoute = generateSigningRoute(terms, subject) %}
 
-{% if hasSignedTerms(terms, subject) same as 0 %}
-    Everything is alright!
-{% elseif hasSignedTerms(subject) same as 1 %}
-    You didn't signed the latest version of the terms. Please sign <a href="{{ signingRoute }}">here</a>.
+{% if isTermsPublished(terms) %}
+    {% if hasSignedTerms(terms, subject) same as 0 %}
+        Everything is alright!
+    {% elseif hasSignedTerms(subject) same as 1 %}
+        You didn't signed the latest version of the terms. Please sign <a href="{{ signingRoute }}">here</a>.
+    {% else %}
+        You didn't signed the terms. Please sign <a href="{{ signingRoute }}">here</a>.
+    {% endif %}
 {% else %}
-    You didn't signed the terms. Please sign <a href="{{ signingRoute }}">here</a>.
+    The terms are not published.
 {% endif %}
 ----
 
 
-From the code, you can check if the use has signed using the use case `HasSignTerms`. Or you can use `HasSignedLastTermsVersion` swell.
+From the code, you can check if the use has signed using the use case `HasSignTerms`. Or you can use `HasSignedLastTermsVersion` as well. In the same way as in Twig, you can also use `IsTermsPublished`.
 
 [source, php]
 ----
 final class ProtectedRoute extends AbstractController
 {
+    /** @var GenerateSigningRedirectResponse */
+    protected $generateSigningRedirectResponse;
+
     /** @var HasSignedLastTermsVersion */
     protected $hasSignedLastTermsVersion;
 
-    /** @var GenerateSigningRedirectResponse */
-    protected $generateSigningRedirectResponse;
+    /** @var IsTermsPublished */
+    protected $isTermsPublished;
 
     public function __invoke(): Response
     {
         // ...
+
+        $isTermsPublished = ($this->isTermsPublished)($terms);
+
+        if (!$isTermsPublished) {
+            throw new \LogicException('Terms are not published.');
+        }
 
         $isTermsSigned = ($this->hasSignedLastTermsVersion)($terms->getSlug(), $subject);
 
