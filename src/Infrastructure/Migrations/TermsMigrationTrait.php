@@ -19,14 +19,14 @@ trait TermsMigrationTrait
 
         $this->addSQL("
             INSERT INTO module_terms_terms_version 
-            (version, is_enabled, title, content, publicationDate, terms_id) 
+            (version, is_enabled, title, content, publication_date, terms_id) 
             VALUES (
                 $startVersion, 
                 0, 
                 'My title', 
                 'My content', 
                 CURRENT_TIME, 
-                (SELECT terms.id FROM module_terms_terms WHERE terms.slug = '$slug')
+                (SELECT id FROM module_terms_terms WHERE slug = '$slug')
             )
         ");
     }

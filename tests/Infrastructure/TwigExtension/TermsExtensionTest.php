@@ -25,8 +25,21 @@ final class TermsExtensionTest extends TestCase
     {
         $this->assertEmpty($this->extension->getFilters());
 
-        $this->assertCount(1, $this->extension->getFunctions());
+        $this->assertCount(2, $this->extension->getFunctions());
+
         $this->assertInstanceOf(TwigFunction::class, $this->extension->getFunctions()[0]);
+        $this->assertInstanceOf(TwigFunction::class, $this->extension->getFunctions()[1]);
+    }
+
+    /** @TestConfig("fixtures") */
+    public function testGenerateSigningRoute(): void
+    {
+        $subject = DummySubject::create('user', '42');
+        $terms = $this->getReference(Terms::class, '1');
+
+        $url = $this->extension->generateSigningRoute($terms, $subject);
+
+        $this->assertSame('/terms/terms-1/sign?type=user&identifier=42', $url);
     }
 
     /** @TestConfig("container") */
