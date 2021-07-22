@@ -6,7 +6,7 @@ namespace RichId\TermsModuleBundle\Domain\Event;
 
 use RichId\TermsModuleBundle\Domain\Entity\Terms;
 
-final class TermsPublishedEvent extends TermsEvent
+final class TermsPublishedEvent extends TermsEvent implements TermsPublicationEventInterface
 {
     /** @var Terms */
     private $terms;
