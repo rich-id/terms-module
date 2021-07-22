@@ -31,6 +31,7 @@
         <service id="RichId\TermsModuleBundle\Domain\Port\EventDispatcherInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\EventDispatcher"/>
         <service id="RichId\TermsModuleBundle\Domain\Port\LoggerInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\Logger"/>
         <service id="RichId\TermsModuleBundle\Domain\Port\ResponseBuilderInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\ResponseBuilder"/>
+        <service id="RichId\TermsModuleBundle\Domain\Port\SecurityInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\Security"/>
         <service id="RichId\TermsModuleBundle\Domain\Port\TermsRepositoryInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\TermsRepository"/>
         <service id="RichId\TermsModuleBundle\Domain\Port\TermsVersionRepositoryInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\TermsVersionRepository"/>
         <service id="RichId\TermsModuleBundle\Domain\Port\ValidatorInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\Validator"/>
@@ -57,6 +58,7 @@
         <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\EventDispatcher" />
         <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\Logger" />
         <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\ResponseBuilder" />
+        <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\Security" />
         <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\TermsRepository" />
         <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\TermsVersionRepository" />
         <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\Validator" />

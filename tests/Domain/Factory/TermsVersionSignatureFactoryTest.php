@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\Domain\Factory;
 
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
-use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Factory\TermsVersionSignatureFactory;
 use RichId\TermsModuleBundle\Domain\Model\DummySubject;
+use RichId\TermsModuleBundle\Tests\Resources\Entity\DummyUser;
+use RichId\TermsModuleBundle\Tests\Resources\Fixtures\DummyUserFixtures;
 
 /**
  * @covers \RichId\TermsModuleBundle\Domain\Factory\TermsVersionSignatureFactory
- * @TestConfig("kernel")
+ * @TestConfig("fixtures")
  */
 final class TermsVersionSignatureFactoryTest extends TestCase
 {
     /** @var TermsVersionSignatureFactory */
     public $factory;
 
-    public function testSign(): void
+    public function testFactory(): void
     {
         $termsVersion = new TermsVersion();
 
@@ -32,34 +32,22 @@ final class TermsVersionSignatureFactoryTest extends TestCase
         $this->assertSame('user', $entity->getSubjectType());
         $this->assertSame('42', $entity->getSubjectIdentifier());
         $this->assertSame($termsVersion, $entity->getVersion());
+        $this->assertNull($entity->getSignedBy());
     }
 
-    public function testSignUniqueForTermsVersionAndSubject(): void
+    public function testFactoryLoggedUser(): void
     {
-        $terms = new Terms();
-        $terms->setSlug('slug');
-        $terms->setName('My Terms');
-
-        $this->getManager()->persist($terms);
-        $this->getManager()->flush();
-
         $termsVersion = new TermsVersion();
-        $termsVersion->setVersion(1);
-        $termsVersion->setTerms($terms);
-        $termsVersion->setTitle('title');
-        $termsVersion->setContent('content');
 
-        $this->getManager()->persist($termsVersion);
-        $this->getManager()->flush();
+        $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
-        $entity1 = ($this->factory)($termsVersion, DummySubject::create('user', '42'));
-        $this->getManager()->persist($entity1);
-        $this->getManager()->flush();
+        $entity = ($this->factory)($termsVersion, DummySubject::create('user', '42'));
 
-        $this->expectException(UniqueConstraintViolationException::class);
-
-        $entity2 = ($this->factory)($termsVersion, DummySubject::create('user', '42'));
-        $this->getManager()->persist($entity2);
-        $this->getManager()->flush();
+        $this->assertNull($entity->getId());
+        $this->assertInstanceOf(\DateTime::class, $entity->getDate());
+        $this->assertSame('user', $entity->getSubjectType());
+        $this->assertSame('42', $entity->getSubjectIdentifier());
+        $this->assertSame($termsVersion, $entity->getVersion());
+        $this->assertSame('my_user_1', $entity->getSignedBy());
     }
 }
