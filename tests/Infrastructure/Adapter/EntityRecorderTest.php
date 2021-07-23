@@ -34,7 +34,7 @@ final class EntityRecorderTest extends TestCase
 
     public function testSaveSignature(): void
     {
-        $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
+        $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
         $version = $this->getReference(TermsVersion::class, 'v3-terms-1');
 
         $signature = new TermsVersionSignature();
@@ -45,7 +45,7 @@ final class EntityRecorderTest extends TestCase
 
         $this->adapter->saveSignature($signature);
 
-        $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
+        $this->assertCount(7, $this->termsVersionSignatureRepository->findAll());
     }
 
     public function testSaveTerms(): void

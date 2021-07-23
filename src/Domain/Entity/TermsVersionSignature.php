@@ -55,6 +55,13 @@ class TermsVersionSignature
      */
     protected $version;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true, length=255, name="signed_by")
+     */
+    protected $signedBy;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -106,5 +113,17 @@ class TermsVersionSignature
     public function getVersion(): ?TermsVersion
     {
         return $this->version;
+    }
+
+    public function setSignedBy(string $signedBy): self
+    {
+        $this->signedBy = $signedBy;
+
+        return $this;
+    }
+
+    public function getSignedBy(): ?string
+    {
+        return $this->signedBy;
     }
 }

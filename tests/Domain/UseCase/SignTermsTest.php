@@ -82,7 +82,7 @@ final class SignTermsTest extends TestCase
     {
         $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
-        $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
+        $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
 
         $subject = DummySubject::create('user', '42');
 
@@ -108,14 +108,14 @@ final class SignTermsTest extends TestCase
         $this->assertSame('42', $event->getSubject()->getTermsSubjectIdentifier());
         $this->assertNull($event->isAccepted());
 
-        $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
+        $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
     }
 
     public function testUseCaseRefuse(): void
     {
         $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
-        $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
+        $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
 
         $subject = DummySubject::create('user', '42');
 
@@ -141,14 +141,14 @@ final class SignTermsTest extends TestCase
         $this->assertSame('42', $event->getSubject()->getTermsSubjectIdentifier());
         $this->assertFalse($event->isAccepted());
 
-        $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
+        $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
     }
 
     public function testUseCaseAcceptation(): void
     {
         $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
-        $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
+        $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
 
         $subject = DummySubject::create('user', '42');
 
@@ -174,14 +174,14 @@ final class SignTermsTest extends TestCase
         $this->assertSame('42', $event->getSubject()->getTermsSubjectIdentifier());
         $this->assertTrue($event->isAccepted());
 
-        $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
+        $this->assertCount(7, $this->termsVersionSignatureRepository->findAll());
     }
 
     public function testUseCasePreferAnswerLaterWithCustomRedirection(): void
     {
         $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
-        $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
+        $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
 
         $subject = DummySubject::create('user', '42');
 
@@ -207,14 +207,14 @@ final class SignTermsTest extends TestCase
         $this->assertSame('42', $event->getSubject()->getTermsSubjectIdentifier());
         $this->assertNull($event->isAccepted());
 
-        $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
+        $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
     }
 
     public function testUseCaseRefuseWithCustomRedirection(): void
     {
         $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
-        $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
+        $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
 
         $subject = DummySubject::create('user', '42');
 
@@ -240,14 +240,14 @@ final class SignTermsTest extends TestCase
         $this->assertSame('42', $event->getSubject()->getTermsSubjectIdentifier());
         $this->assertFalse($event->isAccepted());
 
-        $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
+        $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
     }
 
     public function testUseCaseAcceptationWithCustomRedirection(): void
     {
         $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
-        $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
+        $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
 
         $subject = DummySubject::create('user', '42');
 
@@ -273,6 +273,6 @@ final class SignTermsTest extends TestCase
         $this->assertSame('42', $event->getSubject()->getTermsSubjectIdentifier());
         $this->assertTrue($event->isAccepted());
 
-        $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
+        $this->assertCount(7, $this->termsVersionSignatureRepository->findAll());
     }
 }

@@ -29,5 +29,9 @@
     <route id="module_terms_sign" path="/terms/{termsSlug}/sign"
            controller="RichId\TermsModuleBundle\UserInterface\Controller\SignRoute"
            methods="GET|POST" />
+
+    <route id="module_terms_terms" path="/terms/{termsSlug}"
+           controller="RichId\TermsModuleBundle\UserInterface\Controller\TermsRoute"
+           methods="GET" />
 </routes>
 

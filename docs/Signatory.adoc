@@ -1,0 +1,95 @@
+== Everything about signing
+
+Now that the terms are created and properly managed, here comes the part about how to sign.
+
+=== The subject
+
+The first thing to do is configure the entities or models that will be used to sign the terms. They are called subjects. This will be easily done thanks to the interface `TermsSubjectInterface` that will implement 2 methods to recognize the signatory.
+
+The following example shows how a model can be a subject.
+
+[source, php]
+----
+use RichId\TermsModuleBundle\Domain\Entity\TermsSubjectInterface;
+
+class DummySubject implements TermsSubjectInterface
+{
+    // ...
+
+    /** @var string */
+    protected $type;
+
+    /** @var string */
+    protected $identifier;
+
+    public function getTermsSubjectType(): string
+    {
+        return $this->type;
+    }
+
+    public function getTermsSubjectIdentifier(): string
+    {
+        return $this->identifier;
+    }
+}
+----
+
+
+=== Check if a subject has signed, and sign
+
+
+In Twig, you can check that the user signed the latest version using the function `hasSignedTerms()`. The returned values are `0` for everything is alright, `1` when a new version is available and not signed, and finally `2` when no version has been signed at all. +
+You can also check if the terms are published using the function `isTermsPublished()`. +
+Moreover, the function `generateSigningRoute` generate a route to redirect if the terms needs to be signed.
+
+[source, twig]
+----
+{% set signingRoute = generateSigningRoute(terms, subject) %}
+
+{% if isTermsPublished(terms) %}
+    {% if hasSignedTerms(terms, subject) same as 0 %}
+        Everything is alright!
+    {% elseif hasSignedTerms(subject) same as 1 %}
+        You didn't signed the latest version of the terms. Please sign <a href="{{ signingRoute }}">here</a>.
+    {% else %}
+        You didn't signed the terms. Please sign <a href="{{ signingRoute }}">here</a>.
+    {% endif %}
+{% else %}
+    The terms are not published.
+{% endif %}
+----
+
+
+From the code, you can check if the use has signed using the use case `HasSignTerms`. Or you can use `HasSignedLastTermsVersion` as well. In the same way as in Twig, you can also use `IsTermsPublished`.
+
+[source, php]
+----
+final class ProtectedRoute extends AbstractController
+{
+    /** @var GenerateSigningRedirectResponse */
+    protected $generateSigningRedirectResponse;
+
+    /** @var HasSignedLastTermsVersion */
+    protected $hasSignedLastTermsVersion;
+
+    /** @var IsTermsPublished */
+    protected $isTermsPublished;
+
+    public function __invoke(): Response
+    {
+        // ...
+
+        $isTermsPublished = ($this->isTermsPublished)($terms);
+
+        if (!$isTermsPublished) {
+            throw new \LogicException('Terms are not published.');
+        }
+
+        $isTermsSigned = ($this->hasSignedLastTermsVersion)($terms->getSlug(), $subject);
+
+        if (!$isTermsSigned) {
+            return ($this->redirectSigningRedirectResponse)($terms, $subject);
+        }
+    }
+}
+----

@@ -171,7 +171,7 @@ final class SignRouteTest extends ControllerTestCase
                 '/terms/terms-5/sign',
                 [
                     'type'       => 'user',
-                    'identifier' => 'my_user_2',
+                    'identifier' => 'my_user_3',
                 ]
             );
 
@@ -250,7 +250,7 @@ final class SignRouteTest extends ControllerTestCase
     {
         $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
-        $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
+        $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
 
         $response = $this->getClient()
             ->post(
@@ -283,14 +283,14 @@ final class SignRouteTest extends ControllerTestCase
         $this->assertSame('42', $event->getSubject()->getTermsSubjectIdentifier());
         $this->assertNull($event->isAccepted());
 
-        $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
+        $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
     }
 
     public function testRoutePostRefuse(): void
     {
         $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
-        $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
+        $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
 
         $response = $this->getClient()
             ->post(
@@ -323,14 +323,14 @@ final class SignRouteTest extends ControllerTestCase
         $this->assertSame('42', $event->getSubject()->getTermsSubjectIdentifier());
         $this->assertFalse($event->isAccepted());
 
-        $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
+        $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
     }
 
     public function testRoutePostAcceptation(): void
     {
         $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
-        $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
+        $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
 
         $response = $this->getClient()
             ->post(
@@ -363,14 +363,14 @@ final class SignRouteTest extends ControllerTestCase
         $this->assertSame('42', $event->getSubject()->getTermsSubjectIdentifier());
         $this->assertTrue($event->isAccepted());
 
-        $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
+        $this->assertCount(7, $this->termsVersionSignatureRepository->findAll());
     }
 
     public function testRoutePostPreferAnswerLaterWithCustomRedirection(): void
     {
         $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
-        $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
+        $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
 
         $response = $this->getClient()
             ->post(
@@ -406,14 +406,14 @@ final class SignRouteTest extends ControllerTestCase
         $this->assertSame('42', $event->getSubject()->getTermsSubjectIdentifier());
         $this->assertNull($event->isAccepted());
 
-        $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
+        $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
     }
 
     public function testRoutePostRefuseWithCustomRedirection(): void
     {
         $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
-        $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
+        $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
 
         $response = $this->getClient()
             ->post(
@@ -449,14 +449,14 @@ final class SignRouteTest extends ControllerTestCase
         $this->assertSame('42', $event->getSubject()->getTermsSubjectIdentifier());
         $this->assertFalse($event->isAccepted());
 
-        $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
+        $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
     }
 
     public function testRoutePostAcceptationWithCustomRedirection(): void
     {
         $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
-        $this->assertCount(5, $this->termsVersionSignatureRepository->findAll());
+        $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
 
         $response = $this->getClient()
             ->post(
@@ -492,7 +492,7 @@ final class SignRouteTest extends ControllerTestCase
         $this->assertSame('42', $event->getSubject()->getTermsSubjectIdentifier());
         $this->assertTrue($event->isAccepted());
 
-        $this->assertCount(6, $this->termsVersionSignatureRepository->findAll());
+        $this->assertCount(7, $this->termsVersionSignatureRepository->findAll());
     }
 
     public function testRoutePostGuardNotAllowedSubjectType(): void
@@ -523,7 +523,7 @@ final class SignRouteTest extends ControllerTestCase
                 '/terms/terms-5/sign',
                 [
                     'type'       => 'user',
-                    'identifier' => 'my_user_2',
+                    'identifier' => 'my_user_3',
                 ],
                 [
                     'accepted' => 1,

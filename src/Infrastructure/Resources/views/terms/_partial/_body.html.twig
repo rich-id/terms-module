@@ -1,0 +1,18 @@
+<div class="terms-module-sign-content">
+    <div class="terms-module-sign-content-title">{{ lastTermsVersion.title }}</div>
+    <div>{{ lastTermsVersion.content|raw }}</div>
+
+    <div class="terms-module-center terms-module-sign-actions">
+        <button type="button" class="terms-module-button-primary terms-module-action terms-module-action-space" onclick="backTerms()">
+            {{ 'terms_module.terms.close'|trans({}, 'terms_module') }}
+        </button>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        window.backTerms = function () {
+            window.history.back()
+        }
+    });
+</script>

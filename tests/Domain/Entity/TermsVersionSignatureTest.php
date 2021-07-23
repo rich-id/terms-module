@@ -26,12 +26,14 @@ final class TermsVersionSignatureTest extends TestCase
         $entity->setVersion($termsVersion);
         $entity->setSubjectType('user');
         $entity->setSubjectIdentifier('42');
+        $entity->setSignedBy('user_1');
         $entity->setDate($date);
 
         $this->assertNull($entity->getId());
         $this->assertSame($termsVersion, $entity->getVersion());
         $this->assertSame('user', $entity->getSubjectType());
         $this->assertSame('42', $entity->getSubjectIdentifier());
+        $this->assertSame('user_1', $entity->getSignedBy());
         $this->assertSame($date, $entity->getDate());
     }
 

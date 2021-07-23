@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace RichId\TermsModuleBundle\Infrastructure\DependencyInjection;
 
 use RichCongress\BundleToolbox\Configuration\AbstractConfiguration;
-use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 
 class Configuration extends AbstractConfiguration

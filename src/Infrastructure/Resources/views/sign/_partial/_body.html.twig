@@ -1,5 +1,5 @@
 <div class="terms-module-sign-content">
-    {% if hasSignedTerms(terms.slug, subject.termsSubjectType, subject.termsSubjectIdentifier) == constant('RichId\\TermsModuleBundle\\Domain\\UseCase\\HasSignedTerms::HAS_SIGNED_OLD_VERSION') %}
+    {% if hasSignedTerms(terms, subject) == constant('RichId\\TermsModuleBundle\\Domain\\UseCase\\HasSignedTerms::HAS_SIGNED_OLD_VERSION') %}
         <div class="terms-module-ribon">{{ 'terms_module.sign.new_version'|trans({}, 'terms_module') }}</div>
     {% endif %}
 
@@ -9,7 +9,7 @@
     <form id="terms-module-sign-form"
           class="terms-module-center terms-module-sign-actions"
           method="post"
-          action="{{ path('module_terms_sign', {'termsSlug': terms.slug, 'type': subject.termsSubjectType, 'identifier': subject.termsSubjectIdentifier}) }}"
+          action="{{ generateSigningRoute(terms, subject) }}"
     >
         <input type="hidden" name="accepted" id="terms-module-sign-accepted">
 

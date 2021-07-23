@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Domain\UseCase;
 
+use RichId\TermsModuleBundle\Domain\Event\TermsPublishedEvent;
+use RichId\TermsModuleBundle\Domain\Event\TermsUnpublishedEvent;
 use RichId\TermsModuleBundle\Domain\Event\TermsVersionUpdatedEvent;
 use RichId\TermsModuleBundle\Domain\Model\TermsEdition;
 use RichId\TermsModuleBundle\Domain\Port\EntityRecoderInterface;
@@ -54,6 +56,7 @@ class EditTerms
 
         $termsVersion = $termsEdition->getEntity();
         $terms = $termsVersion->getTerms();
+        $termsPublished = $terms->isPublished();
 
         ($this->termsVersionUpdater)($termsVersion, $termsEdition);
         ($this->termsUpdater)($terms, $termsEdition);
@@ -68,5 +71,17 @@ class EditTerms
         $this->eventDispatcher->dispatchTermsEvent(
             new TermsVersionUpdatedEvent($termsVersion)
         );
+
+        if (!$termsPublished && $terms->isPublished()) {
+            $this->eventDispatcher->dispatchTermsEvent(
+                new TermsPublishedEvent($terms)
+            );
+        }
+
+        if ($termsPublished && !$terms->isPublished()) {
+            $this->eventDispatcher->dispatchTermsEvent(
+                new TermsUnpublishedEvent($terms)
+            );
+        }
     }
 }
