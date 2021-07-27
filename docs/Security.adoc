@@ -1,0 +1,108 @@
+== Security
+
+=== Guards
+
+You may want to control who can sign the terms. This can be easily done using the `TermsGuardInterface` that will previously check if the subject can sign it.
+
+The following example protect the terms with the slug `your_slug` to be signed by anybody but a User.
+
+[source,php]
+----
+final class RandomGuard implements TermsGuardInterface
+{
+    public function supports(string $slug, TermsSubjectInterface $subject): bool
+    {
+        return $slug === 'your_slug';
+    }
+
+    public function check(string $slug, TermsSubjectInterface $subject): bool
+    {
+        return $subject instanceof User;
+    }
+}
+----
+
+
+=== Protecting a route
+
+Since it can be hard to create a generic voter to check if a subject has sign the terms, the best way is to create a custom voter for each case.
+
+The following example exposes a voter that checks if the User has signed a route.
+
+[source, php]
+----
+final class UserTermsVoter extends Voter
+{
+    /** @var HasSignedLastTermsVersion **/
+    protected $hasSignedLastTermsVersion;
+
+    /** @var Security
+    protected $security;
+
+    // ...
+
+    protected function supports($attribute, $subject): bool
+    {
+        $user = $this->security->getUser();
+
+        return $user instanceof User
+            && $user instanceof TermsSubjectInterface
+            && $attribute === 'HAS_USER_SIGNED_TERMS';
+    }
+
+    protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
+    {
+        return ($this->hasSignedLastTermsVersion)('your_slug', $subject);
+    }
+}
+----
+
+Using it in a controller is now straight forward !
+
+[source, php]
+----
+final class RandomRoute extends AbstractController
+{
+    /**
+     * @IsGranted("HAS_USER_SIGNED_TERMS")
+     */
+    public function __invoke(): Response
+    {
+        return new Response('Yay!');
+    }
+}
+----
+
+=== Redirection after a voter
+
+Since the voter blocks the access of the route, this may be a brutal behaviour. A redirection to the signing page of the appropriate terms would be smoother. For this, a listener that catches when an `AccessDeniedException` is thrown is the best approach.
+
+The following example redirects the User if the voter denies the access.
+
+[source, php]
+----
+final class RedirectUserWhenTermsNotSignedListener
+{
+    /** @var Security */
+    private $security;
+
+    /** @var GenerateSigningRoute */
+    private $generateSigningRoute;
+
+    // ...
+
+    public function __invoke(ExceptionEvent $event): void
+    {
+        $user = $this->security->getUserCompany();
+        $exception = $event->getThrowable();
+
+        if (!$exception instanceof AccessDeniedException || !user instanceof User) {
+            return;
+        }
+
+        $route = ($this->generateSigningRoute)('your_slug', $user);
+        $response = new RedirectResposne($route);
+        $event->setResponse($response);
+    }
+}
+----
