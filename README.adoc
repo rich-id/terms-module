@@ -36,7 +36,7 @@ Quick showcase
     - link:docs/Configuration.adoc[Configuration] +
     - link:docs/Creation.adoc[Creation] +
     - link:docs/Signatory.adoc[Signatory] +
-    - link:docs/Events.adoc[Events] +
+    - link:docs/Security.adoc[Security] +
     - link:docs/BackOffice.adoc[BackOffice] +
     - link:docs/Events.adoc[Events] +
 <<3. Versioning>> +
@@ -60,7 +60,7 @@ composer require rich-id/terms-module-bundle
 * link:docs/Configuration.adoc[Configuration]
 * link:docs/Creation.adoc[Creation]
 * link:docs/Signatory.adoc[Signatory]
-* link:docs/Events.adoc[Events]
+* link:docs/Security.adoc[Security]
 * link:docs/BackOffice.adoc[BackOffice]
 * link:docs/Events.adoc[Events]
 
