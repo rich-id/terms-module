@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Infrastructure\Migrations;
 
+/**
+ * @deprecated The migrations should be stateless, please copy the raw SQL instead
+ */
 trait TermsMigrationTrait
 {
+    /** @deprecated The migrations should be stateless, please copy the raw SQL instead */
     protected function createTerms(
         string $slug,
         string $name,
@@ -31,6 +35,7 @@ trait TermsMigrationTrait
         ");
     }
 
+    /** @deprecated The migrations should be stateless, please copy the raw SQL instead */
     protected function deleteTerms(string $slug): void
     {
         $this->addSQL("
