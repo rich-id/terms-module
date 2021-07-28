@@ -1,0 +1,16 @@
+== Events
+
+Various events are available to let you react to every action. Every event is prefixed with the namespace `RichId\TermsModuleBundle\Domain\Event\`.
+
+[cols="1,1"]
+|===
+| Event                    | Description
+
+| TermsPublishedEvent      | Triggered on publication
+| TermsSignedEvent         | Triggered when a version is signed/not signed/skipped by a subject
+| TermsUnpublishedEvent    | Triggered on un-publication
+| TermsVersionCreatedEvent | Triggered when a new version is created
+| TermsVersionDeletedEvent | Triggered when a draft version is deleted
+| TermsVersionEnabledEvent | Triggered when a version is published
+| TermsVersionUpdatedEvent | Triggered when a version is updated
+|===

@@ -2,7 +2,7 @@
 
 The only way to create a new term is to make a migration. Since a term should always have at least one version, the migration will also create a version.
 
-Hopefully, there is trait that might help you to do so. Here is an example of the usage of this trait:
+Hopefully, this is quite straight forward since it just requires to insert 2 entries. The following example shoes how to insert terms with the slug `my_slug` and the title `My Terms`.
 
 [source, php]
 ----
@@ -12,16 +12,36 @@ use RichId\TermsModuleBundle\Infrastructure\Migrations\TermsMigrationTrait;
 
 final class RandomMigration extends AbstractMigration
 {
-    use TermsMigrationTrait;
-
     public function up(Schema $schema): void
     {
-        $this->createTerms('my_slug', 'My Terms');
+        $this->addSQL("
+            INSERT INTO module_terms_terms
+            (slug, name, is_published, is_depublication_locked)
+            VALUES ('my_slug', 'My Terms', 0, 0)
+        ");
+
+        $this->addSQL("
+            INSERT INTO module_terms_terms_version
+            (version, is_enabled, title, content, publication_date, terms_id)
+            VALUES (
+                1,
+                0,
+                'My title',
+                'My content',
+                CURRENT_TIME,
+                (SELECT id FROM module_terms_terms WHERE slug = 'my_slug')
+            )
+        ");
     }
 
     public function down(Schema $schema): void
     {
-        $this->deleteTerms('my_slug');
+        $this->addSQL("
+            DELETE FROM module_terms_terms_version AS version WHERE
+            version.terms_id = (SELECT terms.id FROM module_terms_terms WHERE terms.slug = 'my_slug')
+        ");
+
+        $this->addSQL("DELETE FROM module_terms_terms WHERE slug = 'my_slug'");
     }
 }
 ----

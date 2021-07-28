@@ -25,15 +25,16 @@ image:https://img.shields.io/badge/Symfony-5%2B-black[]
 A module to quickly implement a terms approvals voter with terms version support.
 
 
-== Quick showcase
-
-Quick showcase
-
 == Table of content
 
 <<1. Installation>> +
 <<2. Documentation>> +
     - link:docs/Configuration.adoc[Configuration] +
+    - link:docs/Creation.adoc[Creation] +
+    - link:docs/Signatory.adoc[Signatory] +
+    - link:docs/Security.adoc[Security] +
+    - link:docs/BackOffice.adoc[BackOffice] +
+    - link:docs/Events.adoc[Events] +
 <<3. Versioning>> +
 <<4. Contributing>> +
 <<5. License>> +
@@ -49,11 +50,33 @@ This version of the bundle requires Symfony 4.4+ and PHP 7.3+.
 composer require rich-id/terms-module-bundle
 ----
 
+You must add the routes to your application by adding the following content to the file `config/routes/rich_id_terms_module.yaml`:
+
+[source, yaml]
+----
+rich_id_terms_module:
+    resource: "@RichIdTermsModuleBundle/Resources/config/routing/routing.xml"
+
+# # Edit the path of the routes
+# module_terms_sign:
+#     path: /cgu/{termsSlug}/signature
+#     methods: [GET|POST]
+#     defaults: { _controller: RichId\TermsModuleBundle\UserInterface\Controller\SignRoute }
+#
+# module_terms_terms:
+#     path: /cgu/{termsSlug}
+#     methods: GET
+#     defaults: { _controller: RichId\TermsModuleBundle\UserInterface\Controller\TermsRoute }
+----
 
 == 2. Documentation
 
 * link:docs/Configuration.adoc[Configuration]
 * link:docs/Creation.adoc[Creation]
+* link:docs/Signatory.adoc[Signatory]
+* link:docs/Security.adoc[Security]
+* link:docs/BackOffice.adoc[BackOffice]
+* link:docs/Events.adoc[Events]
 
 
 == 3. Versioning

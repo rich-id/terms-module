@@ -66,8 +66,8 @@ From the code, you can check if the use has signed using the use case `HasSignTe
 ----
 final class ProtectedRoute extends AbstractController
 {
-    /** @var GenerateSigningRedirectResponse */
-    protected $generateSigningRedirectResponse;
+    /** @var GenerateSigningRoute */
+    protected $generateSigningRoute;
 
     /** @var HasSignedLastTermsVersion */
     protected $hasSignedLastTermsVersion;
@@ -88,7 +88,9 @@ final class ProtectedRoute extends AbstractController
         $isTermsSigned = ($this->hasSignedLastTermsVersion)($terms->getSlug(), $subject);
 
         if (!$isTermsSigned) {
-            return ($this->redirectSigningRedirectResponse)($terms, $subject);
+            $route = ($this->redirectSigningRedirectResponse)($terms, $subject);
+
+            return new RedirectResponse($route);
         }
     }
 }
