@@ -25,10 +25,6 @@ image:https://img.shields.io/badge/Symfony-5%2B-black[]
 A module to quickly implement a terms approvals voter with terms version support.
 
 
-== Quick showcase
-
-Quick showcase
-
 == Table of content
 
 <<1. Installation>> +
