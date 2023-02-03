@@ -43,7 +43,7 @@ class UserVoter extends Voter
         $moduleAdminRoles = $this->parameterBag->get('rich_id_terms_module.admin_roles');
 
         foreach ($moduleAdminRoles as $adminRole) {
-            if ($this->authorizationChecker->isGranted($adminRole, $user)) {
+            if ($this->authorizationChecker->isGranted($adminRole)) {
                 return true;
             }
         }
