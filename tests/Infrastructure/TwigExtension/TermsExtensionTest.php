@@ -25,11 +25,12 @@ final class TermsExtensionTest extends TestCase
     {
         $this->assertEmpty($this->extension->getFilters());
 
-        $this->assertCount(3, $this->extension->getFunctions());
+        $this->assertCount(4, $this->extension->getFunctions());
 
         $this->assertInstanceOf(TwigFunction::class, $this->extension->getFunctions()[0]);
         $this->assertInstanceOf(TwigFunction::class, $this->extension->getFunctions()[1]);
         $this->assertInstanceOf(TwigFunction::class, $this->extension->getFunctions()[2]);
+        $this->assertInstanceOf(TwigFunction::class, $this->extension->getFunctions()[3]);
     }
 
     /** @TestConfig("fixtures") */
@@ -50,6 +51,16 @@ final class TermsExtensionTest extends TestCase
         $terms = $this->getReference(Terms::class, '1');
 
         $url = $this->extension->generateTermsRoute($terms, $subject);
+
+        $this->assertSame('/terms/terms-1?type=user&identifier=42', $url);
+    }
+
+    /** @TestConfig("fixtures") */
+    public function testGenerateTermsRouteFromSlug(): void
+    {
+        $subject = DummySubject::create('user', '42');
+
+        $url = $this->extension->generateTermsRouteFromSlug('terms-1', $subject);
 
         $this->assertSame('/terms/terms-1?type=user&identifier=42', $url);
     }

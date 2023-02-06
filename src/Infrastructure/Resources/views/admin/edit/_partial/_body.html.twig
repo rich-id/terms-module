@@ -62,11 +62,13 @@
 
         {{ form_row(form.content, {'attr': {'class': 'terms-module-form-field-full'}}) }}
 
-        <div class="terms-module-admin-edition-actions">
-            <button type="button" id="save-terms" class="terms-module-button-primary terms-module-action terms-module-action-space terms-module-open-loader" onclick="saveTerms()" disabled>{{ 'terms_module.admin.edit.save'|trans({}, 'terms_module') }}</button>
-            <button type="button" id="save-and-exit-terms" class="terms-module-button-primary terms-module-action terms-module-action-space terms-module-open-loader" onclick="saveTerms(true)" disabled>{{ 'terms_module.admin.edit.save_and_exit'|trans({}, 'terms_module') }}</button>
-            <a class="terms-module-button-secondary terms-module-action-space" id="exit-terms" href="{{ path('module_terms_admin_list') }}">{{ 'terms_module.admin.edit.close'|trans({}, 'terms_module') }}</a>
-        </div>
+        {% block editionActions %}
+            <div class="terms-module-admin-edition-actions">
+                <button type="button" id="save-terms" class="terms-module-button-primary terms-module-action terms-module-action-space terms-module-open-loader" onclick="saveTerms()" disabled>{{ 'terms_module.admin.edit.save'|trans({}, 'terms_module') }}</button>
+                <button type="button" id="save-and-exit-terms" class="terms-module-button-primary terms-module-action terms-module-action-space terms-module-open-loader" onclick="saveTerms(true)" disabled>{{ 'terms_module.admin.edit.save_and_exit'|trans({}, 'terms_module') }}</button>
+                <a class="terms-module-button-secondary terms-module-action-space" id="exit-terms" href="{{ path('module_terms_admin_list') }}">{{ 'terms_module.admin.edit.close'|trans({}, 'terms_module') }}</a>
+            </div>
+        {% endblock %}
     {{ form_end(form) }}
 </div>
 

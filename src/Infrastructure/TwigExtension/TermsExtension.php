@@ -38,6 +38,7 @@ class TermsExtension extends AbstractExtension
         return [
             new TwigFunction('generateSigningRoute', [$this, 'generateSigningRoute']),
             new TwigFunction('generateTermsRoute', [$this, 'generateTermsRoute']),
+            new TwigFunction('generateTermsRouteFromSlug', [$this, 'generateTermsRouteFromSlug']),
             new TwigFunction('hasSignedTerms', [$this, 'hasSignedTerms']),
         ];
     }
@@ -50,6 +51,11 @@ class TermsExtension extends AbstractExtension
     public function generateTermsRoute(Terms $terms, TermsSubjectInterface $subject): string
     {
         return ($this->generateTermsRoute)($terms->getSlug() ?? '', $subject);
+    }
+
+    public function generateTermsRouteFromSlug(string $termsSlug, TermsSubjectInterface $subject): string
+    {
+        return ($this->generateTermsRoute)($termsSlug, $subject);
     }
 
     public function hasSignedTerms(Terms $terms, TermsSubjectInterface $subject): int
