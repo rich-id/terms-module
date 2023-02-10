@@ -64,6 +64,7 @@ class TermsRoute extends AbstractController
                 [
                     'terms'            => $terms,
                     'lastTermsVersion' => $lastVersion,
+                    'subject'          => $subject,
                 ]
             );
         } catch (NotFoundTermsException | NotPublishedTermsException | TermsHasNoPublishedVersionException $e) {
