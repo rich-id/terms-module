@@ -9,9 +9,8 @@ use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Exception\CannotAddVersionToTermsException;
 use RichId\TermsModuleBundle\Domain\UseCase\CreateTermsVersion;
 use RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionRepository;
-use RichId\TermsModuleBundle\Infrastructure\SecurityVoter\UserVoter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -20,8 +19,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AddTermsVersionRoute extends AbstractController
 {
-    use AdminRouteTrait;
-
     /** @var CreateTermsVersion */
     protected $createTermsVersion;
 
@@ -31,27 +28,19 @@ class AddTermsVersionRoute extends AbstractController
     /** @var RequestStack */
     protected $requestStack;
 
-    /** @var ParameterBagInterface */
-    protected $parameterBag;
-
     public function __construct(
         CreateTermsVersion $createTermsVersion,
         TermsVersionRepository $termsVersionRepository,
-        ParameterBagInterface $parameterBag,
         RequestStack $requestStack
     ) {
         $this->createTermsVersion = $createTermsVersion;
         $this->termsVersionRepository = $termsVersionRepository;
         $this->requestStack = $requestStack;
-        $this->parameterBag = $parameterBag;
     }
 
+    /** @IsGranted("MODULE_TERMS_ADMIN") */
     public function __invoke(Terms $terms): Response
     {
-        if (!$this->isGranted(UserVoter::MODULE_TERMS_ADMIN)) {
-            throw $this->buildAccessDeniedException();
-        }
-
         $currentVersion = $this->getTermsVersion($terms);
 
         if ($currentVersion === null) {
@@ -65,12 +54,6 @@ class AddTermsVersionRoute extends AbstractController
         } catch (CannotAddVersionToTermsException $e) {
             return JsonResponse::create($e->getMessage(), Response::HTTP_UNAUTHORIZED);
         }
-    }
-
-    /** @return string[] */
-    protected function getAdminRoles(): array
-    {
-        return $this->parameterBag->get('rich_id_terms_module.admin_roles');
     }
 
     private function getTermsVersion(Terms $terms): ?TermsVersion

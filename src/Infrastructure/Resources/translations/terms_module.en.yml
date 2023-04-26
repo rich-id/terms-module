@@ -17,6 +17,9 @@ terms_module.admin.edit.version: V. %version%
 
 terms_module.admin.list.title: Terms management
 
+terms_module.admin.list: Terms list
+terms_module.admin.title: Terms management
+
 terms_module.log.terms_signed: 'A decision has been made for the terms %terms_slug%. Decision: %choice%. Date: %date%. User: %user%.'
 
 terms_module.sign.accept: I agree

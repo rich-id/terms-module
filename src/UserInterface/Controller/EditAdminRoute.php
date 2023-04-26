@@ -12,9 +12,8 @@ use RichId\TermsModuleBundle\Domain\Model\TermsEdition;
 use RichId\TermsModuleBundle\Domain\UseCase\EditTerms;
 use RichId\TermsModuleBundle\Infrastructure\FormType\TermsVersionFormType;
 use RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionRepository;
-use RichId\TermsModuleBundle\Infrastructure\SecurityVoter\UserVoter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -23,8 +22,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EditAdminRoute extends AbstractController
 {
-    use AdminRouteTrait;
-
     /** @var EditTerms */
     protected $editTerms;
 
@@ -40,15 +37,11 @@ class EditAdminRoute extends AbstractController
     /** @var RequestStack */
     protected $requestStack;
 
-    /** @var ParameterBagInterface */
-    protected $parameterBag;
-
     public function __construct(
         EditTerms $editTerms,
         DefaultTermsVersionFactory $defaultTermsVersionFactory,
         TermsVersionRepository $termsVersionRepository,
         EntityManagerInterface $entityManager,
-        ParameterBagInterface $parameterBag,
         RequestStack $requestStack
     ) {
         $this->editTerms = $editTerms;
@@ -56,15 +49,11 @@ class EditAdminRoute extends AbstractController
         $this->termsVersionRepository = $termsVersionRepository;
         $this->entityManager = $entityManager;
         $this->requestStack = $requestStack;
-        $this->parameterBag = $parameterBag;
     }
 
+    /** @IsGranted("MODULE_TERMS_ADMIN") */
     public function __invoke(Terms $terms): Response
     {
-        if (!$this->isGranted(UserVoter::MODULE_TERMS_ADMIN)) {
-            throw $this->buildAccessDeniedException();
-        }
-
         $request = $this->requestStack->getCurrentRequest() ?? new Request();
         $currentTermsVersion = $this->getTermsVersion($terms);
 
@@ -94,12 +83,6 @@ class EditAdminRoute extends AbstractController
                 'form'                => $form->createView(),
             ]
         );
-    }
-
-    /** @return string[] */
-    protected function getAdminRoles(): array
-    {
-        return $this->parameterBag->get('rich_id_terms_module.admin_roles');
     }
 
     private function getTermsVersion(Terms $terms): TermsVersion

@@ -17,6 +17,9 @@ terms_module.admin.edit.version: V. %version%
 
 terms_module.admin.list.title: Gestion des CGU
 
+terms_module.admin.list: Liste des Conditions générales (CG)
+terms_module.admin.title: Gestion des CGU
+
 terms_module.log.terms_signed: 'Une décision a été prise pour le CGU %terms_slug%. Décision: %choice%. Date: %date%. Utilisateur: %user%.'
 
 terms_module.sign.accept: J'accepte

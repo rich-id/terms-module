@@ -16,6 +16,10 @@
         <requirement key="terms">\d+</requirement>
     </route>
 
+    <route id="module_terms_admin" path="/administration/terms/home"
+           controller="RichId\TermsModuleBundle\UserInterface\Controller\AdminRoute"
+           methods="GET" />
+
     <route id="module_terms_admin_list" path="/administration/terms"
            controller="RichId\TermsModuleBundle\UserInterface\Controller\ListAdminRoute"
            methods="GET" />
