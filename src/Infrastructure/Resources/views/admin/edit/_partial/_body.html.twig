@@ -57,7 +57,7 @@
 
         <div class="terms-module-admin-edition-title-block terms-module-admin-row">
             <div class="terms-module-admin-edition-title terms-module-admin-col">{{ form_row(form.title, {'attr': {'class': 'terms-module-form-field-full'}}) }}</div>
-            <div class="terms-module-admin-edition-publication-date terms-module-admin-col">{{ form_row(form.publicationDate, {'attr': {'class': 'terms-module-form-field-small'}}) }}</div>
+            <div class="terms-module-admin-edition-publication-date terms-module-admin-col{% if lastTermsVersion.version < 2 %} d-none{% endif %}">{{ form_row(form.publicationDate, {'attr': {'class': 'terms-module-form-field-small'}}) }}</div>
         </div>
 
         {{ form_row(form.content, {'attr': {'class': 'terms-module-form-field-full'}}) }}
