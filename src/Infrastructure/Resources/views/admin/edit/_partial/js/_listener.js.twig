@@ -15,11 +15,14 @@ document.getElementById('{{ form.title.vars.id }}').addEventListener('input', fu
     window.computeExitButtonText();
 });
 
-document.getElementById('{{ form.publicationDate.vars.id }}').addEventListener('input', function () {
-    window.currentTermsVersion.publicationDate = window.getTermsVersionPublicationDate();
-    window.computeSaveButtonStatus();
-    window.computeExitButtonText();
-});
+const publicationDate = document.getElementById('{{ form.publicationDate.vars.id }}');
+if (publicationDate !== null) {
+    publicationDate.addEventListener('input', function () {
+        window.currentTermsVersion.publicationDate = window.getTermsVersionPublicationDate();
+        window.computeSaveButtonStatus();
+        window.computeExitButtonText();
+    });
+}
 
 CKEDITOR.instances.terms_version_form_content.on('change', function () {
     window.currentTermsVersion.content = window.getTermsVersionContent();
