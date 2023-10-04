@@ -16,8 +16,11 @@ terms_module.admin.edit.title: Terms management
 terms_module.admin.edit.version: V. %version%
 
 terms_module.admin.list.title: Terms management
-
 terms_module.admin.list: Terms list
+
+terms_module.admin.signature_list: Signatories list
+terms_module.admin.signature_list.title: Terms list
+
 terms_module.admin.title: Terms management
 
 terms_module.log.terms_signed: 'A decision has been made for the terms %terms_slug%. Decision: %choice%. Date: %date%. User: %user%.'

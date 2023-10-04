@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace RichId\TermsModuleBundle\Domain\Factory;
 
 use RichId\TermsModuleBundle\Domain\Entity\TermsSubjectInterface;
+use RichId\TermsModuleBundle\Domain\Entity\TermsUserInterface;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersionSignature;
 use RichId\TermsModuleBundle\Domain\Port\SecurityInterface;
@@ -32,6 +33,10 @@ class TermsVersionSignatureFactory
 
         if ($user !== null) {
             $entity->setSignedBy($user->getUsername());
+        }
+        
+        if ($user instanceof TermsUserInterface) {
+            $entity->setSignedByName($user->getDisplayNameForTerms());
         }
 
         return $entity;

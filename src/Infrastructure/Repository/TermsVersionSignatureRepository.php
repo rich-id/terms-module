@@ -6,6 +6,7 @@ namespace RichId\TermsModuleBundle\Infrastructure\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsSubjectInterface;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersionSignature;
@@ -17,6 +18,12 @@ class TermsVersionSignatureRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, TermsVersionSignature::class);
+    }
+
+    /** @return array<TermsVersionSignature> */
+    public function findAllForSearch(): array
+    {
+        return $this->findBy([], ['signedByName' => 'ASC']);
     }
 
     public function findOneByVersionAndSubject(TermsVersion $termsVersion, TermsSubjectInterface $subject): ?TermsVersionSignature

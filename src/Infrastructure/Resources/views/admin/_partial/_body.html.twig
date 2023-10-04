@@ -5,6 +5,13 @@
             <i class="icon-long-arrow-alt-right-regular"></i>
         </div>
     </a>
+
+    <a class="terms-module-admin-terms-card" href="{{ path('module_terms_admin_signatures_list') }}">
+        <div class="terms-module-admin-terms-card-name">{{ 'terms_module.admin.signature_list'|trans({}, 'terms_module') }}</div>
+        <div class="terms-module-admin-terms-card-status">
+            <i class="icon-long-arrow-alt-right-regular"></i>
+        </div>
+    </a>
 </div>
 
 {% include '@RichIdTermsModule/_load-picto.html.twig' %}

@@ -20,8 +20,18 @@
            controller="RichId\TermsModuleBundle\UserInterface\Controller\AdminRoute"
            methods="GET" />
 
+    <route id="module_terms_admin_signature_download" path="/administration/terms/signature/{termsVersionSignature}/download"
+           controller="RichId\TermsModuleBundle\UserInterface\Controller\DownloadTermsVersionSignaturePdf"
+           methods="GET">
+        <requirement key="termsVersionSignature">\d+</requirement>
+    </route>
+
     <route id="module_terms_admin_list" path="/administration/terms"
            controller="RichId\TermsModuleBundle\UserInterface\Controller\ListAdminRoute"
+           methods="GET" />
+
+    <route id="module_terms_admin_signatures_list" path="/administration/signatures"
+           controller="RichId\TermsModuleBundle\UserInterface\Controller\SignatureListAdminRoute"
            methods="GET" />
 
     <route id="module_terms_remove_terms_version" path="/administration/terms-version/{termsVersion}"

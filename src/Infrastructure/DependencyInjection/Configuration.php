@@ -15,6 +15,7 @@ class Configuration extends AbstractConfiguration
     {
         $this->addAdminRoles($nodeBuilder);
         $this->addDefaultRedirectionRoutes($nodeBuilder);
+        $this->addTermsVersionSignaturePdfGenerator($nodeBuilder);
     }
 
     protected function addAdminRoles(NodeBuilder $nodeBuilder): void
@@ -56,5 +57,10 @@ class Configuration extends AbstractConfiguration
         $nodeBuilder
             ->scalarNode('ignore')
             ->isRequired();
+    }
+
+    protected function addTermsVersionSignaturePdfGenerator(NodeBuilder $nodeBuilder): void
+    {
+        $nodeBuilder->scalarNode('terms_version_signature_pdf_generator')->defaultNull();
     }
 }

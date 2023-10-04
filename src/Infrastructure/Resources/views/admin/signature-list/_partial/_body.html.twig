@@ -1,0 +1,33 @@
+<div class="terms-module-admin-body terms-module-admin-body-form ">
+    <div class="terms-module-admin-edition-terms-name">{{ 'terms_module.admin.signature_list'|trans({}, 'terms_module') }}</div>
+
+    <table>
+        <thead>
+        <tr>
+{#            todo traductions#}
+            <th>Signataire</th>
+            <th>Sujet signature</th>
+            <th>Nom de la CG</th>
+            <th>Date signature</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for signature in signatures %}
+            <tr>
+                <td data-column="Signataire">{{ signature.signedByName ?? signature.signedBy ?? 'Inconnu' }}</td>
+                <td data-column="Sujet signature">test</td>
+                <td data-column="Nom de la CG">{{ signature.version.terms.name }} (V{{ signature.version.version }})</td>
+                <td data-column="Date signature">
+                    {{ signature.date|date('Y-m-d') }}
+
+                    {% if hasGenerator %}
+                        <a href="{{ path('module_terms_admin_signature_download', {'termsVersionSignature': signature.id}) }}">Telécharger</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% include '@RichIdTermsModule/_load-picto.html.twig' %}
