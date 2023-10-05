@@ -25,6 +25,15 @@ terms_module.admin.title: Gestion des CGU
 
 terms_module.log.terms_signed: 'Une décision a été prise pour le CGU %terms_slug%. Décision: %choice%. Date: %date%. Utilisateur: %user%.'
 
+terms_module.pdf_signature.content_title: Contenu de la CGU
+terms_module.pdf_signature.current_date: Téléchargement de la trace le
+terms_module.pdf_signature.editor_title: Éditeur
+terms_module.pdf_signature.filename: attestation-signature.pdf
+terms_module.pdf_signature.signatory_title: Signataire
+terms_module.pdf_signature.terms_signed_date: Signée le
+terms_module.pdf_signature.terms_signed_title: CG signée
+terms_module.pdf_signature.title: Attestation de signature en ligne
+
 terms_module.sign.accept: J'accepte
 terms_module.sign.new_version: Nouvelle version !
 terms_module.sign.prefer_answer_later: Je préfère répondre plus tard

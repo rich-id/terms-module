@@ -29,14 +29,16 @@ class TermsVersionSignatureFactory
         $entity->setVersion($version);
         $entity->setSubjectType($subject->getTermsSubjectType());
         $entity->setSubjectIdentifier($subject->getTermsSubjectIdentifier());
+        $entity->setSubjectName('test'); // todo
         $entity->setDate(new \DateTime());
 
         if ($user !== null) {
             $entity->setSignedBy($user->getUsername());
         }
-        
+
         if ($user instanceof TermsUserInterface) {
-            $entity->setSignedByName($user->getDisplayNameForTerms());
+            $entity->setSignedByName($user->getTermsDisplayName());
+            $entity->setSignedByNameForSort($user->getTermsDisplayNameForSort());
         }
 
         return $entity;

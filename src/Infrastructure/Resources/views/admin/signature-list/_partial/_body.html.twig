@@ -20,8 +20,8 @@
                 <td data-column="Date signature">
                     {{ signature.date|date('Y-m-d') }}
 
-                    {% if hasGenerator %}
-                        <a href="{{ path('module_terms_admin_signature_download', {'termsVersionSignature': signature.id}) }}">Telécharger</a>
+                    {% if canDownloadPdf %}
+                        <a href="{{ path('module_terms_admin_signature_download', {'termsVersionSignature': signature.id}) }}" target="_blank">Telécharger</a>
                     {% endif %}
                 </td>
             </tr>

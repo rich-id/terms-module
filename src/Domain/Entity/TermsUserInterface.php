@@ -6,5 +6,7 @@ namespace RichId\TermsModuleBundle\Domain\Entity;
 
 interface TermsUserInterface
 {
-    public function getDisplayNameForTerms(): ?string;
+    public function getTermsDisplayName(): ?string;
+
+    public function getTermsDisplayNameForSort(): ?string;
 }

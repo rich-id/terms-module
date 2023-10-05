@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+
+      {% include 'pdf/css-helpers.html.twig' %}
+
+      <style>
+         #footer {
+            font-family: sans-serif;
+            padding: 0 58px 58px 58px;
+            zoom: 0.75;
+         }
+
+         .content-footer {
+            -webkit-print-color-adjust: exact;
+            align-items: flex-end;
+            display: flex;
+            font-size: 8px;
+            justify-content: end;
+            line-height: 11px;
+            margin: 0;
+            vertical-align: middle;
+            width: 100%;
+         }
+      </style>
+   </head>
+   <body>
+   <div class="content-footer">
+      <div>Page <span class="pageNumber"></span> sur <span class="totalPages"></span></div>
+   </div>
+   </body>
+</html>

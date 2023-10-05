@@ -25,6 +25,15 @@ terms_module.admin.title: Terms management
 
 terms_module.log.terms_signed: 'A decision has been made for the terms %terms_slug%. Decision: %choice%. Date: %date%. User: %user%.'
 
+terms_module.pdf_signature.content_title: Term content
+terms_module.pdf_signature.current_date: Trace download on
+terms_module.pdf_signature.editor_title: Editor
+terms_module.pdf_signature.filename: signature-certificate.pdf
+terms_module.pdf_signature.signatory_title: Signatory
+terms_module.pdf_signature.terms_signed_date: Signed the
+terms_module.pdf_signature.terms_signed_title: Term signed
+terms_module.pdf_signature.title: Online signature certificate
+
 terms_module.sign.accept: I agree
 terms_module.sign.new_version: New version!
 terms_module.sign.prefer_answer_later: I prefer to answer later
