@@ -1,123 +1,125 @@
 <html>
-    <head>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900">
-        {% include '@RichIdTermsModule/_styles.html.twig' %}
+<head>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900">
+    {% include '@RichIdTermsModule/_styles.html.twig' %}
 
-        <style>
-            @page
-            {
-                size: 827px 1170px;
-                margin: 58px 58px 115px 58px;
-                padding: 0;
-            }
+    <style>
+        @page {
+            size: 827px 1170px;
+            margin: 58px 58px 115px 58px;
+            padding: 0;
+        }
 
-            body {
-                font-family: 'Montserrat', sans-serif;
-            }
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
 
-            h1.page-title {
-                font-size: 20px;
-                font-weight: bold;
-                margin: 0;
-                text-align: center;
-            }
+        h1.page-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0;
+            text-align: center;
+        }
 
-            h2.page-title {
-                font-size: 16px;
-                font-weight: bold;
-                margin-bottom: 16px;
-                margin: 0;
-                text-align: center;
-            }
+        h2.page-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            margin: 0;
+            text-align: center;
+        }
 
-            table, th, td {
-                border-collapse: collapse;
-                border: 1px solid black;
-                font-size: 12px;
-                font-weight: bold;
-            }
+        table, th, td {
+            border-collapse: collapse;
+            border: 1px solid black;
+            font-size: 12px;
+            font-weight: bold;
+        }
 
-            table {
-                margin: 32px 0;
-                width: 100%;
-            }
+        table {
+            margin: 32px 0;
+            width: 100%;
+        }
 
-            table .td-50 {
-                width: 50%;
-            }
+        table .td-50 {
+            width: 50%;
+        }
 
-            table td {
-                padding: 24px;
-            }
+        table td {
+            padding: 24px;
+        }
 
-            .color-tertiary {
-                color: var(--terms-module-tertiary);
-            }
+        .color-tertiary {
+            color: var(--terms-module-tertiary);
+        }
 
-            .ft-13 {
-                font-size: 13px;
-            }
+        .ft-13 {
+            font-size: 13px;
+        }
 
-            .fw-normal {
-                font-weight: normal;
-            }
+        .fw-normal {
+            font-weight: normal;
+        }
 
-            .pt-6px {
-                padding-top: 6px;
-            }
+        .pt-6px {
+            padding-top: 6px;
+        }
 
-            .pt-9px {
-                padding-top: 9px;
-            }
-        </style>
+        .pt-9px {
+            padding-top: 9px;
+        }
+    </style>
 
-        <script type="text/javascript">
-            window.onload = function () {
-                document.fonts.ready.then(function () {
-                    var el = document.createElement('div');
-                    el.id = 'pdf-fonts-loaded';
+    {% block customStyle %}{% endblock %}
 
-                    document.body.appendChild(el);
-                });
-            }
-        </script>
-    </head>
-    <body>
-        {% block pdfHeaderLogo %}{% endblock %}
+    <script type="text/javascript">
+        window.onload = function () {
+            document.fonts.ready.then(function () {
+                var el = document.createElement('div');
+                el.id = 'pdf-fonts-loaded';
 
-        <h1 class="page-title ">{{ 'terms_module.pdf_signature.title'|trans({}, 'terms_module') }}</h1>
+                document.body.appendChild(el);
+            });
+        }
+    </script>
+</head>
+<body>
+{% block pdfHeaderLogo %}{% endblock %}
 
-        <table>
-            <tbody>
-                <tr>
-                    <td colspan="2">
-                        <div class="color-tertiary ft-13 fw-normal">{{ 'terms_module.pdf_signature.terms_signed_title'|trans({}, 'terms_module') }}</div>
-                        <div class="pt-9px">{{ signature.version.terms.name }} ({{ signature.version.title }})</div>
-                        <div class="pt-6px">{{ 'terms_module.pdf_signature.terms_signed_date'|trans({}, 'terms_module') }} {{ signature.date|date('d/m/Y H:i') }}</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td {% if editor is not null %}class="td-50"{% endif %}>
-                        <div class="color-tertiary ft-13">{{ 'terms_module.pdf_signature.signatory_title'|trans({}, 'terms_module') }}</div>
-                        <div class="pt-9px">{{ signature.signedByName }}</div>
+<h1 class="page-title ">{{ 'terms_module.pdf_signature.title'|trans({}, 'terms_module') }}</h1>
 
-                        {% if signature.signedByName != signature.subjectName %}
-                            <div class="pt-6px">{{ signature.subjectName }}</div>
-                        {% endif %}
-                    </td>
+<table>
+    <tbody>
+    <tr>
+        <td colspan="2">
+            <div class="color-tertiary ft-13 fw-normal">{{ 'terms_module.pdf_signature.terms_signed_title'|trans({}, 'terms_module') }}</div>
+            <div class="pt-9px">{{ signature.version.terms.name }} ({{ signature.version.title }})</div>
+            <div class="pt-6px">{{ 'terms_module.pdf_signature.terms_signed_date'|trans({}, 'terms_module') }} {{ signature.date|date('d/m/Y H:i') }}</div>
+        </td>
+    </tr>
+    <tr>
+        <td {% if editor is not null %}class="td-50"{% endif %}>
+            <div class="color-tertiary ft-13">{{ 'terms_module.pdf_signature.signatory_title'|trans({}, 'terms_module') }}</div>
+            <div class="pt-9px">{{ signature.signedByName }}</div>
 
-                    {% if editor is not null %}
-                        <td class="td-50">
-                            <div class="color-tertiary ft-13 fw-normal">{{ 'terms_module.pdf_signature.editor_title'|trans({}, 'terms_module') }}</div>
-                            <div class="pt-9px">{{ editor.termsDisplayName }}</div>
-                            <div class="pt-6px">{{ 'terms_module.pdf_signature.current_date'|trans({}, 'terms_module') }} {{ 'now'|date('d/m/Y H:i') }}</div>
-                        </td>
-                    {% endif %}
-                </tr>
-            </tbody>
-        </table>
+            {% if signature.signedByName != signature.subjectName %}
+                <div class="pt-6px">{{ signature.subjectName }}</div>
+            {% endif %}
+        </td>
 
-        <h2 class="page-title ">{{ 'terms_module.pdf_signature.content_title'|trans({}, 'terms_module') }}</h2>
-        {{ signature.version.content|raw }}
-    </body>
+        {% if editor is not null %}
+            <td class="td-50">
+                <div class="color-tertiary ft-13 fw-normal">{{ 'terms_module.pdf_signature.editor_title'|trans({}, 'terms_module') }}</div>
+                <div class="pt-9px">{{ editor.termsDisplayName }}</div>
+                <div class="pt-6px">{{ 'terms_module.pdf_signature.current_date'|trans({}, 'terms_module') }} {{ 'now'|date('d/m/Y H:i') }}</div>
+            </td>
+        {% endif %}
+    </tr>
+    </tbody>
+</table>
+
+<h2 class="page-title ">{{ 'terms_module.pdf_signature.content_title'|trans({}, 'terms_module') }}</h2>
+{{ signature.version.content|raw }}
+</body>
 </html>

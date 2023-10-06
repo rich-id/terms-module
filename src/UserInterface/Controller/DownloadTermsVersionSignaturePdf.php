@@ -53,7 +53,7 @@ class DownloadTermsVersionSignaturePdf extends AbstractController
             Response::HTTP_OK,
             [
                 'Content-Type'        => 'application/pdf',
-                'Content-Disposition' => 'attachment; filename="' . $this->translator->trans('terms_module.pdf_signature.filename') . '"',
+                'Content-Disposition' => 'attachment; filename="' . $this->translator->trans('terms_module.pdf_signature.filename', [], 'terms_module') . '"',
             ]
         );
     }

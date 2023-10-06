@@ -53,7 +53,6 @@ class TermsVersionSignaturePdfChromiumGenerator implements TermsVersionSignature
 
             return $pdf;
         } catch (\Throwable $e) {
-            dump($e);
             throw new \Exception('An error occured on pdf generation.');
         } finally {
             $browser->close();
