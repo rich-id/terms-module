@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace RichId\TermsModuleBundle\Domain\Pdf;
 
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Component\Routing\RouterInterface;
 
 class TermsVersionSignaturePdfGeneratorManager
 {
@@ -30,21 +29,21 @@ class TermsVersionSignaturePdfGeneratorManager
     {
         return $this->getConfiguredGenerator() !== null;
     }
-    
+
     public function getConfiguredGenerator(): ?TermsVersionSignaturePdfGeneratorInterface
     {
         $selectedGenerator = $this->parameterBag->get('rich_id_terms_module.terms_version_signature_pdf_generator') ?? null;
-        
+
         if (empty($selectedGenerator)) {
             return null;
         }
-        
+
         foreach ($this->generators as $generator) {
             if ($selectedGenerator === \get_class($generator)) {
                 return $generator;
             }
         }
-        
+
         return null;
     }
 }

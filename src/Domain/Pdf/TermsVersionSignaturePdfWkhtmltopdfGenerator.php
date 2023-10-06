@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Domain\Pdf;
 
+use Knp\Snappy\Pdf;
 use RichId\TermsModuleBundle\Domain\Entity\TermsUserInterface;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersionSignature;
 use Twig\Environment;
-use Knp\Snappy\Pdf;
 
 class TermsVersionSignaturePdfWkhtmltopdfGenerator implements TermsVersionSignaturePdfGeneratorInterface
 {
@@ -25,7 +25,7 @@ class TermsVersionSignaturePdfWkhtmltopdfGenerator implements TermsVersionSignat
 
     public function __invoke(TermsVersionSignature $termsVersionSignature, ?TermsUserInterface $editor = null): string
     {
-        $pdf =  $this->snappyPdf->getOutputFromHtml(
+        $pdf = $this->snappyPdf->getOutputFromHtml(
             $this->twig->render(
                 '@RichIdTermsModule/admin/signature-list/_partial/_pdf.html.twig',
                 [
@@ -35,7 +35,7 @@ class TermsVersionSignaturePdfWkhtmltopdfGenerator implements TermsVersionSignat
             ),
             [
                 'margin-bottom' => 22,
-                'footer-html' => $this->twig->render('@RichIdTermsModule/admin/signature-list/_partial/_pdf-footer-wk.html.twig'),
+                'footer-html'   => $this->twig->render('@RichIdTermsModule/admin/signature-list/_partial/_pdf-footer-wk.html.twig'),
             ]
         );
 

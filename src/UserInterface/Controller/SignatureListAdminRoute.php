@@ -7,7 +7,6 @@ namespace RichId\TermsModuleBundle\UserInterface\Controller;
 use RichId\TermsModuleBundle\Domain\Entity\TermsUserInterface;
 use RichId\TermsModuleBundle\Domain\Pdf\TermsVersionSignaturePdfGeneratorManager;
 use RichId\TermsModuleBundle\Domain\Port\SecurityInterface;
-use RichId\TermsModuleBundle\Infrastructure\Repository\TermsRepository;
 use RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionSignatureRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,8 +27,7 @@ class SignatureListAdminRoute extends AbstractController
         TermsVersionSignatureRepository $termsVersionSignatureRepository,
         TermsVersionSignaturePdfGeneratorManager $termsVersionSignaturePdfGeneratorManager,
         SecurityInterface $security
-    )
-    {
+    ) {
         $this->termsVersionSignatureRepository = $termsVersionSignatureRepository;
         $this->termsVersionSignaturePdfGeneratorManager = $termsVersionSignaturePdfGeneratorManager;
         $this->security = $security;

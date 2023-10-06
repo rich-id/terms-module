@@ -28,8 +28,7 @@ class DownloadTermsVersionSignaturePdf extends AbstractController
         TermsVersionSignaturePdfGeneratorManager $termsVersionSignaturePdfGeneratorManager,
         SecurityInterface $security,
         TranslatorInterface $translator
-    )
-    {
+    ) {
         $this->termsVersionSignaturePdfGeneratorManager = $termsVersionSignaturePdfGeneratorManager;
         $this->security = $security;
         $this->translator = $translator;
