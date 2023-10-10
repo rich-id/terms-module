@@ -18,11 +18,13 @@
                 <td data-column="Sujet signature">test</td>
                 <td data-column="Nom de la CG">{{ signature.version.terms.name }} (V{{ signature.version.version }})</td>
                 <td data-column="Date signature">
-                    {{ signature.date|date('Y-m-d') }}
+                    <div class="d-flex">
+                        {{ signature.date|date('Y-m-d') }}
 
-                    {% if canDownloadPdf %}
-                        <a href="{{ path('module_terms_admin_signature_download', {'termsVersionSignature': signature.id}) }}" target="_blank">Telécharger</a>
-                    {% endif %}
+                        {% if canDownloadPdf %}
+                            <a href="{{ path('module_terms_admin_signature_download', {'termsVersionSignature': signature.id}) }}" target="_blank">Telécharger</a>
+                        {% endif %}
+                    </div>
                 </td>
             </tr>
         {% endfor %}
