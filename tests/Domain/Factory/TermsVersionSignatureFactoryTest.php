@@ -6,6 +6,7 @@ namespace RichId\TermsModuleBundle\Tests\Domain\Factory;
 
 use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
+use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Factory\TermsVersionSignatureFactory;
 use RichId\TermsModuleBundle\Domain\Model\DummySubject;
@@ -23,7 +24,11 @@ final class TermsVersionSignatureFactoryTest extends TestCase
 
     public function testFactory(): void
     {
+        $terms = new Terms();
+        $terms->setSlug('terms-5');
+
         $termsVersion = new TermsVersion();
+        $termsVersion->setTerms($terms);
 
         $entity = ($this->factory)($termsVersion, DummySubject::create('user', '42'));
 
@@ -31,13 +36,18 @@ final class TermsVersionSignatureFactoryTest extends TestCase
         $this->assertInstanceOf(\DateTime::class, $entity->getDate());
         $this->assertSame('user', $entity->getSubjectType());
         $this->assertSame('42', $entity->getSubjectIdentifier());
+        $this->assertSame('Unknown', $entity->getSubjectName());
         $this->assertSame($termsVersion, $entity->getVersion());
         $this->assertNull($entity->getSignedBy());
     }
 
     public function testFactoryLoggedUser(): void
     {
+        $terms = new Terms();
+        $terms->setSlug('terms-5');
+
         $termsVersion = new TermsVersion();
+        $termsVersion->setTerms($terms);
 
         $this->authenticate(DummyUser::class, DummyUserFixtures::USER);
 
@@ -47,6 +57,7 @@ final class TermsVersionSignatureFactoryTest extends TestCase
         $this->assertInstanceOf(\DateTime::class, $entity->getDate());
         $this->assertSame('user', $entity->getSubjectType());
         $this->assertSame('42', $entity->getSubjectIdentifier());
+        $this->assertSame('my_user_1', $entity->getSubjectName());
         $this->assertSame($termsVersion, $entity->getVersion());
         $this->assertSame('my_user_1', $entity->getSignedBy());
     }

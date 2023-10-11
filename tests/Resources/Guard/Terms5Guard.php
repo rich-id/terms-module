@@ -31,6 +31,17 @@ final class Terms5Guard implements TermsGuardInterface
             return false;
         }
 
-        return $subject->getTermsSubjectIdentifier() === (string) $user->getUsername();
+        return $subject->getTermsSubjectIdentifier() === $user->getUsername();
+    }
+
+    public function getSubjectName(TermsSubjectInterface $subject): ?string
+    {
+        $user = $this->security->getUser();
+
+        if ($user === null) {
+            return null;
+        }
+
+        return $user->getUsername();
     }
 }

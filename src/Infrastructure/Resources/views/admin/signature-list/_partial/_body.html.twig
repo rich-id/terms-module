@@ -1,0 +1,154 @@
+{% form_theme form '@RichIdTermsModule/_form-theme.html.twig' %}
+{% include '@RichIdTermsModule/_loader.html.twig' %}
+
+<div class="terms-module-admin-body terms-module-admin-signature-list-body">
+    <div class="terms-module-admin-signature-list-title">{{ 'terms_module.admin.signature_list'|trans({}, 'terms_module') }}</div>
+
+    {{ form_start(form) }}
+    <div class="form-fields-40 form-filters">
+        <div class="form-filter-search">{{ form_row(form.search) }}</div>
+        <div class="form-filter-terms">{{ form_row(form.terms) }}</div>
+    </div>
+
+    <div class="terms-row row-header">
+        <button class="terms-col" onclick="setSort('signatory', {% if sortDirection == 'desc' %}'asc'{% else %}'desc'{% endif %})">
+            {{ 'terms_module.pdf_signature.signatory'|trans({}, 'terms_module') }}
+            {% if sort == 'signatory' %}<i class="{% if sortDirection == 'desc' %}icon-arrow_drop_down{% else %}icon-arrow_drop_up{% endif %}"></i>{% endif %}
+        </button>
+        <div class="terms-col terms-hidden terms-show-lg">{{ 'terms_module.pdf_signature.subject'|trans({}, 'terms_module') }}</div>
+        <div class="terms-col terms-hidden terms-show-lg">{{ 'terms_module.pdf_signature.terms_name'|trans({}, 'terms_module') }}</div>
+        <button class="terms-col terms-hidden terms-show-lg" onclick="setSort('date', {% if sortDirection == 'desc' %}'asc'{% else %}'desc'{% endif %})">
+            {{ 'terms_module.pdf_signature.date'|trans({}, 'terms_module') }}
+            {% if sort == 'date' %}<i class="{% if sortDirection == 'desc' %}icon-arrow_drop_down{% else %}icon-arrow_drop_up{% endif %}"></i>{% endif %}
+        </button>
+    </div>
+
+    <div class="terms-list ft-14">
+        {% for signature in signatures %}
+            <div class="terms-row">
+                <div class="terms-col terms-col-body terms-col-pad fw-bold">{{ signature.signedByName ?? signature.signedBy ?? 'Inconnu' }}</div>
+                <div class="terms-col terms-col-body terms-col-pad with-separator" data-column="{{ 'terms_module.pdf_signature.subject'|trans({}, 'terms_module') }} :">{{ signature.subjectName }}</div>
+                <div class="terms-col terms-col-body terms-col-pad with-separator" data-column="{{ 'terms_module.pdf_signature.terms_name'|trans({}, 'terms_module') }} :">{{ signature.version.terms.name }}
+                    (V{{ signature.version.version }})
+                </div>
+                <div class="terms-col terms-col-body terms-col-pad with-separator" data-column="{{ 'terms_module.pdf_signature.date'|trans({}, 'terms_module') }} :">
+                    <div class="flex-space-between">
+                        {{ signature.date|date('Y-m-d') }}
+
+                        {% if canDownloadPdf %}
+                            <a href="{{ path('module_terms_admin_signature_download', {'termsVersionSignature': signature.id}) }}" target="_blank"
+                               class="download-button terms-module-button-primary  terms-module-button-picto">
+                                <i class="icon-description"></i>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="list-footer">
+        <div class="list-footer-pagination">
+            {% include '@RichIdTermsModule/_pagination.html.twig' with {nbPages: nbPages, currentPage: currentPage} %}
+        </div>
+        <div class="list-footer-number terms-module-form-field-inline terms-module-form-field-no-star terms-module-form-field-label-gray">
+            {{ form_row(form.numberItemsPerPage) }}
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+</div>
+
+{% include '@RichIdTermsModule/_load-picto.html.twig' %}
+
+<script>
+    window.termsPaginationCurrentPage = {{ currentPage }};
+    window.termsInitialSearch = '{{ form.search.vars.value }}';
+    window.termsInitialSort = '{{ form.sort.vars.value }}';
+    window.termsInitialSortDirection = '{{ form.sortDirection.vars.value }}';
+
+    var getSearch = function () {
+        let field = document.getElementById('{{ form.search.vars.id }}');
+        return field ? field.value : '';
+    };
+
+    var getSelectedTerms = function () {
+        let field = document.getElementById('{{ form.terms.vars.id }}');
+        return field ? field.value : '';
+    };
+
+    var getSelectedNumberItemsPerPage = function () {
+        let field = document.getElementById('{{ form.numberItemsPerPage.vars.id }}');
+        return field ? field.value : '';
+    };
+
+    var newSearch = function () {
+        let url ='{{ path('module_terms_admin_signatures_list') }}';
+        let parameters = {
+            page: window.termsPaginationCurrentPage,
+            sort: window.termsInitialSort,
+            sortDirection: window.termsInitialSortDirection,
+        };
+
+        let search = getSearch();
+
+        if (search !== null && search !== '') {
+            parameters.search = search;
+        }
+
+        let terms = getSelectedTerms();
+
+        if (terms !== null && terms !== '') {
+            parameters.terms = terms;
+        }
+
+        let numberItemsPerPage = getSelectedNumberItemsPerPage();
+
+        if (numberItemsPerPage !== null && numberItemsPerPage !== '') {
+            parameters.numberItemsPerPage = numberItemsPerPage;
+        }
+
+        let finalUrl = Object.keys(parameters).length === 0 ? url :  url + '?' + (new URLSearchParams(parameters)).toString();
+
+        window.location.href = finalUrl;
+    };
+
+    document.getElementById('{{ form.search.vars.id }}').addEventListener('blur', function (e) {
+        if (termsInitialSearch === e.target.value) {
+            return;
+        }
+
+        window.termsPaginationCurrentPage = 1;
+        newSearch();
+    });
+
+    document.getElementById('{{ form.terms.vars.id }}').addEventListener('input', function (e) {
+        window.termsPaginationCurrentPage = 1;
+        newSearch();
+    });
+
+    document.getElementById('{{ form.numberItemsPerPage.vars.id }}').addEventListener('input', function (e) {
+        window.termsPaginationCurrentPage = 1;
+        newSearch();
+    });
+
+    window.paginationGoTo = function (page) {
+        if (page < 1) {
+            page = 1;
+        }
+
+        if (page > {{ nbPages }}) {
+            page = {{ nbPages }};
+        }
+
+        window.termsPaginationCurrentPage = page;
+        newSearch();
+    }
+
+    window.setSort = function (sort, sortDirection) {
+        window.termsInitialSort = sort;
+        window.termsInitialSortDirection = sortDirection;
+
+        newSearch();
+    }
+</script>

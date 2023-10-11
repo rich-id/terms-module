@@ -48,6 +48,13 @@ class TermsVersionSignature
     protected $subjectIdentifier;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=false, length=255, name="subject_name")
+     */
+    protected $subjectName;
+
+    /**
      * @var TermsVersion
      *
      * @ORM\ManyToOne(targetEntity="RichId\TermsModuleBundle\Domain\Entity\TermsVersion", inversedBy="signatures")
@@ -56,11 +63,25 @@ class TermsVersionSignature
     protected $version;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(type="string", nullable=true, length=255, name="signed_by")
      */
     protected $signedBy;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true, length=255, name="signed_by_name")
+     */
+    protected $signedByName;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true, length=255, name="signed_by_name_for_sort")
+     */
+    protected $signedByNameForSort;
 
     public function getId(): ?int
     {
@@ -103,6 +124,18 @@ class TermsVersionSignature
         return $this->subjectIdentifier;
     }
 
+    public function getSubjectName(): string
+    {
+        return $this->subjectName;
+    }
+
+    public function setSubjectName(string $subjectName): self
+    {
+        $this->subjectName = $subjectName;
+
+        return $this;
+    }
+
     public function setVersion(TermsVersion $version): self
     {
         $this->version = $version;
@@ -115,7 +148,7 @@ class TermsVersionSignature
         return $this->version;
     }
 
-    public function setSignedBy(string $signedBy): self
+    public function setSignedBy(?string $signedBy): self
     {
         $this->signedBy = $signedBy;
 
@@ -125,5 +158,29 @@ class TermsVersionSignature
     public function getSignedBy(): ?string
     {
         return $this->signedBy;
+    }
+
+    public function getSignedByName(): ?string
+    {
+        return $this->signedByName;
+    }
+
+    public function setSignedByName(?string $signedByName): self
+    {
+        $this->signedByName = $signedByName;
+
+        return $this;
+    }
+
+    public function getSignedByNameForSort(): ?string
+    {
+        return $this->signedByNameForSort;
+    }
+
+    public function setSignedByNameForSort(?string $signedByNameForSort): self
+    {
+        $this->signedByNameForSort = $signedByNameForSort;
+
+        return $this;
     }
 }

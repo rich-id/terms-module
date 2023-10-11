@@ -41,6 +41,7 @@ final class EntityRecorderTest extends TestCase
         $signature->setVersion($version);
         $signature->setSubjectType('user');
         $signature->setSubjectIdentifier('42');
+        $signature->setSubjectName('42');
         $signature->setDate(new \DateTime());
 
         $this->adapter->saveSignature($signature);

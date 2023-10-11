@@ -1,0 +1,12 @@
+{% if terms is defined %}
+    <a class="terms-module-admin-terms-card" href="{{ path('module_terms_admin_edition', {'terms': terms.id}) }}">
+        <div class="terms-module-admin-terms-card-name">{{ terms.name }}</div>
+        <div class="terms-module-admin-terms-card-status">
+            {% if terms.isPublished %}
+                <i class="icon-check1" id="terms-module-icon-published"></i>
+            {% else %}
+                <i class="icon-sync-alt-regular" id="terms-module-icon-not-published"></i>
+            {% endif %}
+        </div>
+    </a>
+{% endif %}

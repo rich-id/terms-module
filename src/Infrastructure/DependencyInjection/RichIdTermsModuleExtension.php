@@ -6,7 +6,9 @@ namespace RichId\TermsModuleBundle\Infrastructure\DependencyInjection;
 
 use RichCongress\BundleToolbox\Configuration\AbstractExtension;
 use RichId\TermsModuleBundle\Domain\Guard\TermsGuardInterface;
+use RichId\TermsModuleBundle\Domain\Pdf\TermsVersionSignaturePdfGeneratorInterface;
 use RichId\TermsModuleBundle\Infrastructure\DependencyInjection\CompilerPass\TermsGuardCompilerPass;
+use RichId\TermsModuleBundle\Infrastructure\DependencyInjection\CompilerPass\TermsVersionSignaturePdfGeneratorCompilerPass;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
@@ -37,6 +39,10 @@ class RichIdTermsModuleExtension extends AbstractExtension implements PrependExt
         $container
             ->registerForAutoconfiguration(TermsGuardInterface::class)
             ->addTag(TermsGuardCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(TermsVersionSignaturePdfGeneratorInterface::class)
+            ->addTag(TermsVersionSignaturePdfGeneratorCompilerPass::TAG);
     }
 
     public function prepend(ContainerBuilder $container): void

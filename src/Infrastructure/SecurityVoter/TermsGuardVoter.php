@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Infrastructure\SecurityVoter;
 
-use RichId\TermsModuleBundle\Domain\Guard\TermsGuardInterface;
+use RichId\TermsModuleBundle\Domain\Guard\TermsGuardManager;
 use RichId\TermsModuleBundle\Domain\Model\TermsGuardValidationInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -13,13 +13,12 @@ class TermsGuardVoter extends Voter
 {
     public const MODULE_TERMS_GUARD_VALID = 'MODULE_TERMS_GUARD_VALID';
 
-    /** @var array<TermsGuardInterface> */
-    protected $guards;
+    /** @var TermsGuardManager */
+    protected $termsGuardManager;
 
-    /** @param array<TermsGuardInterface> $guards */
-    public function setGuards(array $guards): void
+    public function __construct(TermsGuardManager $termsGuardManager)
     {
-        $this->guards = $guards;
+        $this->termsGuardManager = $termsGuardManager;
     }
 
     protected function supports($attribute, $subject): bool
@@ -30,23 +29,12 @@ class TermsGuardVoter extends Voter
     /** @param string $attribute */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
-        $guard = $this->findGuard($subject);
+        $guard = $this->termsGuardManager->getGuardFor($subject->getTermsSlug(), $subject);
 
         if ($guard === null) {
             return true;
         }
 
         return $guard->check($subject->getTermsSlug(), $subject);
-    }
-
-    protected function findGuard(TermsGuardValidationInterface $subject): ?TermsGuardInterface
-    {
-        foreach ($this->guards as $guard) {
-            if ($guard->supports($subject->getTermsSlug(), $subject)) {
-                return $guard;
-            }
-        }
-
-        return null;
     }
 }
