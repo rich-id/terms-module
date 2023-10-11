@@ -25,6 +25,7 @@ final class TermsVersionSignatureFixtures extends AbstractFixture implements Dep
                 'date'              => new \DateTime(),
                 'subjectType'       => 'user',
                 'subjectIdentifier' => '42',
+                'subjectName'       => 'Mr John SMITH',
                 'version'           => $termsVersion1,
             ]
         );
@@ -36,6 +37,7 @@ final class TermsVersionSignatureFixtures extends AbstractFixture implements Dep
                 'date'              => new \DateTime(),
                 'subjectType'       => 'user',
                 'subjectIdentifier' => '42',
+                'subjectName'       => 'Mr John SMITH',
                 'version'           => $termsVersion2,
             ]
         );
@@ -47,6 +49,7 @@ final class TermsVersionSignatureFixtures extends AbstractFixture implements Dep
                 'date'              => new \DateTime(),
                 'subjectType'       => 'user',
                 'subjectIdentifier' => '43',
+                'subjectName'       => 'Mr Elthon JOHN',
                 'version'           => $termsVersion1,
             ]
         );
@@ -58,6 +61,7 @@ final class TermsVersionSignatureFixtures extends AbstractFixture implements Dep
                 'date'              => new \DateTime(),
                 'subjectType'       => 'user',
                 'subjectIdentifier' => '43',
+                'subjectName'       => 'Mr Elthon JOHN',
                 'version'           => $termsVersion2,
             ]
         );
@@ -69,6 +73,7 @@ final class TermsVersionSignatureFixtures extends AbstractFixture implements Dep
                 'date'              => new \DateTime(),
                 'subjectType'       => 'user',
                 'subjectIdentifier' => '43',
+                'subjectName'       => 'Mr Elthon JOHN',
                 'version'           => $termsVersion3,
             ]
         );
@@ -80,6 +85,7 @@ final class TermsVersionSignatureFixtures extends AbstractFixture implements Dep
                 'date'              => new \DateTime(),
                 'subjectType'       => 'user',
                 'subjectIdentifier' => 'my_user_2',
+                'subjectName'       => 'Mr Test TEST',
                 'version'           => $termsVersion4,
             ]
         );

@@ -11,4 +11,6 @@ interface TermsGuardInterface
     public function supports(string $slug, TermsSubjectInterface $subject): bool;
 
     public function check(string $slug, TermsSubjectInterface $subject): bool;
+
+    public function getSubjectName(TermsSubjectInterface $subject): ?string;
 }

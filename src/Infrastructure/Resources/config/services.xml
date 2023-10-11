@@ -26,6 +26,8 @@
         <service id="RichId\TermsModuleBundle\Domain\Fetcher\GetLastPublishedTermsVersion" />
         <service id="RichId\TermsModuleBundle\Domain\Fetcher\GetTermsVersionToSign" />
 
+        <service id="RichId\TermsModuleBundle\Domain\Guard\TermsGuardManager" />
+
         <service id="RichId\TermsModuleBundle\Domain\Port\EntityRecoderInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\EntityRecorder"/>
         <service id="RichId\TermsModuleBundle\Domain\Port\EntityRemoverInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\EntityRemover"/>
         <service id="RichId\TermsModuleBundle\Domain\Port\EventDispatcherInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\EventDispatcher"/>
@@ -34,6 +36,7 @@
         <service id="RichId\TermsModuleBundle\Domain\Port\SecurityInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\Security"/>
         <service id="RichId\TermsModuleBundle\Domain\Port\TermsRepositoryInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\TermsRepository"/>
         <service id="RichId\TermsModuleBundle\Domain\Port\TermsVersionRepositoryInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\TermsVersionRepository"/>
+        <service id="RichId\TermsModuleBundle\Domain\Port\TranslatorInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\Translator"/>
         <service id="RichId\TermsModuleBundle\Domain\Port\ValidatorInterface" alias="RichId\TermsModuleBundle\Infrastructure\Adapter\Validator"/>
 
         <service id="RichId\TermsModuleBundle\Domain\Pdf\TermsVersionSignaturePdfChromiumGenerator" />
@@ -65,6 +68,7 @@
         <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\Security" />
         <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\TermsRepository" />
         <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\TermsVersionRepository" />
+        <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\Translator" />
         <service id="RichId\TermsModuleBundle\Infrastructure\Adapter\Validator" />
         <service id="RichId\TermsModuleBundle\Infrastructure\Repository\TermsRepository" />
         <service id="RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionRepository" />

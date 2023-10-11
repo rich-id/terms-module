@@ -21,6 +21,7 @@ class TermsVersionSignatureRepository extends ServiceEntityRepository
         parent::__construct($registry, TermsVersionSignature::class);
     }
 
+    /** @return Paginator<TermsVersionSignature> */
     public function findForSearch(SignatureListForm $data): Paginator
     {
         $offset = ($data->getPage() - 1) * $data->getNumberItemsPerPage();

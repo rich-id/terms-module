@@ -36,6 +36,7 @@ terms_module.pdf_signature.placeholder.terms: Filtrer par CG
 terms_module.pdf_signature.signatory: Signataire
 terms_module.pdf_signature.signatory_title: Signataire
 terms_module.pdf_signature.subject: Sujet signature
+terms_module.pdf_signature.subject_not_found: Inconnu
 terms_module.pdf_signature.terms_name: Nom de la CG
 terms_module.pdf_signature.terms_signed_date: Signée le
 terms_module.pdf_signature.terms_signed_title: CG signée

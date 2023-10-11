@@ -148,7 +148,7 @@ class TermsVersionSignature
         return $this->version;
     }
 
-    public function setSignedBy(string $signedBy): self
+    public function setSignedBy(?string $signedBy): self
     {
         $this->signedBy = $signedBy;
 
@@ -165,7 +165,7 @@ class TermsVersionSignature
         return $this->signedByName;
     }
 
-    public function setSignedByName(string $signedByName): self
+    public function setSignedByName(?string $signedByName): self
     {
         $this->signedByName = $signedByName;
 

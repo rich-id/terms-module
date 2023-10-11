@@ -59,6 +59,7 @@ final class TermsVersionSignatureTest extends TestCase
         $entity1->setVersion($termsVersion);
         $entity1->setSubjectType('user');
         $entity1->setSubjectIdentifier('42');
+        $entity1->setSubjectName('Mr John SMITH');
         $entity1->setDate(new \DateTime());
 
         $this->getManager()->persist($entity1);
@@ -70,6 +71,7 @@ final class TermsVersionSignatureTest extends TestCase
         $entity2->setVersion($termsVersion);
         $entity2->setSubjectType('user');
         $entity2->setSubjectIdentifier('42');
+        $entity2->setSubjectName('Mr John SMITH');
         $entity2->setDate(new \DateTime());
 
         $this->getManager()->persist($entity2);

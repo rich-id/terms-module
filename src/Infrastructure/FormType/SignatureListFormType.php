@@ -43,7 +43,7 @@ class SignatureListFormType extends AbstractType
                     'placeholder'        => 'terms_module.pdf_signature.placeholder.terms',
                     'translation_domain' => 'terms_module',
                     'label'              => false,
-                    'query_builder'      => function (EntityRepository $er) {
+                    'query_builder'      => static function (EntityRepository $er) {
                         return $er->createQueryBuilder('t')->orderBy('t.name', 'ASC');
                     },
                 ]
