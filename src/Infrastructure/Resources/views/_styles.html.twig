@@ -69,12 +69,14 @@
 
     .terms-module-button-primary:disabled,
     .terms-module-button-primary:hover:disabled {
+        color: var(--terms-module-white);
         background: var(--terms-module-primary);
         cursor: not-allowed;
         opacity: 0.25;
     }
 
     .terms-module-button-primary:hover {
+        color: var(--terms-module-white);
         background: var(--terms-module-primary);
         background-image: linear-gradient(rgba(0, 0, 0, 0.1) 0 0);
         cursor: pointer;
@@ -160,6 +162,21 @@
         text-decoration: none;
     }
 
+    .terms-module-button-picto {
+        align-items: center;
+        display: flex;
+        height: 32px;
+        justify-content: center;
+        padding: 0;
+        text-align: center;
+        width: 32px;
+    }
+
+    .terms-module-button-picto i {
+        font-size: 13px;
+        margin: 0;
+        padding: 0;
+    }
     .terms-module-action-space {
         margin: 7px;
     }
@@ -229,6 +246,10 @@
         color: var(--terms-module-secondary);
         content: '*';
         padding-left: 6px;
+    }
+
+    .form-fields-40 .terms-module-form-field-input {
+        height: 40px;
     }
 
     .terms-module-form-field-input {
@@ -322,6 +343,52 @@
         top: 50%;
         transform: translateX(-50%) translateY(-50%);
         width: 100px;
+    }
+
+    .terms-pagination {
+        display: flex;
+        padding-left: 0;
+        list-style: none;
+    }
+
+    .terms-pagination li {
+        color: var(--terms-module-primary);
+        display: block;
+        position: relative;
+        text-decoration: none;
+    }
+
+    .terms-pagination li:not(:first-child) .page-link {
+        margin-left: -1px;
+    }
+
+    .terms-pagination li .page-link, .terms-pagination li .pagination-counter {
+        align-items: center;
+        background: #ffffff;
+        border: 1px solid var(--terms-module-form-field-placeholder);
+        display: flex;
+        font-size: 11px;
+        font-weight: 600;
+        height: 32px;
+        justify-content: center;
+        line-height: 16px;
+        padding: 0;
+        width: 32px;
+    }
+
+    .terms-pagination li.disabled,
+    .terms-pagination li.disabled i.picto {
+        color: #b9b9b9;
+    }
+
+    .terms-pagination li.current .page-link {
+        background: var(--terms-module-primary);
+        border-color: var(--terms-module-primary);
+        color: #ffffff;
+    }
+
+    .terms-pagination li:not(.disabled):not(.current) .page-link:hover {
+        cursor: pointer;
     }
 
     @keyframes rotatePreloader {

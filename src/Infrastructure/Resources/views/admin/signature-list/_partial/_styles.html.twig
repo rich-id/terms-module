@@ -1,20 +1,52 @@
 <style>
-    table {
-        border-collapse: collapse;
-        font-size: 14px;
-        width: 100%;
+    .terms-row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -16px;
     }
 
-    table th {
+    .row-header {
         color: var(--terms-module-gray);
         font-weight: bold;
+        padding-bottom: 10px;
     }
 
-    table tbody tr td {
-        min-height: 64px;
+    .terms-row .terms-col {
+        padding: 0 16px;
+        width: 25%;
     }
 
-    .terms-module-admin-edition-terms-name {
+    .terms-row:not(.row-header) .terms-col {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        min-height: 40px;
+    }
+
+    .terms-row.row-header .terms-col {
+        background: none;
+        border: none;
+        letter-spacing: normal;
+        text-align: left;
+        display: flex;
+        align-items: center;
+    }
+
+    .terms-row.row-header .terms-col.terms-hidden {
+        display: none;
+    }
+
+    .terms-row.row-header .terms-col i {
+        margin-left: 4px;
+        font-size: 14px;
+    }
+
+    .terms-row .terms-col.terms-col-pad {
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+
+    .terms-module-admin-signature-list-title {
         color: var(--terms-module-dark);
         font-size: 24px;
         font-weight: bold;
@@ -24,47 +56,141 @@
         text-align: center;
     }
 
-    .terms-module-admin-terms-card {
+    .terms-list .terms-row:nth-child(odd) {
+        background: #fbfbfb;
+    }
+
+    .fw-bold {
+        font-weight: bold;
+    }
+
+    .ft-14 {
+        font-weight: 14px;
+    }
+
+    .flex-space-between {
         align-items: center;
-        border-radius: var(--terms-module-button-border-radius);
-        border: 1px solid var(--terms-module-gray);
-        box-shadow: none;
-        color: var(--terms-module-dark);
         display: flex;
-        font-family: var(--terms-module-admin-font-family);
-        font-size: 16px;
         justify-content: space-between;
-        line-height: 24px;
-        outline: none;
-        padding: 14px 25px;
-        text-decoration: none !important;
+        width: 100%;
     }
 
-    .terms-module-admin-terms-card * {
-        box-shadow: none;
-        color: var(--terms-module-dark);
-        outline: none;
-        text-decoration: none !important;
+    .download-button {
+        margin-left: 16px;
     }
 
-    .terms-module-admin-terms-card + .terms-module-admin-terms-card {
-        margin-top: 15px;
-    }
-
-    .terms-module-admin-terms-card:hover {
-        box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
-        cursor: pointer;
-    }
-
-    .terms-module-admin-terms-card-status {
-        align-items: center;
+    .form-filters {
         display: flex;
-        justify-content: flex-end;
-        min-width: 50px;
-        width: 50px;
+        flex-wrap: wrap;
+        margin: 0 -16px;
+        padding-bottom: 16px;
     }
 
-    .d-flex {
+    .form-filter-search,
+    .form-filter-terms {
+        padding: 0 16px;
+        width: 100%;
+    }
+
+    .terms-module-form-field-inline .terms-module-form-field-container {
         display: flex;
+        flex-direction: row-reverse;
+    }
+
+    .terms-module-form-field-inline .terms-module-form-field-container label {
+        font-size: 13px;
+        margin-right: 8px;
+    }
+
+    .terms-module-form-field-no-star .terms-module-form-field-container label:after {
+        display: none;
+    }
+
+    .terms-module-form-field-label-gray .terms-module-form-field-container label {
+        color: var(--terms-module-gray);
+        font-weight: bold;
+    }
+
+    .list-footer {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .list-footer .list-footer-pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 32px;
+        width: 100%;
+    }
+
+    .list-footer .list-footer-number {
+        display: flex;
+        justify-content: center;
+        margin-top: 32px;
+        width: 100%;
+    }
+
+    @media(min-width: 1024px) {
+        .terms-module-admin-signature-list-body {
+            padding: 30px 40px;
+        }
+
+        .terms-row.row-header .terms-col.terms-hidden.terms-show-lg {
+            display: flex;
+        }
+
+        .with-separator {
+            position: relative;
+        }
+
+        .with-separator:before {
+            background: var(--terms-module-form-field-placeholder);
+            content: " ";
+            display: block;
+            height: 32px;
+            left: 0;
+            position: absolute;
+            width: 1px;
+        }
+
+        .terms-row:not(.row-header) .terms-col {
+            min-height: 64px;
+        }
+
+        .form-filter-search {
+            width: 60%;
+        }
+
+        .form-filter-terms {
+            width: 40%;
+        }
+
+        .list-footer .list-footer-pagination {
+            display: flex;
+            justify-content: flex-start;
+            margin-top: 32px;
+            width: 60%;
+        }
+
+        .list-footer .list-footer-number {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 32px;
+            width: 40%;
+        }
+    }
+
+    @media(max-width: 1023px) {
+        .terms-col[data-column]:before {
+            color: var(--terms-module-gray);
+            content: attr(data-column);
+            font-weight: bold;
+            padding-right: 8px;
+            white-space: nowrap;
+        }
+
+        .terms-col.terms-col-body {
+            width: 100%;
+        }
     }
 </style>

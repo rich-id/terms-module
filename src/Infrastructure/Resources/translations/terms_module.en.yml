@@ -27,9 +27,16 @@ terms_module.log.terms_signed: 'A decision has been made for the terms %terms_sl
 
 terms_module.pdf_signature.content_title: Term content
 terms_module.pdf_signature.current_date: Trace download on
+terms_module.pdf_signature.date: Signature date
 terms_module.pdf_signature.editor_title: Editor
 terms_module.pdf_signature.filename: signature-certificate.pdf
+terms_module.pdf_signature.placeholder.number_items_per_page: 'Nb. per page :'
+terms_module.pdf_signature.placeholder.search: Search a signatory...
+terms_module.pdf_signature.placeholder.terms: Filtrer par term
+terms_module.pdf_signature.signatory: Signatory
 terms_module.pdf_signature.signatory_title: Signatory
+terms_module.pdf_signature.subject: Signature subject
+terms_module.pdf_signature.terms_name: Terms name
 terms_module.pdf_signature.terms_signed_date: Signed the
 terms_module.pdf_signature.terms_signed_title: Term signed
 terms_module.pdf_signature.title: Online signature certificate

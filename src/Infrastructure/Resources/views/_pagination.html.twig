@@ -1,0 +1,49 @@
+{% spaceless %}
+    {% if nbPages > 1 %}
+        <nav>
+            <ul class="terms-pagination">
+                <li class="{% if currentPage == 1 %}disabled{% endif %}">
+                    <button type="button" class="page-link" {% if currentPage == 1 %}disabled="disabled"{% endif %} onclick="paginationGoTo({{ currentPage }} - 1)">
+                        <i class="icon-arrow_back picto"></i>
+                    </button>
+                </li>
+
+                {% for i in 1..nbPages %}
+                    {% if 0 == (currentPage - 3) - loop.index %}
+                        <li>
+                            <button type="button" class="page-link" onclick="paginationGoTo(1)">1</button>
+                        </li>
+
+                        {% if 1 != loop.index %}
+                            <li class="disabled"><span class="page-numbers page-link">...</span></li>
+                        {% endif %}
+                    {% elseif 0 == (currentPage + 3) - loop.index  and (currentPage + 3) < nbPages %}
+                        <li class="disabled"><span class="page-numbers page-link">...</span></li>
+                    {% elseif 0 < (currentPage - 3) - loop.index %}
+                    {% elseif 0 > (currentPage + 3) - loop.index %}
+                    {% else %}
+                        {% if currentPage == loop.index %}
+                            <li class="current"><span class="page-numbers current page-link" aria-current="page">{{ loop.index }}</span></li>
+                        {% else %}
+                            <li>
+                                <button type="button" class="page-link" onclick="paginationGoTo({{ loop.index }})">{{ loop.index }}</button>
+                            </li>
+                        {% endif %}
+
+                    {% endif %}
+                {% endfor %}
+                {% if currentPage != nbPages  and (currentPage + 3) < nbPages %}
+                    <li>
+                        <button type="button" class="page-link" onclick="paginationGoTo({{ nbPages }})">{{ nbPages }}</button>
+                    </li>
+                {% endif %}
+
+                <li class="{% if currentPage >= nbPages %}disabled{% endif %}">
+                    <button type="button" class="page-link" {% if currentPage >= nbPages %}disabled="disabled"{% endif %} onclick="paginationGoTo({{ currentPage }} + 1)">
+                        <i class="icon-arrow_forward picto"></i>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    {% endif %}
+{% endspaceless %}
