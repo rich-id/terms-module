@@ -39,7 +39,7 @@ class SignatureListAdminRoute extends AbstractController
         TermsVersionSignaturePdfGeneratorManager $termsVersionSignaturePdfGeneratorManager,
         SecurityInterface $security,
         RequestStack $requestStack,
-        FormFactoryInterface  $formFactory
+        FormFactoryInterface $formFactory
     ) {
         $this->termsVersionSignatureRepository = $termsVersionSignatureRepository;
         $this->termsVersionSignaturePdfGeneratorManager = $termsVersionSignaturePdfGeneratorManager;
@@ -64,9 +64,9 @@ class SignatureListAdminRoute extends AbstractController
                 'canDownloadPdf' => $this->security->getUser() instanceof TermsUserInterface && $this->termsVersionSignaturePdfGeneratorManager->hasConfiguredGenerator(),
                 'form'           => $form->createView(),
                 'nbPages'        => \ceil($paginator->count() / $data->getNumberItemsPerPage()),
-                'currentPage'   => $data->getPage(),
-                'sort'          => $data->getSort(),
-                'sortDirection' => $data->getSortDirection(),
+                'currentPage'    => $data->getPage(),
+                'sort'           => $data->getSort(),
+                'sortDirection'  => $data->getSortDirection(),
             ]
         );
     }

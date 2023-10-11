@@ -32,7 +32,7 @@ class TermsVersionSignatureRepository extends ServiceEntityRepository
 
         if (!empty($data->getSearch())) {
             $qb->andWhere($qb->expr()->like('LOWER(s.signedByName)', ':search'))
-                ->setParameter('search', '%' . \addslashes(\mb_strtolower($data->getSearch())) . '%');
+                ->setParameter('search', '%' . \addslashes(mb_strtolower($data->getSearch())) . '%');
         }
 
         if ($data->getTerms() !== null) {
