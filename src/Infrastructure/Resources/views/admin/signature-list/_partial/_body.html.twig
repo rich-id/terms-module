@@ -4,7 +4,7 @@
 <div class="terms-module-admin-body terms-module-admin-signature-list-body">
     <div class="terms-module-admin-signature-list-title">{{ 'terms_module.admin.signature_list'|trans({}, 'terms_module') }}</div>
 
-    {{ form_start(form) }}
+    {{ form_start(form, {'attr': {'onsubmit': 'formSubmit()'}}) }}
     <div class="form-fields-40 form-filters">
         <div class="form-filter-search">{{ form_row(form.search) }}</div>
         <div class="form-filter-terms">{{ form_row(form.terms) }}</div>
@@ -148,6 +148,12 @@
     window.setSort = function (sort, sortDirection) {
         window.termsInitialSort = sort;
         window.termsInitialSortDirection = sortDirection;
+
+        newSearch();
+    }
+
+    windown.formSubmit = function (e) {
+        e.preventDefault();
 
         newSearch();
     }
