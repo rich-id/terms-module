@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace RichId\TermsModuleBundle\Domain\UseCase;
 
 use RichId\TermsModuleBundle\Domain\Entity\TermsSubjectInterface;
+use RichId\TermsModuleBundle\Domain\Entity\TermsUserInterface;
 use RichId\TermsModuleBundle\Domain\Event\TermsSignedEvent;
 use RichId\TermsModuleBundle\Domain\Factory\TermsVersionSignatureFactory;
 use RichId\TermsModuleBundle\Domain\Fetcher\GetTermsVersionToSign;
@@ -44,12 +45,12 @@ class SignTerms
         $this->getTermsVersionToSign = $getTermsVersionToSign;
     }
 
-    public function __invoke(string $termsSlug, TermsSubjectInterface $subject, ?bool $accepted): Response
+    public function __invoke(string $termsSlug, TermsSubjectInterface $subject, ?bool $accepted, ?TermsUserInterface $signatory = null): Response
     {
         $lastVersion = ($this->getTermsVersionToSign)($termsSlug, $subject);
 
         if ($accepted === true) {
-            $signature = ($this->termsVersionSignatureFactory)($lastVersion, $subject);
+            $signature = ($this->termsVersionSignatureFactory)($lastVersion, $subject, $signatory);
             $this->entityRecoder->saveSignature($signature);
         }
 

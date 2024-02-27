@@ -30,13 +30,14 @@ class TermsVersionSignatureFactory
         $this->termsGuardManager = $termsGuardManager;
     }
 
-    public function __invoke(TermsVersion $version, TermsSubjectInterface $subject): TermsVersionSignature
+    public function __invoke(TermsVersion $version, TermsSubjectInterface $subject, ?TermsUserInterface $signatory = null): TermsVersionSignature
     {
         $guard = $this->termsGuardManager->getGuardFor($version->getTerms()->getSlug() ?? '', $subject);
         $subjectName = $guard !== null ? $guard->getSubjectName($subject) : null;
         $subjectName = $subjectName ?? $this->translator->trans('terms_module.pdf_signature.subject_not_found', [], 'terms_module');
 
         $user = $this->security->getUser();
+        $signatory = $signatory ?? $user;
 
         $entity = new TermsVersionSignature();
 
@@ -50,9 +51,9 @@ class TermsVersionSignatureFactory
             $entity->setSignedBy($user->getUsername());
         }
 
-        if ($user instanceof TermsUserInterface) {
-            $entity->setSignedByName($user->getTermsDisplayName());
-            $entity->setSignedByNameForSort($user->getTermsDisplayNameForSort());
+        if ($signatory instanceof TermsUserInterface) {
+            $entity->setSignedByName($signatory->getTermsDisplayName());
+            $entity->setSignedByNameForSort($signatory->getTermsDisplayNameForSort());
         }
 
         return $entity;
