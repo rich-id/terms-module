@@ -9,13 +9,13 @@ use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Exception\CannotAddVersionToTermsException;
 use RichId\TermsModuleBundle\Domain\UseCase\CreateTermsVersion;
 use RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class AddTermsVersionRoute extends AbstractController
 {
@@ -38,21 +38,21 @@ class AddTermsVersionRoute extends AbstractController
         $this->requestStack = $requestStack;
     }
 
-    /** @IsGranted("MODULE_TERMS_ADMIN") */
+    #[IsGranted('MODULE_TERMS_ADMIN')]
     public function __invoke(Terms $terms): Response
     {
         $currentVersion = $this->getTermsVersion($terms);
 
         if ($currentVersion === null) {
-            return JsonResponse::create('The terms has no version.', Response::HTTP_UNAUTHORIZED);
+            return new JsonResponse('The terms has no version.', Response::HTTP_UNAUTHORIZED);
         }
 
         try {
             ($this->createTermsVersion)($currentVersion);
 
-            return JsonResponse::create(null, Response::HTTP_CREATED);
+            return new JsonResponse(null, Response::HTTP_CREATED);
         } catch (CannotAddVersionToTermsException $e) {
-            return JsonResponse::create($e->getMessage(), Response::HTTP_UNAUTHORIZED);
+            return new JsonResponse($e->getMessage(), Response::HTTP_UNAUTHORIZED);
         }
     }
 

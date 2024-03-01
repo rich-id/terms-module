@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\Domain\Fetcher;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Exception\AlreadySignLastTermsVersionException;
@@ -14,10 +14,8 @@ use RichId\TermsModuleBundle\Domain\Exception\TermsHasNoPublishedVersionExceptio
 use RichId\TermsModuleBundle\Domain\Fetcher\GetTermsVersionToSign;
 use RichId\TermsModuleBundle\Domain\Model\DummySubject;
 
-/**
- * @covers \RichId\TermsModuleBundle\Domain\Fetcher\GetTermsVersionToSign
- * @TestConfig("fixtures")
- */
+/** @covers \RichId\TermsModuleBundle\Domain\Fetcher\GetTermsVersionToSign */
+#[TestConfig('fixtures')]
 final class GetTermsVersionToSignTest extends TestCase
 {
     /** @var GetTermsVersionToSign */

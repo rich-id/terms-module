@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-/** @Annotation */
+#[\Attribute(\Attribute::TARGET_CLASS)]
 class CantEnableVersionIfAlreadyEnabled extends Constraint implements ConstraintValidatorInterface
 {
     public const MESSAGE = 'terms_edition.validation.cant_enable_version_if_already_enabled';

@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\Domain\UseCase;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Model\DummySubject;
 use RichId\TermsModuleBundle\Domain\UseCase\GenerateSigningRoute;
 
-/**
- * @covers \RichId\TermsModuleBundle\Domain\UseCase\GenerateSigningRoute
- * @TestConfig("kernel")
- */
+/** @covers \RichId\TermsModuleBundle\Domain\UseCase\GenerateSigningRoute */
+#[TestConfig('kernel')]
 final class GenerateSigningRouteTest extends TestCase
 {
     /** @var GenerateSigningRoute */

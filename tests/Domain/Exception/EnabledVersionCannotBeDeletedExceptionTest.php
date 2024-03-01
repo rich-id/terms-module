@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\Domain\Exception;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Exception\EnabledVersionCannotBeDeletedException;
 use RichId\TermsModuleBundle\Domain\Exception\TermsModuleException;
 
-/**
- * @covers \RichId\TermsModuleBundle\Domain\Exception\EnabledVersionCannotBeDeletedException
- * @TestConfig("fixtures")
- */
+/** @covers \RichId\TermsModuleBundle\Domain\Exception\EnabledVersionCannotBeDeletedException */
+#[TestConfig('fixtures')]
 final class EnabledVersionCannotBeDeletedExceptionTest extends TestCase
 {
     public function testException(): void

@@ -7,7 +7,7 @@ namespace RichId\TermsModuleBundle\Infrastructure\Adapter;
 use Psr\Log\LoggerInterface as PsrLogger;
 use RichId\TermsModuleBundle\Domain\Entity\TermsSubjectInterface;
 use RichId\TermsModuleBundle\Domain\Port\LoggerInterface;
-use Symfony\Component\Security\Core\Security;
+use \Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class Logger implements LoggerInterface

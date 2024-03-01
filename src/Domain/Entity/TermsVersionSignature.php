@@ -5,87 +5,47 @@ declare(strict_types=1);
 namespace RichId\TermsModuleBundle\Domain\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionSignatureRepository;
 
-/**
- * @ORM\Entity(repositoryClass="RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionSignatureRepository")
- * @ORM\Table(
- *     name="module_terms_terms_version_signature",
- *     uniqueConstraints={
- *         @ORM\UniqueConstraint(name="module_terms_terms_version_signature_UNIQUE", columns={"subject_type", "subject_identifier", "version_id"})
- *     }
- * )
- */
+
+#[ORM\Entity(repositoryClass: TermsVersionSignatureRepository::class)]
+#[ORM\Table(name: 'module_terms_terms_version_signature')]
+#[ORM\UniqueConstraint(name: 'module_terms_terms_version_signature_UNIQUE', columns: ['subject_type', 'subject_identifier', 'version_id'])]
 class TermsVersionSignature
 {
-    /**
-     * @var int
-     *
-     * @ORM\Id
-     * @ORM\Column(type="integer", name="id", options={"unsigned":true})
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
+    #[ORM\Id]
+    #[ORM\Column(name: 'id', type: 'integer', options: ['unsigned' => true])]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    protected int $id;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", nullable=false, name="date")
-     */
-    protected $date;
+    #[ORM\Column(name: 'date', type: 'datetime', nullable: false)]
+    protected \DateTime $date;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=false, length=255, name="subject_type")
-     */
-    protected $subjectType;
+    #[ORM\Column(name: 'subject_type', type: 'string', length: 255, nullable: false)]
+    protected string $subjectType;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=false, length=255, name="subject_identifier")
-     */
-    protected $subjectIdentifier;
+    #[ORM\Column(name: 'subject_identifier', type: 'string', length: 255, nullable: false)]
+    protected string $subjectIdentifier;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=false, length=255, name="subject_name")
-     */
-    protected $subjectName;
+    #[ORM\Column(name: 'subject_name', type: 'string', length: 255, nullable: false)]
+    protected string $subjectName;
 
-    /**
-     * @var TermsVersion
-     *
-     * @ORM\ManyToOne(targetEntity="RichId\TermsModuleBundle\Domain\Entity\TermsVersion", inversedBy="signatures")
-     * @ORM\JoinColumn(name="version_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
-     */
-    protected $version;
+    #[ORM\ManyToOne(targetEntity: TermsVersion::class, inversedBy: 'signatures')]
+    #[ORM\JoinColumn(name: 'version_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
+    protected TermsVersion $version;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(type="string", nullable=true, length=255, name="signed_by")
-     */
-    protected $signedBy;
+    #[ORM\Column(name: 'signed_by', type: 'string', length: 255, nullable: true)]
+    protected ?string $signedBy = null;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(type="string", nullable=true, length=255, name="signed_by_name")
-     */
-    protected $signedByName;
+    #[ORM\Column(name: 'signed_by_name', type: 'string', length: 255, nullable: true)]
+    protected ?string $signedByName = null;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(type="string", nullable=true, length=255, name="signed_by_name_for_sort")
-     */
-    protected $signedByNameForSort;
+    #[ORM\Column(name: 'signed_by_name_for_sort', type: 'string', length: 255, nullable: true)]
+    protected ?string $signedByNameForSort = null;
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->id ?? null;
     }
 
     public function setDate(\DateTime $date): self
@@ -97,7 +57,7 @@ class TermsVersionSignature
 
     public function getDate(): ?\DateTime
     {
-        return $this->date;
+        return $this->date ?? null;
     }
 
     public function setSubjectType(string $subjectType): self
@@ -109,7 +69,7 @@ class TermsVersionSignature
 
     public function getSubjectType(): ?string
     {
-        return $this->subjectType;
+        return $this->subjectType ?? null;
     }
 
     public function setSubjectIdentifier(string $subjectIdentifier): self
@@ -121,7 +81,7 @@ class TermsVersionSignature
 
     public function getSubjectIdentifier(): ?string
     {
-        return $this->subjectIdentifier;
+        return $this->subjectIdentifier ?? null;
     }
 
     public function getSubjectName(): string
@@ -145,7 +105,7 @@ class TermsVersionSignature
 
     public function getVersion(): ?TermsVersion
     {
-        return $this->version;
+        return $this->version ?? null;
     }
 
     public function setSignedBy(?string $signedBy): self

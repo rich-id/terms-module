@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-/** @Annotation */
+#[\Attribute(\Attribute::TARGET_CLASS)]
 class CantContentChangeIfTermsPublished extends Constraint implements ConstraintValidatorInterface
 {
     public const MESSAGE = 'terms_edition.validation.cant_content_change_if_terms_published';

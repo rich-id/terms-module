@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\Infrastructure\Adapter;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Model\DummySubject;
 use RichId\TermsModuleBundle\Infrastructure\Adapter\Logger;
@@ -12,10 +12,8 @@ use RichId\TermsModuleBundle\Tests\Resources\Entity\DummyUser;
 use RichId\TermsModuleBundle\Tests\Resources\Fixtures\DummyUserFixtures;
 use RichId\TermsModuleBundle\Tests\Resources\Stubs\LoggerStub;
 
-/**
- * @covers \RichId\TermsModuleBundle\Infrastructure\Adapter\Logger
- * @TestConfig("fixtures")
- */
+/** @covers \RichId\TermsModuleBundle\Infrastructure\Adapter\Logger */
+#[TestConfig('fixtures')]
 final class LoggerTest extends TestCase
 {
     /** @var Logger */

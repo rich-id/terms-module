@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\Domain\Factory;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
@@ -13,10 +13,8 @@ use RichId\TermsModuleBundle\Domain\Model\DummySubject;
 use RichId\TermsModuleBundle\Tests\Resources\Entity\DummyUser;
 use RichId\TermsModuleBundle\Tests\Resources\Fixtures\DummyUserFixtures;
 
-/**
- * @covers \RichId\TermsModuleBundle\Domain\Factory\TermsVersionSignatureFactory
- * @TestConfig("fixtures")
- */
+/** @covers \RichId\TermsModuleBundle\Domain\Factory\TermsVersionSignatureFactory */
+#[TestConfig('fixtures')]
 final class TermsVersionSignatureFactoryTest extends TestCase
 {
     /** @var TermsVersionSignatureFactory */

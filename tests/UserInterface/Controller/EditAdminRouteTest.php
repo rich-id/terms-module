@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\UserInterface\Controller;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\ControllerTestCase;
 use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
@@ -13,10 +13,8 @@ use RichId\TermsModuleBundle\Tests\Resources\Entity\DummyUser;
 use RichId\TermsModuleBundle\Tests\Resources\Fixtures\DummyUserFixtures;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * @covers \RichId\TermsModuleBundle\UserInterface\Controller\EditAdminRoute
- * @TestConfig("fixtures")
- */
+/** @covers \RichId\TermsModuleBundle\UserInterface\Controller\EditAdminRoute */
+#[TestConfig('fixtures')]
 final class EditAdminRouteTest extends ControllerTestCase
 {
     public function testRouteNotLogged(): void
@@ -233,7 +231,8 @@ final class EditAdminRouteTest extends ControllerTestCase
                         'needVersionActivation' => '',
                         '_token'                => $this->getCsrfToken(TermsVersionFormType::class),
                     ],
-                ]
+                ],
+                isJson: false
             );
 
         $this->assertSame(Response::HTTP_FOUND, $response->getStatusCode());
@@ -274,7 +273,8 @@ final class EditAdminRouteTest extends ControllerTestCase
                         'needVersionActivation' => '',
                         '_token'                => $this->getCsrfToken(TermsVersionFormType::class),
                     ],
-                ]
+                ],
+                isJson: false
             );
 
         $this->assertSame(Response::HTTP_FOUND, $response->getStatusCode());
@@ -315,7 +315,8 @@ final class EditAdminRouteTest extends ControllerTestCase
                         'needVersionActivation' => '',
                         '_token'                => $this->getCsrfToken(TermsVersionFormType::class),
                     ],
-                ]
+                ],
+                isJson: false
             );
 
         $this->assertSame(Response::HTTP_FOUND, $response->getStatusCode());
@@ -349,7 +350,8 @@ final class EditAdminRouteTest extends ControllerTestCase
                         'needVersionActivation' => '',
                         '_token'                => $this->getCsrfToken(TermsVersionFormType::class),
                     ],
-                ]
+                ],
+                isJson: false
             );
 
         $this->assertSame(Response::HTTP_OK, $response->getStatusCode());
@@ -381,7 +383,8 @@ final class EditAdminRouteTest extends ControllerTestCase
                         'needVersionActivation' => '',
                         '_token'                => $this->getCsrfToken(TermsVersionFormType::class),
                     ],
-                ]
+                ],
+                isJson: false
             );
 
         $this->assertSame(Response::HTTP_OK, $response->getStatusCode());
@@ -412,7 +415,8 @@ final class EditAdminRouteTest extends ControllerTestCase
                         'needVersionActivation' => '',
                         '_token'                => $this->getCsrfToken(TermsVersionFormType::class),
                     ],
-                ]
+                ],
+                isJson: false
             );
 
         $this->assertSame(Response::HTTP_FOUND, $response->getStatusCode());
@@ -475,7 +479,8 @@ final class EditAdminRouteTest extends ControllerTestCase
                         'needVersionActivation' => '1',
                         '_token'                => $this->getCsrfToken(TermsVersionFormType::class),
                     ],
-                ]
+                ],
+                isJson: false
             );
 
         $this->assertSame(Response::HTTP_FOUND, $response->getStatusCode());

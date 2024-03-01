@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\UserInterface\Controller;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\ControllerTestCase;
 use RichId\TermsModuleBundle\Domain\Event\TermsSignedEvent;
 use RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionSignatureRepository;
@@ -18,9 +18,8 @@ use Symfony\Component\HttpFoundation\Response;
  * @covers \RichId\TermsModuleBundle\UserInterface\Controller\SignRoute
  * @covers \RichId\TermsModuleBundle\Domain\Fetcher\GetTermsVersionToSign
  * @covers \RichId\TermsModuleBundle\Domain\UseCase\SignTerms
- *
- * @TestConfig("fixtures")
  */
+#[TestConfig('fixtures')]
 final class SignRouteTest extends ControllerTestCase
 {
     /** @var LoggerStub */
@@ -261,7 +260,8 @@ final class SignRouteTest extends ControllerTestCase
                 ],
                 [
                     'accepted' => '',
-                ]
+                ],
+                isJson: false
             );
 
         $this->assertSame(Response::HTTP_FOUND, $response->getStatusCode());
@@ -341,7 +341,8 @@ final class SignRouteTest extends ControllerTestCase
                 ],
                 [
                     'accepted' => 1,
-                ]
+                ],
+                isJson: false
             );
 
         $this->assertSame(Response::HTTP_FOUND, $response->getStatusCode());
@@ -381,7 +382,8 @@ final class SignRouteTest extends ControllerTestCase
                 ],
                 [
                     'accepted' => '',
-                ]
+                ],
+                isJson: false
             );
 
         $this->assertSame(Response::HTTP_FOUND, $response->getStatusCode());
@@ -467,7 +469,8 @@ final class SignRouteTest extends ControllerTestCase
                 ],
                 [
                     'accepted' => 1,
-                ]
+                ],
+                isJson: false
             );
 
         $this->assertSame(Response::HTTP_FOUND, $response->getStatusCode());

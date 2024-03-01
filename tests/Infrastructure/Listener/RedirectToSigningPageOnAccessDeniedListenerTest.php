@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\Infrastructure\Listener;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * @covers \RichId\TermsModuleBundle\Infrastructure\Listener\RedirectToSigningPageOnAccessDeniedListener
- * @TestConfig("kernel")
- */
+/** @covers \RichId\TermsModuleBundle\Infrastructure\Listener\RedirectToSigningPageOnAccessDeniedListener */
+#[TestConfig('kernel')]
 final class RedirectToSigningPageOnAccessDeniedListenerTest extends TestCase
 {
     public function testControllerThrowSubjectNeedToSignTermsException(): void

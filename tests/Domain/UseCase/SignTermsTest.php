@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\Domain\UseCase;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Event\TermsSignedEvent;
 use RichId\TermsModuleBundle\Domain\Exception\AlreadySignLastTermsVersionException;
@@ -20,10 +20,8 @@ use RichId\TermsModuleBundle\Tests\Resources\Stubs\EventDispatcherStub;
 use RichId\TermsModuleBundle\Tests\Resources\Stubs\LoggerStub;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * @covers \RichId\TermsModuleBundle\Domain\UseCase\SignTerms
- * @TestConfig("fixtures")
- */
+/** @covers \RichId\TermsModuleBundle\Domain\UseCase\SignTerms */
+#[TestConfig('fixtures')]
 final class SignTermsTest extends TestCase
 {
     /** @var SignTerms */

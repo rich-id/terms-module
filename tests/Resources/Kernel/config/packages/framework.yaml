@@ -2,6 +2,6 @@ framework:
     test: true
     secret: 'ThisIsASecret'
     session:
-        handler_id: session.handler.native_file
-        storage_id: session.storage.mock_file
+        handler_id: ~
+        storage_factory_id: session.storage.factory.mock_file
         save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'

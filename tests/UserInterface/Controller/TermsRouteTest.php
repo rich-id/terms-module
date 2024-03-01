@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\UserInterface\Controller;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\ControllerTestCase;
 use RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionSignatureRepository;
 use RichId\TermsModuleBundle\Tests\Resources\Entity\DummyUser;
@@ -16,9 +16,8 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * @covers \RichId\TermsModuleBundle\UserInterface\Controller\TermsRoute
  * @covers \RichId\TermsModuleBundle\Domain\Fetcher\GetLastPublishedTermsVersion
- *
- * @TestConfig("fixtures")
  */
+#[TestConfig('fixtures')]
 final class TermsRouteTest extends ControllerTestCase
 {
     /** @var LoggerStub */

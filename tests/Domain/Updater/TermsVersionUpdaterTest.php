@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\Domain\Updater;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
@@ -12,10 +12,8 @@ use RichId\TermsModuleBundle\Domain\Exception\InvalidValueException;
 use RichId\TermsModuleBundle\Domain\Model\TermsEdition;
 use RichId\TermsModuleBundle\Domain\Updater\TermsVersionUpdater;
 
-/**
- * @covers \RichId\TermsModuleBundle\Domain\Updater\TermsVersionUpdater
- * @TestConfig("kernel")
- */
+/** @covers \RichId\TermsModuleBundle\Domain\Updater\TermsVersionUpdater */
+#[TestConfig('kernel')]
 final class TermsVersionUpdaterTest extends TestCase
 {
     /** @var TermsVersionUpdater */

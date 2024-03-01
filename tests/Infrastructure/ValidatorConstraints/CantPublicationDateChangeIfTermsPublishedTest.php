@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\Infrastructure\ValidatorConstraints;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Model\TermsEdition;
@@ -12,10 +12,8 @@ use RichId\TermsModuleBundle\Infrastructure\ValidatorConstraints\CantPublication
 use RichId\TermsModuleBundle\Tests\Resources\Entity\DummyUser;
 use RichId\TermsModuleBundle\Tests\Resources\TestCase\ConstraintTestCase;
 
-/**
- * @covers \RichId\TermsModuleBundle\Infrastructure\ValidatorConstraints\CantPublicationDateChangeIfTermsPublished
- * @TestConfig("kernel")
- */
+/** @covers \RichId\TermsModuleBundle\Infrastructure\ValidatorConstraints\CantPublicationDateChangeIfTermsPublished */
+#[TestConfig('kernel')]
 final class CantPublicationDateChangeIfTermsPublishedTest extends ConstraintTestCase
 {
     /** @var CantPublicationDateChangeIfTermsPublished */

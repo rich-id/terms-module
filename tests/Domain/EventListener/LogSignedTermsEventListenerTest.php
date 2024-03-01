@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\Domain\EventListener;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Event\TermsSignedEvent;
@@ -15,10 +15,8 @@ use RichId\TermsModuleBundle\Tests\Resources\Fixtures\DummyUserFixtures;
 use RichId\TermsModuleBundle\Tests\Resources\Stubs\LoggerStub;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * @covers \RichId\TermsModuleBundle\Domain\EventListener\LogSignedTermsEventListener
- * @TestConfig("fixtures")
- */
+/** @covers \RichId\TermsModuleBundle\Domain\EventListener\LogSignedTermsEventListener */
+#[TestConfig('fixtures')]
 final class LogSignedTermsEventListenerTest extends TestCase
 {
     /** @var LogSignedTermsEventListener */

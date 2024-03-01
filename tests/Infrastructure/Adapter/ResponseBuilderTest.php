@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\Infrastructure\Adapter;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Infrastructure\Adapter\ResponseBuilder;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-/**
- * @covers \RichId\TermsModuleBundle\Infrastructure\Adapter\ResponseBuilder
- * @TestConfig("fixtures")
- */
+/** @covers \RichId\TermsModuleBundle\Infrastructure\Adapter\ResponseBuilder */
+#[TestConfig('fixtures')]
 final class ResponseBuilderTest extends TestCase
 {
     /** @var ResponseBuilder */

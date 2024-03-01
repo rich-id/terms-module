@@ -8,56 +8,33 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
+use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
+use RichId\TermsModuleBundle\Infrastructure\Repository\TermsRepository;
 
-/**
- * @ORM\Entity(repositoryClass="RichId\TermsModuleBundle\Infrastructure\Repository\TermsRepository")
- * @ORM\Table(name="module_terms_terms")
- */
+#[ORM\Entity(repositoryClass: TermsRepository::class)]
+#[ORM\Table(name: 'module_terms_terms')]
 class Terms
 {
-    /**
-     * @var int
-     *
-     * @ORM\Id
-     * @ORM\Column(type="integer", name="id", options={"unsigned":true})
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
+    #[ORM\Id]
+    #[ORM\Column(name: 'id', type: 'integer', options: ['unsigned' => true])]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    protected int $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=false, length=255, unique=true, name="slug")
-     */
-    protected $slug;
+    #[ORM\Column(name: 'slug', type: 'string', length: 255, unique: true, nullable: false)]
+    protected string $slug;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=false, length=255, unique=true, name="name")
-     */
-    protected $name;
+    #[ORM\Column(name: 'name', type: 'string', length: 255, unique: true, nullable: false)]
+    protected string $name;
 
-    /**
-     * @var bool
-     *
-     * @ORM\Column(type="boolean", nullable=false, name="is_published")
-     */
-    protected $isPublished = false;
+    #[ORM\Column(name: 'is_published', type: 'boolean', nullable: false)]
+    protected bool $isPublished = false;
 
-    /**
-     * @var bool
-     *
-     * @ORM\Column(type="boolean", nullable=false, name="is_depublication_locked")
-     */
-    protected $isDepublicationLocked = false;
+    #[ORM\Column(name: 'is_depublication_locked', type: 'boolean', nullable: false)]
+    protected bool $isDepublicationLocked = false;
 
-    /**
-     * @var ArrayCollection<int, TermsVersion>
-     *
-     * @ORM\OneToMany(targetEntity="RichId\TermsModuleBundle\Domain\Entity\TermsVersion", mappedBy="terms")
-     */
-    private $versions;
+    /** @var ArrayCollection<int, TermsVersion> */
+    #[ORM\OneToMany(targetEntity: TermsVersion::class, mappedBy: "terms")]
+    private Collection $versions;
 
     public function __construct()
     {
@@ -66,12 +43,12 @@ class Terms
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->id ?? null;
     }
 
     public function getSlug(): ?string
     {
-        return $this->slug;
+        return $this->slug ?? null;
     }
 
     public function setSlug(string $slug): self
@@ -83,7 +60,7 @@ class Terms
 
     public function getName(): ?string
     {
-        return $this->name;
+        return $this->name ?? null;
     }
 
     public function setName(string $name): self

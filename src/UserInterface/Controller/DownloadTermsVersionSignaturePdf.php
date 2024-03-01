@@ -8,9 +8,9 @@ use RichId\TermsModuleBundle\Domain\Entity\TermsUserInterface;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersionSignature;
 use RichId\TermsModuleBundle\Domain\Pdf\TermsVersionSignaturePdfGeneratorManager;
 use RichId\TermsModuleBundle\Domain\Port\SecurityInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DownloadTermsVersionSignaturePdf extends AbstractController
@@ -34,10 +34,8 @@ class DownloadTermsVersionSignaturePdf extends AbstractController
         $this->translator = $translator;
     }
 
-    /**
-     * @IsGranted("MODULE_TERMS_ADMIN")
-     * @IsGranted("MODULE_TERMS_CAN_GENERATE_SIGNATURE_PDF")
-     */
+    #[IsGranted('MODULE_TERMS_ADMIN')]
+    #[IsGranted('MODULE_TERMS_CAN_GENERATE_SIGNATURE_PDF')]
     public function __invoke(TermsVersionSignature $termsVersionSignature): Response
     {
         $generator = $this->termsVersionSignaturePdfGeneratorManager->getConfiguredGenerator();

@@ -10,12 +10,12 @@ use RichId\TermsModuleBundle\Domain\Pdf\TermsVersionSignaturePdfGeneratorManager
 use RichId\TermsModuleBundle\Domain\Port\SecurityInterface;
 use RichId\TermsModuleBundle\Infrastructure\FormType\SignatureListFormType;
 use RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionSignatureRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class SignatureListAdminRoute extends AbstractController
 {
@@ -48,7 +48,7 @@ class SignatureListAdminRoute extends AbstractController
         $this->formFactory = $formFactory;
     }
 
-    /** @IsGranted("MODULE_TERMS_ADMIN") */
+    #[IsGranted('MODULE_TERMS_ADMIN')]
     public function __invoke(): Response
     {
         $request = $this->requestStack->getCurrentRequest() ?? new Request();

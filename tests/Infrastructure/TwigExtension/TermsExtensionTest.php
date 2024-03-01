@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\Infrastructure\TwigExtension;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Exception\NotFoundTermsException;
@@ -20,7 +20,7 @@ final class TermsExtensionTest extends TestCase
     /** @var TermsExtension */
     public $extension;
 
-    /** @TestConfig("fixtures") */
+    #[TestConfig('fixtures')]
     public function testExtensions(): void
     {
         $this->assertEmpty($this->extension->getFilters());
@@ -35,7 +35,7 @@ final class TermsExtensionTest extends TestCase
         $this->assertInstanceOf(TwigFunction::class, $this->extension->getFunctions()[5]);
     }
 
-    /** @TestConfig("fixtures") */
+    #[TestConfig('fixtures')]
     public function testGenerateSigningRoute(): void
     {
         $subject = DummySubject::create('user', '42');
@@ -46,7 +46,7 @@ final class TermsExtensionTest extends TestCase
         $this->assertSame('/terms/terms-1/sign?type=user&identifier=42', $url);
     }
 
-    /** @TestConfig("fixtures") */
+    #[TestConfig('fixtures')]
     public function testGenerateTermsRoute(): void
     {
         $subject = DummySubject::create('user', '42');
@@ -57,7 +57,7 @@ final class TermsExtensionTest extends TestCase
         $this->assertSame('/terms/terms-1?type=user&identifier=42', $url);
     }
 
-    /** @TestConfig("fixtures") */
+    #[TestConfig('fixtures')]
     public function testGenerateTermsRouteFromSlug(): void
     {
         $subject = DummySubject::create('user', '42');
@@ -67,7 +67,7 @@ final class TermsExtensionTest extends TestCase
         $this->assertSame('/terms/terms-1?type=user&identifier=42', $url);
     }
 
-    /** @TestConfig("container") */
+    #[TestConfig('fixtures')]
     public function testHasSignedTermsTermsNotExist(): void
     {
         $subject = DummySubject::create('user', '42');
@@ -75,12 +75,12 @@ final class TermsExtensionTest extends TestCase
         $terms->setSlug('terms-999');
 
         $this->expectException(NotFoundTermsException::class);
-        $this->expectDeprecationMessage('Not found terms terms-999.');
+        $this->expectExceptionMessage('Not found terms terms-999.');
 
         $this->extension->hasSignedTerms($terms, $subject);
     }
 
-    /** @TestConfig("fixtures") */
+    #[TestConfig('fixtures')]
     public function testHasSignedTermsSubjectNotExist(): void
     {
         $subject = DummySubject::create('user', '999');
@@ -90,7 +90,7 @@ final class TermsExtensionTest extends TestCase
         $this->assertSame(2, $code);
     }
 
-    /** @TestConfig("fixtures") */
+    #[TestConfig('fixtures')]
     public function testHasSignedTermsHasSignOldVersion(): void
     {
         $subject = DummySubject::create('user', '42');
@@ -100,7 +100,7 @@ final class TermsExtensionTest extends TestCase
         $this->assertSame(1, $code);
     }
 
-    /** @TestConfig("fixtures") */
+    #[TestConfig('fixtures')]
     public function testHasSignedTermsHasSignLatestVersion(): void
     {
         $subject = DummySubject::create('user', '43');

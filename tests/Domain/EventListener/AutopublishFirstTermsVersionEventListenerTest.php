@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\Domain\EventListener;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
@@ -12,10 +12,8 @@ use RichId\TermsModuleBundle\Domain\Event\TermsVersionUpdatedEvent;
 use RichId\TermsModuleBundle\Domain\EventListener\AutopublishFirstTermsVersionEventListener;
 use RichId\TermsModuleBundle\Tests\Resources\Stubs\EntityManagerStub;
 
-/**
- * @covers \RichId\TermsModuleBundle\Domain\EventListener\AutopublishFirstTermsVersionEventListener
- * @TestConfig("fixtures")
- */
+/** @covers \RichId\TermsModuleBundle\Domain\EventListener\AutopublishFirstTermsVersionEventListener */
+#[TestConfig('fixtures')]
 final class AutopublishFirstTermsVersionEventListenerTest extends TestCase
 {
     /** @var AutopublishFirstTermsVersionEventListener */

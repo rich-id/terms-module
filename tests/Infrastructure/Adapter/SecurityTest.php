@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\Infrastructure\Adapter;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Infrastructure\Adapter\Security;
 use RichId\TermsModuleBundle\Tests\Resources\Entity\DummyUser;
 use RichId\TermsModuleBundle\Tests\Resources\Fixtures\DummyUserFixtures;
 
-/**
- * @covers \RichId\TermsModuleBundle\Infrastructure\Adapter\Security
- * @TestConfig("fixtures")
- */
+/** @covers \RichId\TermsModuleBundle\Infrastructure\Adapter\Security */
+#[TestConfig('fixtures')]
 final class SecurityTest extends TestCase
 {
     /** @var Security */

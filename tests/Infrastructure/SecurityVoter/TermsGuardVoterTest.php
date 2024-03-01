@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\Infrastructure\SecurityVoter;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\VoterTestCase;
 use RichId\TermsModuleBundle\Domain\Model\DummyTermsGuardValidation;
 use RichId\TermsModuleBundle\Infrastructure\SecurityVoter\TermsGuardVoter;
 use RichId\TermsModuleBundle\Tests\Resources\Entity\DummyUser;
 use RichId\TermsModuleBundle\Tests\Resources\Fixtures\DummyUserFixtures;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
-/**
- * @covers \RichId\TermsModuleBundle\Infrastructure\SecurityVoter\TermsGuardVoter
- * @TestConfig("fixtures")
- */
+/** @covers \RichId\TermsModuleBundle\Infrastructure\SecurityVoter\TermsGuardVoter */
+#[TestConfig('fixtures')]
 final class TermsGuardVoterTest extends VoterTestCase
 {
     /** @var TermsGuardVoter */
@@ -30,7 +29,7 @@ final class TermsGuardVoterTest extends VoterTestCase
             TermsGuardVoter::MODULE_TERMS_GUARD_VALID
         );
 
-        $this->assertSame(Voter::ACCESS_ABSTAIN, $result);
+        $this->assertSame(VoterInterface::ACCESS_ABSTAIN, $result);
     }
 
     public function testVoterWithNotSupportedAttribute(): void
@@ -42,7 +41,7 @@ final class TermsGuardVoterTest extends VoterTestCase
             'other'
         );
 
-        $this->assertSame(Voter::ACCESS_ABSTAIN, $result);
+        $this->assertSame(VoterInterface::ACCESS_ABSTAIN, $result);
     }
 
     public function testVoterWithoutFoundedGuard(): void
@@ -54,7 +53,7 @@ final class TermsGuardVoterTest extends VoterTestCase
             TermsGuardVoter::MODULE_TERMS_GUARD_VALID
         );
 
-        $this->assertSame(Voter::ACCESS_GRANTED, $result);
+        $this->assertSame(VoterInterface::ACCESS_GRANTED, $result);
     }
 
     public function testVoterCheckNotLoggedUser(): void
@@ -66,7 +65,7 @@ final class TermsGuardVoterTest extends VoterTestCase
             TermsGuardVoter::MODULE_TERMS_GUARD_VALID
         );
 
-        $this->assertSame(Voter::ACCESS_DENIED, $result);
+        $this->assertSame(VoterInterface::ACCESS_DENIED, $result);
     }
 
     public function testVoterCheckUnauthorized(): void
@@ -80,7 +79,7 @@ final class TermsGuardVoterTest extends VoterTestCase
             TermsGuardVoter::MODULE_TERMS_GUARD_VALID
         );
 
-        $this->assertSame(Voter::ACCESS_DENIED, $result);
+        $this->assertSame(VoterInterface::ACCESS_DENIED, $result);
     }
 
     public function testVoterCheckAuthorized(): void
@@ -94,6 +93,6 @@ final class TermsGuardVoterTest extends VoterTestCase
             TermsGuardVoter::MODULE_TERMS_GUARD_VALID
         );
 
-        $this->assertSame(Voter::ACCESS_GRANTED, $result);
+        $this->assertSame(VoterInterface::ACCESS_GRANTED, $result);
     }
 }

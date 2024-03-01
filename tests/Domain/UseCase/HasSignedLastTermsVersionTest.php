@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\Domain\UseCase;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Exception\NotFoundTermsException;
 use RichId\TermsModuleBundle\Domain\Model\DummySubject;
 use RichId\TermsModuleBundle\Domain\UseCase\HasSignedLastTermsVersion;
 
-/**
- * @covers \RichId\TermsModuleBundle\Domain\UseCase\HasSignedLastTermsVersion
- * @TestConfig("fixtures")
- */
+/** @covers \RichId\TermsModuleBundle\Domain\UseCase\HasSignedLastTermsVersion */
+#[TestConfig('fixtures')]
 final class HasSignedLastTermsVersionTest extends TestCase
 {
     /** @var HasSignedLastTermsVersion */
@@ -22,7 +20,7 @@ final class HasSignedLastTermsVersionTest extends TestCase
     public function testUseCaseTermsNotExist(): void
     {
         $this->expectException(NotFoundTermsException::class);
-        $this->expectDeprecationMessage('Not found terms terms-999.');
+        $this->expectExceptionMessage('Not found terms terms-999.');
 
         $subject = DummySubject::create('user', '42');
         ($this->useCase)('terms-999', $subject);

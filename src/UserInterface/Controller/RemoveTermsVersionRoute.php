@@ -8,10 +8,10 @@ use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Exception\EnabledVersionCannotBeDeletedException;
 use RichId\TermsModuleBundle\Domain\Exception\FirstVersionCannotBeDeletedException;
 use RichId\TermsModuleBundle\Domain\UseCase\RemoveTermsVersion;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class RemoveTermsVersionRoute extends AbstractController
 {
@@ -23,15 +23,15 @@ class RemoveTermsVersionRoute extends AbstractController
         $this->removeTermsVersion = $removeTermsVersion;
     }
 
-    /** @IsGranted("MODULE_TERMS_ADMIN") */
+    #[IsGranted('MODULE_TERMS_ADMIN')]
     public function __invoke(TermsVersion $termsVersion): Response
     {
         try {
             ($this->removeTermsVersion)($termsVersion);
 
-            return JsonResponse::create(null, Response::HTTP_OK);
+            return new JsonResponse(null, Response::HTTP_OK);
         } catch (EnabledVersionCannotBeDeletedException | FirstVersionCannotBeDeletedException $e) {
-            return JsonResponse::create($e->getMessage(), Response::HTTP_UNAUTHORIZED);
+            return new JsonResponse($e->getMessage(), Response::HTTP_UNAUTHORIZED);
         }
     }
 }

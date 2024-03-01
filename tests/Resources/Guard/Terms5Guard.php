@@ -6,7 +6,7 @@ namespace RichId\TermsModuleBundle\Tests\Resources\Guard;
 
 use RichId\TermsModuleBundle\Domain\Entity\TermsSubjectInterface;
 use RichId\TermsModuleBundle\Domain\Guard\TermsGuardInterface;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\SecurityBundle\Security;
 
 final class Terms5Guard implements TermsGuardInterface
 {

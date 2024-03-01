@@ -12,13 +12,13 @@ use RichId\TermsModuleBundle\Domain\Model\TermsEdition;
 use RichId\TermsModuleBundle\Domain\UseCase\EditTerms;
 use RichId\TermsModuleBundle\Infrastructure\FormType\TermsVersionFormType;
 use RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class EditAdminRoute extends AbstractController
 {
@@ -51,7 +51,7 @@ class EditAdminRoute extends AbstractController
         $this->requestStack = $requestStack;
     }
 
-    /** @IsGranted("MODULE_TERMS_ADMIN") */
+    #[IsGranted('MODULE_TERMS_ADMIN')]
     public function __invoke(Terms $terms): Response
     {
         $request = $this->requestStack->getCurrentRequest() ?? new Request();

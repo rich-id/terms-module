@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RichId\TermsModuleBundle\Infrastructure\Adapter;
 
 use RichId\TermsModuleBundle\Domain\Port\SecurityInterface;
-use Symfony\Component\Security\Core\Security as SymfonySecurity;
+use \Symfony\Bundle\SecurityBundle\Security as SymfonySecurity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class Security implements SecurityInterface

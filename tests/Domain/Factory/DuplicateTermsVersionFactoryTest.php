@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\Domain\Factory;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Exception\InvalidValueException;
 use RichId\TermsModuleBundle\Domain\Factory\DuplicateTermsVersionFactory;
 
-/**
- * @covers \RichId\TermsModuleBundle\Domain\Factory\DuplicateTermsVersionFactory
- * @TestConfig("fixtures")
- */
+/** @covers \RichId\TermsModuleBundle\Domain\Factory\DuplicateTermsVersionFactory */
+#[TestConfig('fixtures')]
 final class DuplicateTermsVersionFactoryTest extends TestCase
 {
     /** @var DuplicateTermsVersionFactory */

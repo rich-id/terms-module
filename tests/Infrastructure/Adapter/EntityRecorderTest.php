@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\Infrastructure\Adapter;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
@@ -14,10 +14,8 @@ use RichId\TermsModuleBundle\Infrastructure\Repository\TermsRepository;
 use RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionRepository;
 use RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionSignatureRepository;
 
-/**
- * @covers \RichId\TermsModuleBundle\Infrastructure\Adapter\EntityRecorder
- * @TestConfig("fixtures")
- */
+/** @covers \RichId\TermsModuleBundle\Infrastructure\Adapter\EntityRecorder */
+#[TestConfig('fixtures')]
 final class EntityRecorderTest extends TestCase
 {
     /** @var EntityRecorder */

@@ -4,20 +4,22 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\Infrastructure\FormType;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\ControllerTestCase;
+use RichCongress\WebTestBundle\TestCase\TestTrait\WithSessionTrait;
 use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Model\TermsEdition;
 use RichId\TermsModuleBundle\Infrastructure\FormType\TermsVersionFormType;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
-/**
- * @covers \RichId\TermsModuleBundle\Infrastructure\FormType\TermsVersionFormType
- * @TestConfig("kernel")
- */
+/** @covers \RichId\TermsModuleBundle\Infrastructure\FormType\TermsVersionFormType */
+#[TestConfig('kernel')]
 final class TermsVersionFormTypeTest extends ControllerTestCase
 {
+    use WithSessionTrait;
+
     /** @var FormFactoryInterface */
     public $formFactory;
 
@@ -30,11 +32,9 @@ final class TermsVersionFormTypeTest extends ControllerTestCase
         $model = new TermsEdition($termsVersion);
         $form = $this->formFactory->create(TermsVersionFormType::class, $model);
 
-        $form->submit(
-            [
-                '_token' => $this->getCsrfToken(TermsVersionFormType::class),
-            ]
-        );
+        $this->withSession($this->getClient(), fn(SessionInterface $e) => $form->submit([
+            '_token' => $this->getCsrfToken(TermsVersionFormType::class)
+        ]));
 
         $this->assertTrue($form->isSynchronized());
         $this->assertFalse($form->isValid());
@@ -57,14 +57,12 @@ final class TermsVersionFormTypeTest extends ControllerTestCase
         $model = new TermsEdition($termsVersion);
         $form = $this->formFactory->create(TermsVersionFormType::class, $model);
 
-        $form->submit(
-            [
-                'title'            => 'My title',
-                'content'          => 'My content',
-                'isTermsPublished' => '0',
-                '_token'           => $this->getCsrfToken(TermsVersionFormType::class),
-            ]
-        );
+        $this->withSession($this->getClient(), fn(SessionInterface $e) => $form->submit([
+            'title'            => 'My title',
+            'content'          => 'My content',
+            'isTermsPublished' => '0',
+            '_token'           => $this->getCsrfToken(TermsVersionFormType::class),
+        ]));
 
         $this->assertTrue($form->isSynchronized());
         $this->assertTrue($form->isValid());
@@ -87,16 +85,14 @@ final class TermsVersionFormTypeTest extends ControllerTestCase
         $model = new TermsEdition($termsVersion);
         $form = $this->formFactory->create(TermsVersionFormType::class, $model);
 
-        $form->submit(
-            [
-                'title'                 => 'My title',
-                'content'               => 'My content',
-                'publicationDate'       => '2021-01-01',
-                'isTermsPublished'      => '0',
-                'needVersionActivation' => 'true',
-                '_token'                => $this->getCsrfToken(TermsVersionFormType::class),
-            ]
-        );
+        $this->withSession($this->getClient(), fn(SessionInterface $e) => $form->submit([
+            'title'                 => 'My title',
+            'content'               => 'My content',
+            'publicationDate'       => '2021-01-01',
+            'isTermsPublished'      => '0',
+            'needVersionActivation' => 'true',
+            '_token'                => $this->getCsrfToken(TermsVersionFormType::class),
+        ]));
 
         $this->assertTrue($form->isSynchronized());
         $this->assertTrue($form->isValid());

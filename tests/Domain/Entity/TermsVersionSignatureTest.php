@@ -5,16 +5,14 @@ declare(strict_types=1);
 namespace RichId\TermsModuleBundle\Tests\Domain\Entity;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersionSignature;
 
-/**
- * @covers \RichId\TermsModuleBundle\Domain\Entity\TermsVersionSignature
- * @TestConfig("kernel")
- */
+/** @covers \RichId\TermsModuleBundle\Domain\Entity\TermsVersionSignature */
+#[TestConfig('kernel')]
 final class TermsVersionSignatureTest extends TestCase
 {
     public function testEntity(): void

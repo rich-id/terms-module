@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\Domain\UseCase;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Model\DummySubject;
 use RichId\TermsModuleBundle\Domain\UseCase\GenerateTermsRoute;
 
-/**
- * @covers \RichId\TermsModuleBundle\Domain\UseCase\GenerateTermsRoute
- * @TestConfig("kernel")
- */
+/** @covers \RichId\TermsModuleBundle\Domain\UseCase\GenerateTermsRoute */
+#[TestConfig('kernel')]
 final class GenerateTermsRouteTest extends TestCase
 {
     /** @var GenerateTermsRoute */

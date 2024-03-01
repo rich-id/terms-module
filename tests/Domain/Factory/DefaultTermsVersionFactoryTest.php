@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\Domain\Factory;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Factory\DefaultTermsVersionFactory;
 
-/**
- * @covers \RichId\TermsModuleBundle\Domain\Factory\DefaultTermsVersionFactory
- * @TestConfig("fixtures")
- */
+/** @covers \RichId\TermsModuleBundle\Domain\Factory\DefaultTermsVersionFactory */
+#[TestConfig('fixtures')]
 final class DefaultTermsVersionFactoryTest extends TestCase
 {
     /** @var DefaultTermsVersionFactory */

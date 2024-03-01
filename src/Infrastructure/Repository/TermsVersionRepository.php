@@ -27,13 +27,9 @@ class TermsVersionRepository extends ServiceEntityRepository
             ->where('t.slug = :termsSlug')
             ->andWhere('s.subjectType = :subjectType')
             ->andWhere('s.subjectIdentifier = :subjectIdentifier')
-            ->setParameters(
-                [
-                    'termsSlug'         => $termsSlug,
-                    'subjectType'       => $subject->getTermsSubjectType(),
-                    'subjectIdentifier' => $subject->getTermsSubjectIdentifier(),
-                ]
-            )
+            ->setParameter('termsSlug', $termsSlug)
+            ->setParameter('subjectType', $subject->getTermsSubjectType())
+            ->setParameter('subjectIdentifier', $subject->getTermsSubjectIdentifier())
             ->orderBy('tv.version', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
@@ -47,12 +43,8 @@ class TermsVersionRepository extends ServiceEntityRepository
         return $qb->join('tv.terms', 't')
             ->where('t.slug = :termsSlug')
             ->andWhere('tv.version = :version')
-            ->setParameters(
-                [
-                    'termsSlug' => $termsSlug,
-                    'version'   => $version,
-                ]
-            )
+            ->setParameter('termsSlug', $termsSlug)
+            ->setParameter('version', $version)
             ->getQuery()
             ->getOneOrNullResult();
     }

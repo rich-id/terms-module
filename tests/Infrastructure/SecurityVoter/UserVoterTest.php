@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace RichId\TermsModuleBundle\Tests\Infrastructure\SecurityVoter;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\VoterTestCase;
 use RichId\TermsModuleBundle\Infrastructure\SecurityVoter\UserVoter;
 use RichId\TermsModuleBundle\Tests\Resources\Entity\DummyUser;
 use RichId\TermsModuleBundle\Tests\Resources\Fixtures\DummyUserFixtures;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
-/**
- * @covers \RichId\TermsModuleBundle\Infrastructure\SecurityVoter\UserVoter
- * @TestConfig("fixtures")
- */
+/** @covers \RichId\TermsModuleBundle\Infrastructure\SecurityVoter\UserVoter */
+#[TestConfig('fixtures')]
 final class UserVoterTest extends VoterTestCase
 {
     /** @var UserVoter */
@@ -27,7 +26,7 @@ final class UserVoterTest extends VoterTestCase
             'other'
         );
 
-        $this->assertSame(Voter::ACCESS_ABSTAIN, $result);
+        $this->assertSame(VoterInterface::ACCESS_ABSTAIN, $result);
     }
 
     public function testVoterNotLogged(): void
@@ -37,7 +36,7 @@ final class UserVoterTest extends VoterTestCase
             UserVoter::MODULE_TERMS_ADMIN
         );
 
-        $this->assertSame(Voter::ACCESS_DENIED, $result);
+        $this->assertSame(VoterInterface::ACCESS_DENIED, $result);
     }
 
     public function testVoterLoggedByBadRole(): void
@@ -51,7 +50,7 @@ final class UserVoterTest extends VoterTestCase
             $user
         );
 
-        $this->assertSame(Voter::ACCESS_DENIED, $result);
+        $this->assertSame(VoterInterface::ACCESS_DENIED, $result);
     }
 
     public function testVoterLoggedAndGoodRole(): void
@@ -65,6 +64,6 @@ final class UserVoterTest extends VoterTestCase
             $user
         );
 
-        $this->assertSame(Voter::ACCESS_GRANTED, $result);
+        $this->assertSame(VoterInterface::ACCESS_GRANTED, $result);
     }
 }

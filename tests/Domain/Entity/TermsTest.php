@@ -6,15 +6,13 @@ namespace RichId\TermsModuleBundle\Tests\Domain\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\TestSuite\TestCase\TestCase;
 use RichId\TermsModuleBundle\Domain\Entity\Terms;
 use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 
-/**
- * @covers \RichId\TermsModuleBundle\Domain\Entity\Terms
- * @TestConfig("fixtures")
- */
+/** @covers \RichId\TermsModuleBundle\Domain\Entity\Terms */
+#[TestConfig('fixtures')]
 final class TermsTest extends TestCase
 {
     public function testConstruct(): void

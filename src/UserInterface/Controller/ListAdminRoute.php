@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace RichId\TermsModuleBundle\UserInterface\Controller;
 
 use RichId\TermsModuleBundle\Infrastructure\Repository\TermsRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ListAdminRoute extends AbstractController
 {
@@ -19,7 +19,7 @@ class ListAdminRoute extends AbstractController
         $this->termsRepository = $termsRepository;
     }
 
-    /** @IsGranted("MODULE_TERMS_ADMIN") */
+    #[IsGranted('MODULE_TERMS_ADMIN')]
     public function __invoke(): Response
     {
         return $this->render(

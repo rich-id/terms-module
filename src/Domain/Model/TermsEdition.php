@@ -8,54 +8,37 @@ use RichId\TermsModuleBundle\Domain\Entity\TermsVersion;
 use RichId\TermsModuleBundle\Infrastructure\ValidatorConstraints as Constraints;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @Constraints\CantContentChangeIfTermsPublished
- * @Constraints\CantEnableVersionIfAlreadyEnabled
- * @Constraints\CantPublicationDateChangeIfTermsPublished
- * @Constraints\CantTitleChangeIfTermsPublished
- * @Constraints\CantUnpublishLockedPublishedTerms
- */
+#[Constraints\CantContentChangeIfTermsPublished]
+#[Constraints\CantEnableVersionIfAlreadyEnabled]
+#[Constraints\CantPublicationDateChangeIfTermsPublished]
+#[Constraints\CantTitleChangeIfTermsPublished]
+#[Constraints\CantUnpublishLockedPublishedTerms]
 class TermsEdition
 {
     /** @var TermsVersion */
     private $entity;
 
-    /**
-     * @var bool|null
-     *
-     * @Assert\NotNull
-     * @Assert\Type("bool")
-     */
+    /** @var bool|null */
+    #[Assert\NotNull]
+    #[Assert\Type('bool')]
     private $isTermsPublished;
 
-    /**
-     * @var string|null
-     *
-     * @Assert\NotBlank
-     * @Assert\Type("string")
-     */
+    /** @var string|null */
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
     private $title;
 
-    /**
-     * @var string|null
-     *
-     * @Assert\NotBlank
-     * @Assert\Type("string")
-     */
+    /** @var string|null */
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
     private $content;
 
-    /**
-     * @var \DateTime|null
-     *
-     * @Assert\Type("datetime")
-     */
+    /** @var \DateTime|null */
+    #[Assert\Type('datetime')]
     private $publicationDate;
 
-    /**
-     * @var bool|null
-     *
-     * @Assert\Type("bool")
-     */
+    /** @var bool|null */
+    #[Assert\Type('bool')]
     private $needVersionActivation;
 
     public function __construct(TermsVersion $entity)

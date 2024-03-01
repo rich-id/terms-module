@@ -27,9 +27,10 @@ class RichIdTermsModuleBundle extends AbstractBundle
         }
 
         $container->addCompilerPass(
-            DoctrineOrmMappingsPass::createAnnotationMappingDriver(
+            DoctrineOrmMappingsPass::createAttributeMappingDriver(
                 ['RichId\TermsModuleBundle\Domain\Entity'],
-                [__DIR__ . '/../Domain/Entity']
+                [__DIR__ . '/../Domain/Entity'],
+                reportFieldsWhereDeclared: true,
             )
         );
     }

@@ -7,76 +7,42 @@ namespace RichId\TermsModuleBundle\Domain\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use RichId\TermsModuleBundle\Domain\Entity\Terms;
+use RichId\TermsModuleBundle\Domain\Entity\TermsVersionSignature;
+use RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionRepository;
 
-/**
- * @ORM\Entity(repositoryClass="RichId\TermsModuleBundle\Infrastructure\Repository\TermsVersionRepository")
- * @ORM\Table(
- *     name="module_terms_terms_version",
- *     uniqueConstraints={
- *         @ORM\UniqueConstraint(name="terms_version_terms_id_version_UNIQUE", columns={"version", "terms_id"})
- *     }
- * )
- */
+#[ORM\Entity(repositoryClass: TermsVersionRepository::class)]
+#[ORM\Table(name: 'module_terms_terms_version')]
+#[ORM\UniqueConstraint(name: 'terms_version_terms_id_version_UNIQUE', columns: ['version', 'terms_id'])]
 class TermsVersion
 {
-    /**
-     * @var int
-     *
-     * @ORM\Id
-     * @ORM\Column(type="integer", name="id", options={"unsigned":true})
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
+    #[ORM\Id]
+    #[ORM\Column(name: 'id', type: 'integer', options: ['unsigned' => true])]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    protected int $id;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(type="integer", nullable=false, name="version", options={"unsigned":true})
-     */
-    protected $version;
+    #[ORM\Column(name: 'version', type: 'integer', nullable: false, options: ['unsigned' => true])]
+    protected int $version;
 
-    /**
-     * @var bool
-     *
-     * @ORM\Column(type="boolean", nullable=false, name="is_enabled")
-     */
-    protected $isEnabled = false;
+    #[ORM\Column(name: 'is_enabled', type: 'boolean', nullable: false)]
+    protected bool $isEnabled = false;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=false, length=255, name="title")
-     */
-    protected $title;
+    #[ORM\Column(name: 'title', type: 'string', length: 255, nullable: false)]
+    protected string $title;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="text", nullable=false, name="content")
-     */
-    protected $content;
+    #[ORM\Column(name: 'content', type: 'text', nullable: false)]
+    protected string $content;
 
-    /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(type="datetime", nullable=true, name="publication_date")
-     */
-    protected $publicationDate;
+    #[ORM\Column(name: 'publication_date', type: 'datetime', nullable: true)]
+    protected ?\DateTime $publicationDate = null;
 
-    /**
-     * @var Terms
-     *
-     * @ORM\ManyToOne(targetEntity="RichId\TermsModuleBundle\Domain\Entity\Terms", inversedBy="versions")
-     * @ORM\JoinColumn(name="terms_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
-     */
-    protected $terms;
+    #[ORM\ManyToOne(targetEntity: Terms::class, inversedBy: 'versions')]
+    #[ORM\JoinColumn(name: 'terms_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
+    protected Terms $terms;
 
-    /**
-     * @var ArrayCollection<int, TermsVersionSignature>
-     *
-     * @ORM\OneToMany(targetEntity="RichId\TermsModuleBundle\Domain\Entity\TermsVersionSignature", mappedBy="version")
-     */
-    protected $signatures;
+    /** @var ArrayCollection<int, TermsVersionSignature> */
+    #[ORM\OneToMany(targetEntity: TermsVersionSignature::class, mappedBy: 'version')]
+    protected Collection $signatures;
 
     public function __construct()
     {
@@ -85,12 +51,12 @@ class TermsVersion
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->id ?? null;
     }
 
     public function getVersion(): ?int
     {
-        return $this->version;
+        return $this->version ?? null;
     }
 
     public function setVersion(int $version): self
@@ -114,7 +80,7 @@ class TermsVersion
 
     public function getTitle(): ?string
     {
-        return $this->title;
+        return $this->title ?? null;
     }
 
     public function setTitle(string $title): self
@@ -126,7 +92,7 @@ class TermsVersion
 
     public function getContent(): ?string
     {
-        return $this->content;
+        return $this->content ?? null;
     }
 
     public function setContent(string $content): self
