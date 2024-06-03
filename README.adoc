@@ -43,7 +43,7 @@ A module to quickly implement a terms approvals voter with terms version support
 
 == 1. Installation
 
-This version of the bundle requires Symfony 4.4+ and PHP 7.3+.
+This version of the bundle requires Symfony 6.0+ and PHP 8.1+.
 
 [source,bash]
 ----
