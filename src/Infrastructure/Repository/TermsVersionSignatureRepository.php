@@ -58,13 +58,9 @@ class TermsVersionSignatureRepository extends ServiceEntityRepository
             ->where('tvs.version = :version')
             ->andWhere('tvs.subjectType = :subjectType')
             ->andWhere('tvs.subjectIdentifier = :subjectIdentifier')
-            ->setParameters(
-                [
-                    'version'           => $termsVersion->getId(),
-                    'subjectType'       => $subject->getTermsSubjectType(),
-                    'subjectIdentifier' => $subject->getTermsSubjectIdentifier(),
-                ]
-            )
+            ->setParameter('version', $termsVersion->getId())
+            ->setParameter('subjectType', $subject->getTermsSubjectType())
+            ->setParameter('subjectIdentifier', $subject->getTermsSubjectIdentifier())
             ->getQuery()
             ->getOneOrNullResult();
     }
