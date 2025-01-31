@@ -22,7 +22,7 @@ class CantTitleChangeIfTermsPublished extends Constraint implements ConstraintVa
         $this->context = $context;
     }
 
-    public function getTargets()
+    public function getTargets(): string|array
     {
         return self::CLASS_CONSTRAINT;
     }

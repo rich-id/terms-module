@@ -22,7 +22,7 @@ class CantPublicationDateChangeIfTermsPublished extends Constraint implements Co
         $this->context = $context;
     }
 
-    public function getTargets()
+    public function getTargets(): string|array
     {
         return self::CLASS_CONSTRAINT;
     }
