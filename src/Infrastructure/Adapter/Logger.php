@@ -33,7 +33,7 @@ class Logger implements LoggerInterface
         $message = 'terms_module.log.terms_signed';
 
         $user = $this->security->getUser();
-        $userUsername = $user !== null ? $user->getUsername() : '';
+        $userUsername = $user !== null ? $user->getUserIdentifier() : '';
         $choice = $this->getTermsSignedChoice($accepted);
         $now = new \DateTime();
 

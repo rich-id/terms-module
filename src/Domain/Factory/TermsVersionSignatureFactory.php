@@ -48,7 +48,7 @@ class TermsVersionSignatureFactory
         $entity->setDate(new \DateTime());
 
         if ($user !== null) {
-            $entity->setSignedBy($user->getUsername());
+            $entity->setSignedBy($user->getUserIdentifier());
         }
 
         if ($signatory instanceof TermsUserInterface) {
