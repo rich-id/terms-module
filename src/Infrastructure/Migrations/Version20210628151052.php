@@ -6,12 +6,18 @@ namespace RichId\TermsModuleBundle\Infrastructure\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
+use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 
 class Version20210628151052 extends AbstractMigration
 {
+    public function isTransactional(): bool
+    {
+        return false;
+    }
+
     public function up(Schema $schema): void
     {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf(!$this->connection->getDatabasePlatform() instanceof AbstractMySQLPlatform, 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('CREATE TABLE module_terms_terms (id INT UNSIGNED AUTO_INCREMENT NOT NULL, slug VARCHAR(255) NOT NULL, name VARCHAR(255) NOT NULL, is_published TINYINT(1) NOT NULL, is_depublication_locked TINYINT(1) NOT NULL, UNIQUE INDEX UNIQ_67FAB3BA989D9B62 (slug), UNIQUE INDEX UNIQ_67FAB3BA5E237E06 (name), PRIMARY KEY(id)) DEFAULT CHARACTER SET UTF8 COLLATE `UTF8_unicode_ci` ENGINE = InnoDB');
 
@@ -24,7 +30,7 @@ class Version20210628151052 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf(!$this->connection->getDatabasePlatform() instanceof AbstractMySQLPlatform, 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE module_terms_terms_version DROP FOREIGN KEY FK_2E43CCE53742F27');
         $this->addSql('ALTER TABLE module_terms_terms_version_signature DROP FOREIGN KEY FK_DD62973A4BBC2705');
