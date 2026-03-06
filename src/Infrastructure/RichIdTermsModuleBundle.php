@@ -30,7 +30,6 @@ class RichIdTermsModuleBundle extends AbstractBundle
             DoctrineOrmMappingsPass::createAttributeMappingDriver(
                 ['RichId\TermsModuleBundle\Domain\Entity'],
                 [__DIR__ . '/../Domain/Entity'],
-                reportFieldsWhereDeclared: true,
             )
         );
     }
